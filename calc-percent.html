@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Калькулятор процентов</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container top-nav">
+    <a href="index.html" class="logo">CalcHub</a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Главная</a>
+
+      <div class="nav-dropdown">
+        <button type="button" class="nav-drop-btn">
+          Выбор калькулятора
+        </button>
+        <div class="nav-drop-menu">
+          <a href="calc-basic.html">Обычный калькулятор</a>
+          <a href="calc-percent.html">Калькулятор процентов</a>
+          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+          <a href="calc-days.html">Калькулятор дней</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+ <main class="container page-main calculator-page">
+  <section class="calculator-section">
+    <h2 class="page-title">Калькулятор процентов</h2>
+    <p class="calculator-section-intro">
+      Этот онлайн‑калькулятор помогает решать основные задачи с процентами:
+      находить процент от числа, определять, сколько процентов одно число
+      составляет от другого, увеличивать или уменьшать значения на заданный
+      процент и рассчитывать сложные проценты.
+    </p>
+
+    <div class="calculator calculator-wide percent-calculator">
+      <div class="percent-top">
+        <div class="percent-header-title">Тип расчёта</div>
+        <div class="percent-scenario-select">
+          <select id="percent-scenario-select">
+            <option value="percent-of-number">
+              1. Найти процент от числа
+            </option>
+            <option value="number-by-percent">
+              2. Найти число по его проценту
+            </option>
+            <option value="part-of-whole">
+              3. Сколько % одно число от другого
+            </option>
+            <option value="increase-by-percent">
+              4. Увеличить число на N %
+            </option>
+            <option value="decrease-by-percent">
+              5. Уменьшить число на N %
+            </option>
+            <option value="growth-percent">
+              6. На сколько % число выросло
+            </option>
+            <option value="drop-percent">
+              7. На сколько % число уменьшилось
+            </option>
+            <option value="compound-interest">
+              8. Сложные проценты (рост суммы)
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="percent-forms">
+        <!-- 1. Найти процент от числа -->
+        <form class="percent-form active" data-scenario="percent-of-number">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Число</label>
+              <input type="number" step="any" name="number" placeholder="Например, 200" />
+            </div>
+            <div class="percent-field">
+              <label>Процент, %</label>
+              <input type="number" step="any" name="percent" placeholder="Например, 15" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Результат</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 2. Найти число по его проценту -->
+        <form class="percent-form" data-scenario="number-by-percent">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Известное значение</label>
+              <input type="number" step="any" name="part" placeholder="Например, 30" />
+            </div>
+            <div class="percent-field">
+              <label>Процент, %</label>
+              <input type="number" step="any" name="percent" placeholder="Например, 15" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Искомое число</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 3. Сколько процентов одно число от другого -->
+        <form class="percent-form" data-scenario="part-of-whole">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Часть</label>
+              <input type="number" step="any" name="part" placeholder="Например, 30" />
+            </div>
+            <div class="percent-field">
+              <label>Целое</label>
+              <input type="number" step="any" name="whole" placeholder="Например, 200" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Процент</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 4. Увеличить число на N процентов -->
+        <form class="percent-form" data-scenario="increase-by-percent">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Исходное число</label>
+              <input type="number" step="any" name="number" placeholder="Например, 200" />
+            </div>
+            <div class="percent-field">
+              <label>На сколько увеличить, %</label>
+              <input type="number" step="any" name="percent" placeholder="Например, 15" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Новое значение</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 5. Уменьшить число на N процентов -->
+        <form class="percent-form" data-scenario="decrease-by-percent">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Исходное число</label>
+              <input type="number" step="any" name="number" placeholder="Например, 200" />
+            </div>
+            <div class="percent-field">
+              <label>На сколько уменьшить, %</label>
+              <input type="number" step="any" name="percent" placeholder="Например, 15" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Новое значение</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 6. На сколько процентов число выросло -->
+        <form class="percent-form" data-scenario="growth-percent">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Было</label>
+              <input type="number" step="any" name="from" placeholder="Например, 200" />
+            </div>
+            <div class="percent-field">
+              <label>Стало</label>
+              <input type="number" step="any" name="to" placeholder="Например, 260" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Рост, %</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 7. На сколько процентов число уменьшилось -->
+        <form class="percent-form" data-scenario="drop-percent">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Было</label>
+              <input type="number" step="any" name="from" placeholder="Например, 200" />
+            </div>
+            <div class="percent-field">
+              <label>Стало</label>
+              <input type="number" step="any" name="to" placeholder="Например, 150" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Падение, %</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+
+        <!-- 8. Сложные проценты (рост суммы) -->
+        <form class="percent-form" data-scenario="compound-interest">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Начальная сумма</label>
+              <input type="number" step="any" name="amount" placeholder="Например, 10000" />
+            </div>
+            <div class="percent-field">
+              <label>Процент за период, %</label>
+              <input type="number" step="any" name="rate" placeholder="Например, 10" />
+            </div>
+            <div class="percent-field">
+              <label>Число периодов</label>
+              <input type="number" step="1" name="periods" placeholder="Например, 3" />
+            </div>
+          </div>
+
+          <div class="percent-actions">
+            <button type="submit" class="btn-calc">Рассчитать</button>
+          </div>
+
+          <div class="percent-result">
+            <div class="percent-result-label">Итоговая сумма</div>
+            <div class="percent-result-value">—</div>
+            <div class="percent-note"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок описаний сценариев -->
+  <section class="percent-info">
+    <h3>Сценарии расчёта процентов</h3>
+    <p class="percent-info-intro">
+      Нажмите на интересующий сценарий, чтобы увидеть подробное описание и пример:
+      все объяснения собраны в одном месте, ниже калькулятора.
+    </p>
+
+    <div class="scenario-info-list">
+      <button class="scenario-info-btn active" data-scenario="percent-of-number">
+        1. Процент от числа
+      </button>
+      <button class="scenario-info-btn" data-scenario="number-by-percent">
+        2. Число по проценту
+      </button>
+      <button class="scenario-info-btn" data-scenario="part-of-whole">
+        3. Доля в процентах
+      </button>
+      <button class="scenario-info-btn" data-scenario="increase-by-percent">
+        4. Увеличение на %
+      </button>
+      <button class="scenario-info-btn" data-scenario="decrease-by-percent">
+        5. Уменьшение на %
+      </button>
+      <button class="scenario-info-btn" data-scenario="growth-percent">
+        6. Рост в процентах
+      </button>
+      <button class="scenario-info-btn" data-scenario="drop-percent">
+        7. Падение в процентах
+      </button>
+      <button class="scenario-info-btn" data-scenario="compound-interest">
+        8. Сложные проценты
+      </button>
+    </div>
+
+    <div class="scenario-info-content" id="scenario-info-content">
+      <!-- сюда JS подставит описание выбранного сценария -->
+    </div>
+  </section>
+</main>
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-percent.js"></script>
+</body>
+</html>

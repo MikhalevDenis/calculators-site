@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Обычный калькулятор</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container top-nav">
+    <a href="index.html" class="logo">CalcHub</a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Главная</a>
+
+      <div class="nav-dropdown">
+        <button type="button" class="nav-drop-btn">
+          Выбор калькулятора
+        </button>
+        <div class="nav-drop-menu">
+          <a href="calc-basic.html">Обычный калькулятор</a>
+          <a href="calc-percent.html">Калькулятор процентов</a>
+          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+          <a href="calc-days.html">Калькулятор дней</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+  <main class="container page-main calculator-page">
+  <section class="calculator-section">
+    <h2 class="page-title">Обычный калькулятор</h2>
+    <p class="calculator-section-intro">
+      Это базовый онлайн‑калькулятор для повседневных вычислений:
+      сложение, вычитание, умножение, деление, проценты и скобки —
+      всё в одном окне прямо в браузере.
+    </p>
+
+    <div class="calculator calculator-wide">
+      <div class="calc-header">
+        <div class="calc-modes">
+          <button class="mode-btn active" data-mode="deg">DEG</button>
+          <span>·</span>
+          <button class="mode-btn" data-mode="rad">RAD</button>
+        </div>
+        <div class="calc-display" id="calc-display">0</div>
+      </div>
+
+      <div class="calc-grid">
+        <!-- ряд 1 -->
+        <button class="btn btn-light" data-action="clear">C</button>
+        <button class="btn btn-light" data-action="plusminus">±</button>
+        <button class="btn btn-light" data-action="percent">%</button>
+        <button class="btn btn-operator" data-action="operator" data-value="/">÷</button>
+
+        <!-- ряд 2 -->
+        <button class="btn" data-action="digit" data-value="7">7</button>
+        <button class="btn" data-action="digit" data-value="8">8</button>
+        <button class="btn" data-action="digit" data-value="9">9</button>
+        <button class="btn btn-operator" data-action="operator" data-value="*">×</button>
+
+        <!-- ряд 3 -->
+        <button class="btn" data-action="digit" data-value="4">4</button>
+        <button class="btn" data-action="digit" data-value="5">5</button>
+        <button class="btn" data-action="digit" data-value="6">6</button>
+        <button class="btn btn-operator" data-action="operator" data-value="-">−</button>
+
+        <!-- ряд 4 -->
+        <button class="btn" data-action="digit" data-value="1">1</button>
+        <button class="btn" data-action="digit" data-value="2">2</button>
+        <button class="btn" data-action="digit" data-value="3">3</button>
+        <button class="btn btn-operator" data-action="operator" data-value="+">+</button>
+
+        <!-- ряд 5 -->
+        <button class="btn" data-action="paren" data-value="(">( )</button>
+        <button class="btn" data-action="digit" data-value="0">0</button>
+        <button class="btn" data-action="dot" data-value=".">,</button>
+        <button class="btn btn-operator btn-equal" data-action="equals">=</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="calculator-info">
+    <h3>Что такое калькулятор</h3>
+    <p>
+      Калькулятор — это устройство или программа, предназначенная
+      для выполнения арифметических операций. Современные электронные
+      и онлайн‑калькуляторы умеют обрабатывать достаточно сложные
+      выражения и помогают в повседневных расчётах.
+    </p>
+    <p>На этой странице реализован калькулятор, который поддерживает:</p>
+    <ul>
+      <li>сложение, вычитание, умножение и деление;</li>
+      <li>ввод выражений с несколькими действиями подряд;</li>
+      <li>использование круглых скобок для изменения порядка операций;</li>
+      <li>работу с дробными числами;</li>
+      <li>изменение знака числа (кнопка «±»);</li>
+      <li>быстрый пересчёт числа в проценты (кнопка «%»);</li>
+      <li>очистку текущего ввода (кнопка «C»).</li>
+    </ul>
+    <p>
+      Такой формат подходит для бытовых и учебных задач: посчитать
+      стоимость покупок, проверить пример из тетради, прикинуть
+      результаты вычислений при работе с финансами или измерениями.
+    </p>
+    <p>
+      Преимущество онлайн‑калькулятора в том, что он доступен на любом
+      устройстве с браузером — компьютере, планшете или смартфоне.
+      Не нужно устанавливать отдельные приложения или иметь под рукой
+      физический калькулятор: достаточно открыть сайт.
+    </p>
+  </section>
+</main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-basic.js"></script>
+</body>
+</html>

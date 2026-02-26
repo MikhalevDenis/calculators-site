@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Калькулятор дней</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+  <div class="container top-nav">
+    <a href="index.html" class="logo">CalcHub</a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Главная</a>
+
+      <div class="nav-dropdown">
+        <button type="button" class="nav-drop-btn">
+          Выбор калькулятора
+        </button>
+        <div class="nav-drop-menu">
+          <a href="calc-basic.html">Обычный калькулятор</a>
+          <a href="calc-percent.html">Калькулятор процентов</a>
+          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+          <a href="calc-days.html">Калькулятор дней</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="container page-main calculator-page">
+  <section class="calculator-section">
+    <h2 class="page-title">Калькулятор дней</h2>
+    <p class="calculator-section-intro">
+      Калькулятор позволяет узнать, сколько дней, недель, месяцев
+      и лет между двумя календарными датами. Можно выбрать даты
+      вручную или с помощью удобного календаря.
+    </p>
+
+    <div class="date-card">
+      <form id="date-range-form">
+        <div class="date-range-grid">
+          <!-- Левая колонка: дата начала -->
+          <div class="date-column" data-side="start">
+            <label class="date-label">Дата начала</label>
+            <input
+              type="text"
+              class="date-input"
+              name="startInput"
+              placeholder="ДД.ММ.ГГГГ"
+            />
+
+            <div class="mini-calendar">
+              <div class="mini-cal-header">
+                <button
+                  type="button"
+                  class="mini-cal-arrow"
+                  data-dir="prev"
+                  aria-label="Предыдущий месяц"
+                >
+                  ‹
+                </button>
+                <div class="mini-cal-title">
+                  <span class="mini-cal-month" data-role="month-name"></span>
+                  <select class="mini-cal-year" data-role="year-select"></select>
+                </div>
+                <button
+                  type="button"
+                  class="mini-cal-arrow"
+                  data-dir="next"
+                  aria-label="Следующий месяц"
+                >
+                  ›
+                </button>
+              </div>
+              <div class="mini-cal-weekdays">
+                <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span
+                ><span>Пт</span><span>Сб</span><span>Вс</span>
+              </div>
+              <div class="mini-cal-body" data-role="days-grid"></div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: дата окончания -->
+          <div class="date-column" data-side="end">
+            <label class="date-label">Дата окончания</label>
+            <input
+              type="text"
+              class="date-input"
+              name="endInput"
+              placeholder="ДД.ММ.ГГГГ"
+            />
+
+            <div class="mini-calendar">
+              <div class="mini-cal-header">
+                <button
+                  type="button"
+                  class="mini-cal-arrow"
+                  data-dir="prev"
+                  aria-label="Предыдущий месяц"
+                >
+                  ‹
+                </button>
+                <div class="mini-cal-title">
+                  <span class="mini-cal-month" data-role="month-name"></span>
+                  <select class="mini-cal-year" data-role="year-select"></select>
+                </div>
+                <button
+                  type="button"
+                  class="mini-cal-arrow"
+                  data-dir="next"
+                  aria-label="Следующий месяц"
+                >
+                  ›
+                </button>
+              </div>
+              <div class="mini-cal-weekdays">
+                <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span
+                ><span>Пт</span><span>Сб</span><span>Вс</span>
+              </div>
+              <div class="mini-cal-body" data-role="days-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="date-options-row">
+          <label class="date-checkbox">
+            <input type="checkbox" id="include-end" checked /> Учитывать
+            последний день (включительно)
+          </label>
+        </div>
+
+        <div class="date-results">
+          <div class="date-main-result">
+            <div class="date-main-label">Всего дней между датами</div>
+            <div class="date-main-number" id="date-total-days">—</div>
+          </div>
+
+          <div class="date-details-grid">
+  <div>
+    <div class="date-detail-label">Лет</div>
+    <div class="date-detail-value" id="date-full-years">—</div>
+  </div>
+  <div>
+    <div class="date-detail-label">Месяцев</div>
+    <div class="date-detail-value" id="date-full-months">—</div>
+  </div>
+  <div>
+    <div class="date-detail-label">Недель</div>
+    <div class="date-detail-value" id="date-full-weeks">—</div>
+  </div>
+  <div>
+    <div class="date-detail-label">Дней</div>
+    <div class="date-detail-value" id="date-full-days">—</div>
+  </div>
+</div>
+
+
+          <div class="kbju-note" id="date-note">
+            Выберите обе даты и нажмите «Рассчитать».
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="date-info">
+    <h3>Как считается промежуток между датами</h3>
+    <p>
+      Календарь — это система отсчёта времени, основанная на периодическом
+      движении Земли вокруг Солнца и вращении вокруг своей оси. Современный
+      гражданский календарь в большинстве стран основан на григорианской
+      системе: год делится на месяцы разной длины, неделя состоит из семи
+      дней, а отсчёт ведётся в рамках лет, месяцев и дней.
+    </p>
+    <p>
+      Калькулятор дней помогает автоматически посчитать продолжительность
+      промежутка между двумя датами. В расчётах учитывается фактическое
+      количество календарных дней между выбранными числами, с возможностью
+      включить или исключить последний день диапазона. На основе общего
+      количества дней дополнительно оценивается число недель,
+      месяцев и лет.
+    </p>
+
+    <h4>Когда может пригодиться такой калькулятор</h4>
+    <ul>
+      <li>оценить продолжительность отпуска, командировки или проекта;</li>
+      <li>посчитать, сколько времени прошло с определённой даты;</li>
+      <li>узнать возраст в днях, неделях или годах;</li>
+      <li>прикинуть сроки между важными событиями, дедлайнами и выплатами;</li>
+      <li>спланировать график тренировок, приёма лекарств или других регулярных действий.</li>
+    </ul>
+    <p>
+      Расчёты носят справочный характер и опираются на стандартный
+      григорианский календарь. Калькулятор не учитывает исторические
+      реформы календаря и специальные исключения, которые могут встречаться
+      в отдельных периодах и странах.
+    </p>
+  </section>
+</main>
+
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-days.js"></script>
+</body>
+</html>
