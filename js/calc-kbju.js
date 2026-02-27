@@ -77,39 +77,80 @@ if (kbjuMainForm) {
       const factor = activityFactors[activity] || 1.55;
       const maintenance = bmr * factor;
 
-      // Настройки по целям
-      const goalSettings = {
-        loss: {
-          label: 'Похудение (умеренный дефицит ~20%)',
-          factor: 0.8,
-          proteinGPerKg: 1.8,
-          fatGPerKg: 0.8
-        },
-        maintain: {
-          label: 'Поддержание текущего веса',
-          factor: 1.0,
-          proteinGPerKg: 1.5,
-          fatGPerKg: 0.9
-        },
-        gain: {
-          label: 'Набор мышечной массы (профицит ~15%)',
-          factor: 1.15,
-          proteinGPerKg: 2.0,
-          fatGPerKg: 1.0
-        }
-      };
+      // Расчёт КБЖУ по целям
 
-      const settings = goalSettings[goal] || goalSettings.maintain;
-      const goalCalories = maintenance * settings.factor;
+      let goalCalories;
+      let proteinGrams;
+      let fatGrams;
+      let carbsGrams;
+      let noteText = '';
 
-      // Расчёт КБЖУ для выбранной цели
-      const proteinGrams = settings.proteinGPerKg * weight;
-      const fatGrams = settings.fatGPerKg * weight;
-      const proteinKcal = proteinGrams * 4;
-      const fatKcal = fatGrams * 9;
-      let carbsKcal = goalCalories - proteinKcal - fatKcal;
-      if (carbsKcal < 0) carbsKcal = 0;
-      const carbsGrams = carbsKcal / 4;
+      if (goal === 'loss') {
+        // 1. Похудение:
+        // умеренный дефицит калорий ~20% от поддерживающей нормы
+        const deficitFactor = 0.8;
+        goalCalories = maintenance * deficitFactor;
+
+        // белки и жиры по жёстким нормам:
+        // 1,5 г белка и 0,8 г жира на 1 кг массы тела
+        const proteinPerKg = 1.5;
+        const fatPerKg = 0.8;
+
+        proteinGrams = proteinPerKg * weight;
+        fatGrams = fatPerKg * weight;
+
+        const proteinKcal = proteinGrams * 4;
+        const fatKcal = fatGrams * 9;
+
+        // углеводы — на оставшиеся калории
+        let carbsKcal = goalCalories - proteinKcal - fatKcal;
+        if (carbsKcal < 0) carbsKcal = 0;
+        carbsGrams = carbsKcal / 4;
+
+        noteText =
+          'Для снижения веса используется умеренный дефицит калорий (~20% от поддерживающей нормы) и пропорции макронутриентов: около 1,5 г белка, 0,8 г жира и примерно 2 г углеводов на 1 кг массы тела. Фактическое количество углеводов подстраивается под выбранный дефицит.';
+      } else if (goal === 'maintain') {
+
+        // 2. Поддержание веса:
+        // белки — 1,2–1,6 г/кг (берём ~1,4),
+        // жиры — 0,8–1,2 г/кг (берём ~1),
+        // углеводы — 3–5 г/кг (берём ~4)
+        const proteinPerKg = 1.4;
+        const fatPerKg = 1.0;
+        const carbsPerKg = 4.0;
+
+        proteinGrams = proteinPerKg * weight;
+        fatGrams = fatPerKg * weight;
+        carbsGrams = carbsPerKg * weight;
+
+        goalCalories =
+          proteinGrams * 4 + fatGrams * 9 + carbsGrams * 4;
+
+        noteText =
+          'Для поддержания веса используются усреднённые нормы: около 1,2–1,6 г белка, 0,8–1,2 г жира и 3–5 г углеводов на 1 кг массы тела.';
+      } else {
+        // 3. Набор мышечной массы:
+        // белок — 2 г/кг, жиры — 1 г/кг, углеводы — остаток калорий
+        // создаём небольшой профицит от поддерживающей нормы (~15%)
+        const surplusFactor = 1.15;
+        goalCalories = maintenance * surplusFactor;
+
+        const proteinPerKg = 2.0;
+        const fatPerKg = 1.0;
+
+        proteinGrams = proteinPerKg * weight;
+        fatGrams = fatPerKg * weight;
+
+        const proteinKcal = proteinGrams * 4;
+        const fatKcal = fatGrams * 9;
+
+        let carbsKcal = goalCalories - proteinKcal - fatKcal;
+        if (carbsKcal < 0) carbsKcal = 0;
+        carbsGrams = carbsKcal / 4;
+
+        noteText =
+          'Для набора мышечной массы используется небольшой профицит калорий (~10–15%) и повышенное содержание белка (до 2 г/кг) при достаточном количестве жиров. Углеводы занимают оставшуюся часть калорий (обычно 40–50%).';
+      }
 
       // Выводим результаты
       elBmr.textContent = `${fmt(bmr, 0)} ккал`;
@@ -122,7 +163,8 @@ if (kbjuMainForm) {
       elCarbs.textContent = `${fmt(carbsGrams, 0)} г`;
 
       elKbjuNote.textContent =
-        'Значения ориентировочные и не учитывают медицинские противопоказания, состав тела и другие индивидуальные особенности.';
+        noteText +
+        ' Значения ориентировочные и не учитывают медицинские противопоказания, состав тела и другие индивидуальные особенности.';
 
       // Сохраняем в состояние для калькулятора 2
       kbjuState.maintenance = maintenance;

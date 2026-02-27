@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор случайных чисел | CalcHub</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Калькуляторы</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-main calculator-page">
+    <section class="calculator-section">
+      <h1 class="page-title">Генератор случайных чисел</h1>
+      <p class="calculator-section-intro">
+        Этот рандомайзер позволяет получить одно или несколько случайных чисел
+        в заданном диапазоне. Можно настроить количество чисел, тип (целые или
+        с десятичной частью), запретить повторы и выбрать способ сортировки.
+      </p>
+
+      <div class="random-card">
+        <form id="random-form">
+          <div class="random-presets">
+            <span class="random-presets-label">Быстрый выбор:</span>
+            <button type="button" class="random-preset-btn" data-preset="dice">Кубик (1–6)</button>
+            <button type="button" class="random-preset-btn" data-preset="coin">Монетка</button>
+            <button type="button" class="random-preset-btn" data-preset="6of49">6 из 49</button>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Минимальное значение</label>
+              <input
+                type="number"
+                step="any"
+                name="min"
+                placeholder="Например, 1"
+              />
+            </div>
+            <div class="percent-field">
+              <label>Максимальное значение</label>
+              <input
+                type="number"
+                step="any"
+                name="max"
+                placeholder="Например, 100"
+              />
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Сколько чисел сгенерировать</label>
+              <input
+                type="number"
+                name="count"
+                min="1"
+                max="1000"
+                value="1"
+              />
+            </div>
+            <div class="percent-field">
+              <label>Тип</label>
+              <select name="type">
+                <option value="int" selected>Целые числа</option>
+                <option value="float">С дробной частью</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Точность (знаков после запятой)</label>
+              <input
+                type="number"
+                name="precision"
+                min="0"
+                max="10"
+                value="2"
+              />
+            </div>
+            <div class="percent-field">
+              <label>Сортировка результата</label>
+              <select name="sort">
+                <option value="none">Как сгенерируются</option>
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По убыванию</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="random-options-row">
+            <label class="date-checkbox">
+              <input type="checkbox" name="unique" />
+              Без повторений (если возможно)
+            </label>
+          </div>
+
+          <div class="percent-actions random-actions">
+            <button type="submit" class="btn-calc">Сгенерировать</button>
+            <button type="button" class="btn-secondary random-clear-btn" id="random-clear">
+              Очистить результат
+            </button>
+          </div>
+
+          <div class="random-result">
+            <div class="random-main">
+              <div class="random-main-label">Результат</div>
+              <div class="random-main-value" id="random-output">—</div>
+            </div>
+            <div class="kbju-note" id="random-note">
+              Укажите диапазон, количество чисел и нажмите «Сгенерировать».
+            </div>
+            <div class="random-history" id="random-history">
+              <!-- сюда будет подставляться краткая история генераций -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="random-info">
+      <h3>Для чего может пригодиться генератор случайных чисел</h3>
+      <p>
+        Случайный выбор помогает в самых разных ситуациях: разыграть порядок
+        выступлений, выбрать победителя конкурса, придумать число для пароля
+        или генерации тестовых данных. Такой генератор удобен тем, что не
+        требует установки приложений и работает прямо в браузере.
+      </p>
+      <p>
+        Используемые числа генерируются с помощью встроенной функции
+        <strong>Math.random()</strong> браузера и предназначены для бытовых
+        и учебных задач. Для криптографически стойких операций
+        (например, генерации ключей безопасности) рекомендуется использовать
+        специализированные инструменты.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-random.js"></script>
+
+  <!-- сюда же вставь код Яндекс.Метрики, как на других страницах -->
+</body>
+</html>

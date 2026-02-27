@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кредитный калькулятор | CalcHub</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Калькуляторы</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-main calculator-page">
+    <section class="calculator-section">
+      <h1 class="page-title">Кредитный калькулятор</h1>
+      <p class="calculator-section-intro">
+        Калькулятор помогает рассчитать ежемесячный платёж, общую сумму выплат
+        и переплату по потребительскому кредиту. Поддерживаются аннуитетные и
+        дифференцированные схемы платежей.
+      </p>
+
+      <div class="credit-card">
+        <form id="credit-form">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Сумма кредита</label>
+              <input
+                type="number"
+                step="any"
+                name="amount"
+                placeholder="Например, 300 000"
+              />
+            </div>
+            <div class="percent-field">
+              <label>Процентная ставка, % годовых</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                name="rate"
+                placeholder="Например, 18.5"
+              />
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Срок кредита</label>
+              <div class="credit-term-group">
+                <input
+                  type="number"
+                  name="years"
+                  min="0"
+                  max="50"
+                  placeholder="Лет"
+                />
+                <span class="credit-term-separator">и</span>
+                <input
+                  type="number"
+                  name="months"
+                  min="0"
+                  max="600"
+                  placeholder="Месяцев"
+                />
+              </div>
+              <div class="mortgage-dp-hint">
+                Можно указать только годы, только месяцы или и то, и другое.
+              </div>
+            </div>
+            <div class="percent-field">
+              <label>Тип платежей</label>
+              <select name="paymentType">
+                <option value="annuity" selected>Аннуитетные (равные платежи)</option>
+                <option value="diff">Дифференцированные (убывающие платежи)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Ежемесячный доход (по желанию)</label>
+              <input
+                type="number"
+                step="any"
+                name="income"
+                placeholder="Например, 80 000"
+              />
+              <div class="mortgage-dp-hint">
+                Нужен для оценки доли платежа от дохода.
+              </div>
+            </div>
+          </div>
+
+          <div class="percent-actions credit-actions">
+            <button type="submit" class="btn-calc">
+              Рассчитать кредит
+            </button>
+          </div>
+
+          <div class="credit-results">
+            <div class="credit-result-main">
+              <div class="credit-result-label">Ежемесячный платёж</div>
+              <div class="credit-result-value" id="cr-pay">—</div>
+            </div>
+
+            <div class="mortgage-results-grid">
+              <div>
+                <div class="mortgage-result-label">Сумма кредита</div>
+                <div class="mortgage-result-small" id="cr-amount">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Срок в месяцах</div>
+                <div class="mortgage-result-small" id="cr-months">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Всего выплат по кредиту</div>
+                <div class="mortgage-result-small" id="cr-total">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Начисленные проценты</div>
+                <div class="mortgage-result-small" id="cr-interest">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Переплата, % от суммы кредита</div>
+                <div class="mortgage-result-small" id="cr-overpay-pct">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Доля платежа от дохода</div>
+                <div class="mortgage-result-small" id="cr-income-share">—</div>
+              </div>
+            </div>
+
+            <div class="kbju-note" id="cr-note">
+              Заполните поля и нажмите «Рассчитать кредит».
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="mortgage-info">
+      <h3>Как работает кредитный калькулятор</h3>
+      <p>
+        Калькулятор рассчитывает ежемесячный платёж, общую сумму выплат
+        и переплату по кредиту на основе выбранного типа платежей.
+        Аннуитетная схема даёт одинаковый платёж на весь срок, а
+        дифференцированная — убывающий платёж: основная часть долга
+        гасится равномерно, проценты начисляются на остаток.
+      </p>
+      <p>
+        Расчёт выполняется по стандартным финансовым формулам. Это
+        помогает заранее оценить нагрузку на бюджет, сравнить разные
+        варианты сроков и ставок, а также понять, насколько выбранный
+        платёж комфортен относительно вашего дохода.
+      </p>
+
+      <h4>Ограничения и важные замечания</h4>
+      <ul>
+        <li>
+          Расчёты носят ориентировочный характер и не являются
+          индивидуальным финансовым советом или официальным предложением
+          банка.
+        </li>
+        <li>
+          В расчёты не включены комиссии, страховки, возможные изменения
+          ставки, досрочные погашения и другие условия конкретных программ.
+        </li>
+        <li>
+          Фактический график платежей и переплата могут отличаться от
+          расчёта, особенно при досрочном погашении или изменении условий
+          кредитного договора.
+        </li>
+        <li>
+          Перед оформлением кредита стоит сравнить предложения разных банков
+          и, при необходимости, обсудить условия с финансовым специалистом.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-credit.js"></script>
+
+  <!-- сюда же вставь код Яндекс.Метрики, как на других страницах -->
+</body>
+</html>

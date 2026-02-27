@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор индекса массы тела (ИМТ) | CalcHub</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Калькуляторы</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-main calculator-page">
+    <section class="calculator-section">
+      <h1 class="page-title">Калькулятор индекса массы тела (ИМТ)</h1>
+      <p class="calculator-section-intro">
+        Индекс массы тела (ИМТ) — показатель, который помогает ориентировочно
+        оценить соответствие массы тела росту. Расчёт выполняется по формуле,
+        рекомендованной Всемирной организацией здравоохранения: вес в
+        килограммах делится на квадрат роста в метрах.
+      </p>
+
+      <div class="bmi-card">
+        <form id="bmi-form">
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Пол</label>
+              <div class="kbju-radio-group">
+                <label>
+                  <input type="radio" name="sex" value="male" checked />
+                  Мужской
+                </label>
+                <label>
+                  <input type="radio" name="sex" value="female" />
+                  Женский
+                </label>
+              </div>
+            </div>
+            <div class="percent-field">
+              <label>Возраст, лет</label>
+              <input
+                type="number"
+                name="age"
+                min="5"
+                max="120"
+                placeholder="Например, 30"
+              />
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Рост, см</label>
+              <input
+                type="number"
+                name="height"
+                min="120"
+                max="230"
+                placeholder="Например, 175"
+              />
+            </div>
+            <div class="percent-field">
+              <label>Вес, кг</label>
+              <input
+                type="number"
+                step="any"
+                name="weight"
+                min="30"
+                max="250"
+                placeholder="Например, 70"
+              />
+            </div>
+          </div>
+
+          <div class="percent-actions kbju-actions">
+            <button type="submit" class="btn-calc">Рассчитать ИМТ</button>
+          </div>
+
+          <div class="bmi-result">
+            <div class="bmi-main">
+              <div class="bmi-main-label">Ваш индекс массы тела</div>
+              <div class="bmi-main-value" id="bmi-value">—</div>
+            </div>
+
+            <div class="bmi-details">
+              <div>
+                <div class="bmi-detail-label">Категория</div>
+                <div class="bmi-detail-value" id="bmi-category">—</div>
+              </div>
+              <div>
+                <div class="bmi-detail-label">Рекомендуемый диапазон ИМТ (ВОЗ)</div>
+                <div class="bmi-detail-value" id="bmi-normal-range">18,5–24,9</div>
+              </div>
+              <div>
+                <div class="bmi-detail-label">Ориентировочный «здоровый» вес для вашего роста</div>
+                <div class="bmi-detail-value" id="bmi-ideal-weight">—</div>
+              </div>
+            </div>
+
+            <div class="kbju-note" id="bmi-note">
+              Введите рост и вес, затем нажмите «Рассчитать ИМТ».
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="bmi-info">
+      <h3>Как рассчитывается индекс массы тела</h3>
+      <p>
+        Индекс массы тела (ИМТ) рассчитывается по стандартной формуле,
+        рекомендованной Всемирной организацией здравоохранения:
+      </p>
+      <p><strong>ИМТ = вес (кг) / рост² (м)</strong>.</p>
+      <p>
+        Например, при росте 1,75 м и весе 70 кг ИМТ будет равен
+        70 / 1,75² ≈ 22,9. Этот показатель относится к диапазону
+        «нормальной массы тела» по классификации ВОЗ.
+      </p>
+
+      <h4>Классификация ИМТ для взрослых (ВОЗ)</h4>
+      <ul>
+        <li>&lt; 16,0 — выраженный дефицит массы тела;</li>
+        <li>16,0–16,9 — умеренный дефицит;</li>
+        <li>17,0–18,4 — небольшой дефицит;</li>
+        <li>18,5–24,9 — нормальная масса тела;</li>
+        <li>25,0–29,9 — избыточная масса тела (предожирение);</li>
+        <li>30,0–34,9 — ожирение I степени;</li>
+        <li>35,0–39,9 — ожирение II степени;</li>
+        <li>≥ 40,0 — ожирение III степени.</li>
+      </ul>
+
+      <h4>Ограничения и важные замечания</h4>
+      <ul>
+        <li>
+          ИМТ — ориентировочный показатель и не учитывает распределение
+          жировой и мышечной ткани, особенности телосложения и другие
+          индивидуальные факторы.
+        </li>
+        <li>
+          Для детей и подростков до 18 лет используются специальные
+          возрастные и половые таблицы и перцентильные графики, поэтому
+          стандартная классификация ИМТ для взрослых к ним не применяется.
+        </li>
+        <li>
+          У спортсменов с развитой мышечной массой ИМТ может быть выше
+          «нормы» без избытка жировой ткани.
+        </li>
+        <li>
+          При наличии хронических заболеваний или сомнений в состоянии
+          здоровья важно обсуждать результаты с врачом или другим
+          профильным специалистом.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-bmi.js"></script>
+
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
+
+    ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</body>
+</html>
