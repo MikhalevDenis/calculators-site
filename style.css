@@ -1,0 +1,1581 @@
+/* === Глобальные переменные === */
+
+:root {
+  --bg-main: #f5f5f7;
+  --bg-card: #ffffff;
+  --text-main: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --accent: #0071e3;
+  --accent-dark: #005bbf;
+  --operator: #ff6b4a;
+}
+
+/* === Базовые стили === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+    -system-ui, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* === Контейнер и общая сетка === */
+
+.container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+main {
+  padding: 40px 0 60px;
+}
+
+/* === Шапка в стиле Apple === */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  background: rgba(245, 245, 247, 0.8);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* одиночная ссылка "Главная" */
+
+.nav-link {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 2px 4px;
+  transition: color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: var(--text-main);
+}
+
+/* выпадающее меню "Выбор калькулятора" */
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-drop-btn {
+  border: none;
+  background: none;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 2px 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+
+.nav-drop-btn::after {
+  content: "▾";
+  font-size: 9px;
+  margin-top: 1px;
+}
+
+.nav-dropdown.open .nav-drop-btn,
+.nav-drop-btn:hover {
+  color: var(--text-main);
+}
+
+.nav-drop-menu {
+  position: absolute;
+  right: 0;
+  top: 140%;
+  min-width: 220px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  padding: 6px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+  z-index: 200;
+}
+
+.nav-dropdown.open .nav-drop-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-drop-menu a {
+  display: block;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.nav-drop-menu a:hover {
+  background: #f5f5f7;
+}
+
+/* === Hero-блок === */
+
+.hero {
+  padding: 40px 0 30px;
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-content h1 {
+  font-size: 44px;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  font-weight: 600;
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 440px;
+}
+
+.hero-actions {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 113, 227, 0.45);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 113, 227, 0.08);
+}
+
+/* Визуальный превью-калькулятор в hero */
+
+.hero-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hero-calculator-preview {
+  width: 320px;
+  background: var(--bg-card);
+  border-radius: 24px;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  padding: 10px 14px 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.preview-title {
+  font-weight: 600;
+}
+
+.preview-display {
+  text-align: right;
+  font-size: 28px;
+  padding: 10px 10px 14px;
+  border-bottom: 1px solid #f0f0f2;
+  min-height: 52px;
+}
+
+.preview-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 14px;
+}
+
+.preview-keys span {
+  padding: 10px 0;
+  text-align: center;
+  border-top: 1px solid #f3f3f5;
+  border-right: 1px solid #f3f3f5;
+  background: #fafafa;
+}
+
+.preview-keys span:nth-child(4n) {
+  background: var(--operator);
+  color: #fff;
+  border-right: none;
+}
+
+.preview-keys .op {
+  background: var(--operator);
+  color: #fff;
+}
+
+.preview-keys .eq {
+  grid-column: span 2;
+  background: var(--operator);
+  color: #fff;
+}
+
+/* === Каталог калькуляторов === */
+
+.catalog-section {
+  padding: 20px 0 0;
+}
+
+.catalog-section h2 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  margin: 0 0 24px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.card p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.card-link {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* === Общий вид внутренних страниц (калькуляторов) === */
+
+main.container,
+.page-main {
+  padding-top: 40px;
+}
+
+main.container h2 {
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* === Подвал === */
+
+footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 16px 0 24px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+footer .container {
+  text-align: center;
+}
+
+/* === Стили калькулятора (та, что мы уже сделали) === */
+
+.calculator {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  max-width: 420px;
+  margin: 10px auto 0;
+}
+
+.calc-header {
+  padding: 12px 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-modes {
+  font-size: 12px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mode-btn {
+  border: none;
+  background: none;
+  font-size: 12px;
+  padding: 0;
+  cursor: pointer;
+  color: #999;
+}
+
+.mode-btn.active {
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+.calc-display {
+  text-align: right;
+  font-size: 40px;
+  padding: 16px 8px 12px;
+  min-height: 56px;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #eee;
+}
+
+.btn {
+  border: 1px solid #f0f0f0;
+  background: #f7f7f7;
+  font-size: 20px;
+  padding: 16px 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-light {
+  background: #f9f9f9;
+}
+
+.btn:hover {
+  background: #ececec;
+}
+
+.btn-operator {
+  background: var(--operator);
+  color: #fff;
+  border-color: var(--operator);
+}
+
+.btn-operator:hover {
+  background: #ff5a35;
+}
+
+.btn-equal {
+  border-bottom-right-radius: 16px;
+}
+/* === Страница обычного калькулятора === */
+
+.calculator-page .page-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.calculator-section-intro {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* делаем калькулятор пошире и ниже от заголовка */
+.calculator-wide {
+  max-width: 640px;
+  width: 100%;
+  margin: 32px auto 36px;
+}
+
+/* блок с описанием под калькулятором */
+.calculator-info {
+  width: 100%;                 /* занимаем всю ширину контейнера */
+  margin: 0 auto 48px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.calculator-info h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.calculator-info p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.calculator-info ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.calculator-info li {
+  margin-bottom: 4px;
+}
+
+/* === Адаптив под мобильные === */
+
+@media (max-width: 768px) {
+  .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-visual {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-calculator-preview {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .top-nav {
+    justify-content: space-between;
+  }
+
+  .main-nav {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+  .top-nav {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    padding: 8px 0;
+    gap: 6px;
+  }
+
+  .main-nav {
+    justify-content: center;
+  }
+}
+/* === Калькулятор процентов === */
+
+.percent-calculator {
+  padding: 22px 22px 26px;
+}
+
+.percent-top {
+  display: flex;
+  align-items: center;       /* было flex-end */
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.percent-header-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.percent-scenario-select {
+  flex: 1;
+  max-width: 360px;
+}
+
+.percent-scenario-select select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 13px;
+  color: var(--text-main);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #888 50%),
+    linear-gradient(135deg, #888 50%, transparent 50%);
+  background-position: calc(100% - 26px) 50%, calc(100% - 21px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.percent-scenario-select select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+.percent-forms {
+  margin-top: 4px;
+}
+
+.percent-form {
+  display: none;
+  border-top: 1px solid #f0f0f2;
+  padding-top: 18px;
+}
+
+.percent-form.active {
+  display: block;
+}
+
+.percent-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.percent-field {
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.percent-field label {
+  color: var(--text-secondary);
+}
+
+.percent-field input {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #d2d2d7;
+  font-size: 14px;
+  outline: none;
+}
+
+.percent-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+.percent-actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-calc {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.35);
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.btn-calc:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 113, 227, 0.45);
+}
+
+/* Крупный и более отделённый результат */
+
+.percent-result {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.percent-result-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.percent-result-value {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.percent-note {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.percent-note.error {
+  color: #d0021b;
+}
+
+/* Блок описаний под калькулятором */
+
+.percent-info {
+  margin: 30px auto 56px;
+}
+
+.percent-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.percent-info-intro {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 720px;
+}
+
+/* Кнопки описаний — сетка на всю ширину */
+
+.scenario-info-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px 12px;
+  margin-bottom: 16px;
+}
+
+.scenario-info-btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  padding: 7px 14px;
+  font-size: 12px;
+  background: #f5f5f7;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.scenario-info-btn.active {
+  background: #e5f1ff;
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.25);
+}
+
+.scenario-info-content {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.scenario-info-content h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.scenario-info-content p {
+  margin: 0 0 8px;
+}
+
+.scenario-info-content ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+}
+
+/* Адаптив под проценты */
+
+@media (max-width: 700px) {
+  .percent-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .percent-scenario-select {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .percent-row {
+    gap: 12px;
+  }
+
+  .scenario-info-list {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-info-btn {
+    font-size: 12px;
+  }
+}
+/* === Калькулятор КБЖУ === */
+
+.kbju-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.kbju-card {
+  flex: 1 1 320px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 18px 20px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.kbju-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.kbju-card-intro {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* пол, активность, селекты */
+
+.kbju-radio-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.kbju-radio-group input {
+  margin-right: 4px;
+}
+
+.kbju-label-with-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.info-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.info-tooltip {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  z-index: 10;
+  width: 280px;
+  max-width: calc(100vw - 40px);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+}
+
+.info-tooltip p {
+  margin: 0 0 4px;
+}
+
+.info-tooltip p:last-child {
+  margin-bottom: 0;
+}
+
+/* показываем подсказку при наведении на иконку или подпись */
+
+.kbju-label-with-info:hover .info-tooltip,
+.kbju-label-with-info:focus-within .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* селекты в карточке КБЖУ используют общий стиль percent-field */
+
+.kbju-card select {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #d2d2d7;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.kbju-card select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+/* Кнопки и результаты */
+
+.kbju-actions {
+  margin-top: 10px;
+}
+
+.kbju-result {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.kbju-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.kbju-result-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.kbju-result-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Блок с КБЖУ */
+
+.kbju-macros {
+  margin-top: 12px;
+}
+
+.kbju-macros-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.kbju-macros-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.kbju-macro-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.kbju-macro-value {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.kbju-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.kbju-note.error {
+  color: #d0021b;
+}
+
+
+.btn-import {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  text-align: center;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-import:hover {
+  background: #e5e5ea;
+  border-color: #c2c2c7;
+}
+
+/* Блок описания и предупреждений */
+
+.kbju-info {
+  width: 100%;
+  margin: 34px auto 56px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.kbju-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.kbju-info h4 {
+  margin: 12px 0 8px;
+  font-size: 16px;
+}
+
+.kbju-info p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.kbju-info ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.kbju-info li {
+  margin-bottom: 4px;
+}
+
+/* Адаптив для КБЖУ */
+
+@media (max-width: 768px) {
+  .kbju-grid {
+    flex-direction: column;
+  }
+}
+/* === Ипотечный калькулятор === */
+
+.mortgage-card {
+  max-width: 720px;
+  margin: 24px auto 30px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.mortgage-actions {
+  margin-top: 12px;
+}
+
+/* группа поля "первоначальный взнос" */
+
+.mortgage-dp-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mortgage-select-inline {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #d2d2d7;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.mortgage-select-inline:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+.mortgage-dp-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* результаты */
+
+.mortgage-results {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.mortgage-result-main {
+  margin-bottom: 14px;
+}
+
+.mortgage-result-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 3px;
+}
+
+.mortgage-result-value {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.mortgage-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.mortgage-result-small {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* блок описания ипотеки */
+
+.mortgage-info {
+  width: 100%;
+  margin: 8px auto 56px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.mortgage-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.mortgage-info h4 {
+  margin: 12px 0 8px;
+  font-size: 16px;
+}
+
+.mortgage-info p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.mortgage-info ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.mortgage-info li {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 600px) {
+  .mortgage-card {
+    margin-top: 18px;
+  }
+}
+/* === Калькулятор дней === */
+
+.date-card {
+  max-width: 880px;
+  margin: 22px auto 30px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.date-range-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.date-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.date-input {
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #d2d2d7;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+}
+
+/* мини-календарь */
+
+.mini-calendar {
+  background: #f5f5f7;
+  border-radius: 14px;
+  padding: 10px 10px 12px;
+}
+
+.mini-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.mini-cal-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mini-cal-month {
+  font-size: 13px;
+}
+
+.mini-cal-year {
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #ffffff;
+}
+
+.mini-cal-arrow {
+  border: none;
+  background: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.mini-cal-arrow:hover {
+  background: #e5e5ea;
+}
+
+.mini-cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.mini-cal-weekdays span {
+  padding: 2px 0;
+}
+
+.mini-cal-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.mini-cal-day {
+  border: none;
+  background: #ffffff;
+  font-size: 12px;
+  padding: 4px 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mini-cal-day.empty {
+  visibility: hidden;
+  cursor: default;
+}
+
+.mini-cal-day.today {
+  border: 1px solid var(--accent);
+}
+
+.mini-cal-day.selected {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.mini-cal-day:hover:not(.selected):not(.empty) {
+  background: #e5f1ff;
+}
+
+/* чекбокс и кнопка расчёта */
+
+.date-options-row {
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.date-checkbox {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-actions {
+  margin-top: 4px;
+}
+
+/* результаты */
+
+.date-results {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.date-main-result {
+  margin-bottom: 14px;
+}
+
+.date-main-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.date-main-number {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.date-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.date-detail-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.date-detail-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* блок описания */
+
+.date-info {
+  width: 100%;
+  margin: 8px auto 56px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.date-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.date-info h4 {
+  margin: 12px 0 8px;
+  font-size: 16px;
+}
+
+.date-info p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.date-info ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.date-info li {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .date-range-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* === Дополнительная адаптация под мобильные === */
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  /* Hero-блок: меньше отступы, компактнее */
+  .hero {
+    padding: 20px 0 10px;
+  }
+
+  .hero-content h1 {
+    font-size: 30px;
+  }
+
+  .hero-calculator-preview {
+    max-width: 100%;
+  }
+
+  /* Общие карточки и калькуляторы на всю ширину */
+  .calculator,
+  .calculator-wide,
+  .kbju-card,
+  .mortgage-card,
+  .date-card {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 14px;
+    padding: 16px 14px 18px;
+  }
+
+  /* Кнопки обычного калькулятора покрупнее */
+  .btn {
+    font-size: 18px;
+    padding: 14px 0;
+  }
+
+  .calc-display {
+    font-size: 32px;
+    padding: 12px 6px 10px;
+    min-height: 48px;
+  }
+
+  /* Поля ввода побольше и удобнее для пальцев */
+  .percent-field input,
+  .kbju-card select,
+  .mortgage-dp-group input,
+  .mortgage-card select,
+  .date-input {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  .btn-calc,
+  .btn-import {
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+
+  /* Мини-календарь: чуть крупнее цифры */
+  .mini-cal-day {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+
+  .date-main-number {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Совсем узкие экраны: ещё чуть поджать поля и отступы */
+  .container {
+    padding: 0 8px;
+  }
+
+  .calculator,
+  .calculator-wide,
+  .kbju-card,
+  .mortgage-card,
+  .date-card {
+    padding: 14px 10px 16px;
+  }
+
+  .btn {
+    font-size: 17px;
+    padding: 13px 0;
+  }
+
+  .percent-field input,
+  .kbju-card select,
+  .mortgage-dp-group input,
+  .mortgage-card select,
+  .date-input {
+    font-size: 15px;
+    padding: 9px 10px;
+  }
+}
