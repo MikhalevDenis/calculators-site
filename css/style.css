@@ -1475,3 +1475,107 @@ footer .container {
     grid-template-columns: 1fr;
   }
 }
+/* === Дополнительная адаптация под мобильные === */
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  /* Hero-блок: меньше отступы, компактнее */
+  .hero {
+    padding: 20px 0 10px;
+  }
+
+  .hero-content h1 {
+    font-size: 30px;
+  }
+
+  .hero-calculator-preview {
+    max-width: 100%;
+  }
+
+  /* Общие карточки и калькуляторы на всю ширину */
+  .calculator,
+  .calculator-wide,
+  .kbju-card,
+  .mortgage-card,
+  .date-card {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 14px;
+    padding: 16px 14px 18px;
+  }
+
+  /* Кнопки обычного калькулятора покрупнее */
+  .btn {
+    font-size: 18px;
+    padding: 14px 0;
+  }
+
+  .calc-display {
+    font-size: 32px;
+    padding: 12px 6px 10px;
+    min-height: 48px;
+  }
+
+  /* Поля ввода побольше и удобнее для пальцев */
+  .percent-field input,
+  .kbju-card select,
+  .mortgage-dp-group input,
+  .mortgage-card select,
+  .date-input {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  .btn-calc,
+  .btn-import {
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+
+  /* Мини-календарь: чуть крупнее цифры */
+  .mini-cal-day {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+
+  .date-main-number {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Совсем узкие экраны: ещё чуть поджать поля и отступы */
+  .container {
+    padding: 0 8px;
+  }
+
+  .calculator,
+  .calculator-wide,
+  .kbju-card,
+  .mortgage-card,
+  .date-card {
+    padding: 14px 10px 16px;
+  }
+
+  .btn {
+    font-size: 17px;
+    padding: 13px 0;
+  }
+
+  .percent-field input,
+  .kbju-card select,
+  .mortgage-dp-group input,
+  .mortgage-card select,
+  .date-input {
+    font-size: 15px;
+    padding: 9px 10px;
+  }
+}
