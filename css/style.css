@@ -82,7 +82,14 @@ main {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.03em;
+  color: var(--accent); /* тот же синий, что и у кнопок расчёта */
+  text-decoration: none;
 }
+
+.logo:hover {
+  color: var(--accent-dark);
+}
+
 
 .main-nav {
   display: flex;
