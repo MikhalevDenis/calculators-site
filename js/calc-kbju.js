@@ -41,6 +41,47 @@ function fmt(num, digits = 0) {
 
 // ==== Калькулятор 1: суточная норма и КБЖУ ====
 
+// Расчёт поддерживающей нормы калорий с учётом активности
+function calcMaintenanceWithActivity(bmr, activity) {
+  // базовый обмен
+  const base = bmr;
+
+  // "сидячий" расход — 15% от BMR
+  const sedentaryExtra = 0.15 * base;
+
+  // одна тренировка по 1 часу = ~25% от BMR
+  const trainingExtraPerSession = 0.25 * base;
+
+  let extraPerDay = 0;
+
+  switch (activity) {
+    case 'sedentary':
+      // только базовая бытовая активность
+      extraPerDay = sedentaryExtra;
+      break;
+    case 'light':
+      // сидячий + 1–2 тренировки/нед, берём 2 тренировки
+      extraPerDay = sedentaryExtra + (2 * trainingExtraPerSession) / 7;
+      break;
+    case 'moderate':
+      // сидячий + 3–4 тренировки/нед, берём 4 тренировки
+      extraPerDay = sedentaryExtra + (4 * trainingExtraPerSession) / 7;
+      break;
+    case 'active':
+      // сидячий + 7 тренировок/нед (каждый день)
+      extraPerDay = sedentaryExtra + (7 * trainingExtraPerSession) / 7;
+      break;
+    case 'very_active':
+      // очень высокая активность: +80% от BMR в день
+      extraPerDay = 0.8 * base;
+      break;
+    default:
+      extraPerDay = sedentaryExtra;
+  }
+
+  return base + extraPerDay;
+}
+
 if (kbjuMainForm) {
   kbjuMainForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -66,91 +107,77 @@ if (kbjuMainForm) {
         bmr = 10 * weight + 6.25 * height - 5 * age - 161;
       }
 
-      // Коэффициенты активности
-      const activityFactors = {
-        sedentary: 1.2,
-        light: 1.375,
-        moderate: 1.55,
-        active: 1.725,
-        very_active: 1.9
-      };
-      const factor = activityFactors[activity] || 1.55;
-      const maintenance = bmr * factor;
+      // Поддерживающая норма с учётом активности по новой схеме
+      const maintenance = calcMaintenanceWithActivity(bmr, activity);
 
-      // Расчёт КБЖУ по целям
-
+      // Целевая калорийность в зависимости от цели
       let goalCalories;
-      let proteinGrams;
-      let fatGrams;
-      let carbsGrams;
+      if (goal === 'loss') {
+        // похудение: дефицит 20% от поддерживающей нормы
+        goalCalories = maintenance * 0.8;
+      } else if (goal === 'gain') {
+        // набор мышечной массы: профицит 15%
+        goalCalories = maintenance * 1.15;
+      } else {
+        // поддержание текущего веса
+        goalCalories = maintenance;
+      }
+
+      // Расчёт КБЖУ через проценты от goalCalories
+      let proteinPct; // доля калорий из белков (0–1)
+      let fatPct;
+      let carbsPct;
       let noteText = '';
 
       if (goal === 'loss') {
-        // 1. Похудение:
-        // умеренный дефицит калорий ~20% от поддерживающей нормы
-        const deficitFactor = 0.8;
-        goalCalories = maintenance * deficitFactor;
-
-        // белки и жиры по жёстким нормам:
-        // 1,5 г белка и 0,8 г жира на 1 кг массы тела
-        const proteinPerKg = 1.5;
-        const fatPerKg = 0.8;
-
-        proteinGrams = proteinPerKg * weight;
-        fatGrams = fatPerKg * weight;
-
-        const proteinKcal = proteinGrams * 4;
-        const fatKcal = fatGrams * 9;
-
-        // углеводы — на оставшиеся калории
-        let carbsKcal = goalCalories - proteinKcal - fatKcal;
-        if (carbsKcal < 0) carbsKcal = 0;
-        carbsGrams = carbsKcal / 4;
+        // Похудение:
+        // Женщины: Б 32,5%, Ж 27,5%, У 40%.
+        // Мужчины: Б 37,5%, Ж 25%,   У 37,5%.
+        if (sex === 'female') {
+          proteinPct = 0.325;
+          fatPct = 0.275;
+          carbsPct = 0.40;
+        } else {
+          proteinPct = 0.350;
+          fatPct = 0.25;
+          carbsPct = 0.400;
+        }
 
         noteText =
-          'Для снижения веса используется умеренный дефицит калорий (~20% от поддерживающей нормы) и пропорции макронутриентов: около 1,5 г белка, 0,8 г жира и примерно 2 г углеводов на 1 кг массы тела. Фактическое количество углеводов подстраивается под выбранный дефицит.';
+          '';
       } else if (goal === 'maintain') {
-
-        // 2. Поддержание веса:
-        // белки — 1,2–1,6 г/кг (берём ~1,4),
-        // жиры — 0,8–1,2 г/кг (берём ~1),
-        // углеводы — 3–5 г/кг (берём ~4)
-        const proteinPerKg = 1.4;
-        const fatPerKg = 1.0;
-        const carbsPerKg = 4.0;
-
-        proteinGrams = proteinPerKg * weight;
-        fatGrams = fatPerKg * weight;
-        carbsGrams = carbsPerKg * weight;
-
-        goalCalories =
-          proteinGrams * 4 + fatGrams * 9 + carbsGrams * 4;
+        // Поддержание веса: 30% Б, 25% Ж, 45% У (для мужчин и женщин одинаково)
+        proteinPct = 0.30;
+        fatPct = 0.25;
+        carbsPct = 0.45;
 
         noteText =
-          'Для поддержания веса используются усреднённые нормы: около 1,2–1,6 г белка, 0,8–1,2 г жира и 3–5 г углеводов на 1 кг массы тела.';
+          '';
       } else {
-        // 3. Набор мышечной массы:
-        // белок — 2 г/кг, жиры — 1 г/кг, углеводы — остаток калорий
-        // создаём небольшой профицит от поддерживающей нормы (~15%)
-        const surplusFactor = 1.15;
-        goalCalories = maintenance * surplusFactor;
-
-        const proteinPerKg = 2.0;
-        const fatPerKg = 1.0;
-
-        proteinGrams = proteinPerKg * weight;
-        fatGrams = fatPerKg * weight;
-
-        const proteinKcal = proteinGrams * 4;
-        const fatKcal = fatGrams * 9;
-
-        let carbsKcal = goalCalories - proteinKcal - fatKcal;
-        if (carbsKcal < 0) carbsKcal = 0;
-        carbsGrams = carbsKcal / 4;
+        // Набор мышечной массы:
+        // те же пропорции, что и при похудении, но на калорийности с профицитом 15%
+        if (sex === 'female') {
+          proteinPct = 0.325;
+          fatPct = 0.275;
+          carbsPct = 0.40;
+        } else {
+          proteinPct = 0.350;
+          fatPct = 0.25;
+          carbsPct = 0.400;
+        }
 
         noteText =
-          'Для набора мышечной массы используется небольшой профицит калорий (~10–15%) и повышенное содержание белка (до 2 г/кг) при достаточном количестве жиров. Углеводы занимают оставшуюся часть калорий (обычно 40–50%).';
+          '';
       }
+
+      // Пересчёт процентов в граммы
+      const proteinKcal = goalCalories * proteinPct;
+      const fatKcal = goalCalories * fatPct;
+      const carbsKcal = goalCalories * carbsPct;
+
+      const proteinGrams = proteinKcal / 4;
+      const fatGrams = fatKcal / 9;
+      const carbsGrams = carbsKcal / 4;
 
       // Выводим результаты
       elBmr.textContent = `${fmt(bmr, 0)} ккал`;
@@ -164,7 +191,7 @@ if (kbjuMainForm) {
 
       elKbjuNote.textContent =
         noteText +
-        ' Значения ориентировочные и не учитывают медицинские противопоказания, состав тела и другие индивидуальные особенности.';
+        ' Расчёты носят ориентировочный характер и не учитывают медицинские противопоказания, состав тела и другие индивидуальные особенности.';
 
       // Сохраняем в состояние для калькулятора 2
       kbjuState.maintenance = maintenance;
@@ -264,7 +291,7 @@ if (kbjuProgressForm) {
         daysNeeded = totalSurplus / deltaPerDay;
 
         note =
-          'Расчёт использует приближение: около 5 000 ккал профицита могут соответствовать приросту массы примерно на 1 кг (включая не только чистую мышечную ткань).';
+          '';
       }
 
       const weeks = daysNeeded / 7;
