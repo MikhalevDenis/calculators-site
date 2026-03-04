@@ -1073,7 +1073,7 @@ footer .container {
   width: 100%;
   margin: 34px auto 56px;
   background: var(--bg-card);
-  border-radius: 18px;
+  border-radius: 14px;
   padding: 20px 22px 22px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
@@ -1104,6 +1104,34 @@ footer .container {
 
 .kbju-info li {
   margin-bottom: 4px;
+}
+
+/* FAQ под калькулятором КБЖУ */
+
+.kbju-faq {
+  width: 100%;
+  margin: 16px auto 56px;
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.kbju-faq h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.kbju-faq h4 {
+  margin: 12px 0 6px;
+  font-size: 16px;
+}
+
+.kbju-faq p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 /* Адаптив для КБЖУ */
