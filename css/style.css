@@ -859,6 +859,35 @@ footer .container {
     font-size: 12px;
   }
 }
+
+/* FAQ под калькулятором процентов */
+
+.percent-faq {
+  width: 100%;
+  margin: 16px auto 56px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.percent-faq h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.percent-faq h4 {
+  margin: 12px 0 6px;
+  font-size: 16px;
+}
+
+.percent-faq p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
 /* === Калькулятор КБЖУ === */
 
 .kbju-grid {
