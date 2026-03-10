@@ -16,15 +16,18 @@
     <loc>https://calculators-all.ru/calc-bmi.html</loc>
   </url>
   <url>
-    <loc>https://calculators-all.ru/calc-random.html</loc>
-  </url>
-  <url>
     <loc>https://calculators-all.ru/calc-credit.html</loc>
   </url>
   <url>
     <loc>https://calculators-all.ru/calc-ipotec.html</loc>
   </url>
+   <url>
+    <loc>https://calculators-all.ru/calc-product.html</loc>
+  </url>
   <url>
     <loc>https://calculators-all.ru/calc-days.html</loc>
+  </url>
+   <url>
+    <loc>https://calculators-all.ru/calc-random.html</loc>
   </url>
 </urlset>
