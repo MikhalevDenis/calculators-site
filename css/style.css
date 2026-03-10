@@ -1987,3 +1987,227 @@ footer .container {
   box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
 }
 
+/* === Калькулятор стоимости товара === */
+
+.product-card {
+  max-width: 720px;
+  margin: 24px auto 30px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.product-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.product-forms {
+  margin-top: 4px;
+}
+
+.product-form {
+  display: none;
+  border-top: 1px solid #f0f0f2;
+  padding-top: 18px;
+}
+
+.product-form.active {
+  display: block;
+}
+
+.product-actions {
+  margin-top: 10px;
+}
+
+.product-result {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.product-main {
+  margin-bottom: 12px;
+}
+
+.product-main-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.product-main-value {
+  font-size: 22px;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+.product-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.product-detail-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.product-detail-value {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* описание под калькулятором */
+
+.product-info {
+  width: 100%;
+  margin: 8px auto 32px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.product-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.product-info p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* блок описаний сценариев */
+
+.product-scenarios-info {
+  width: 100%;
+  margin: 8px auto 32px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.product-scenarios-info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.product-info-intro {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.product-scenario-info-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px 12px;
+  margin-bottom: 16px;
+}
+
+.product-scenario-info-btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #f5f5f7;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.product-scenario-info-btn.active {
+  background: #e5f1ff;
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.25);
+}
+
+.product-scenario-info-content {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.product-scenario-info-content h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.product-scenario-info-content p {
+  margin: 0 0 8px;
+}
+
+.product-scenario-info-content ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+}
+
+/* FAQ под калькулятором стоимости товара */
+
+.product-faq {
+  width: 100%;
+  margin: 16px auto 56px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.product-faq h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.product-faq h4 {
+  margin: 12px 0 6px;
+  font-size: 16px;
+}
+
+.product-faq p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* адаптив */
+
+@media (max-width: 600px) {
+  .product-card {
+    max-width: 100%;
+    margin-top: 18px;
+    padding: 16px 14px 18px;
+  }
+
+  .product-main-value {
+    font-size: 20px;
+  }
+
+  .product-scenario-info-list {
+    grid-template-columns: 1fr;
+  }
+}
