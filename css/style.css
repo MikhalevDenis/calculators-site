@@ -2626,3 +2626,87 @@ select {
 .percent-scenario-select select {
   background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
 }
+/* === Дополнительные стили для генератора случайных чисел === */
+
+/* Увеличенный отступ между кнопками */
+.random-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках (единообразие с ИМТ) */
+#random-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+#random-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Улучшенные интервалы для результатов */
+.random-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.random-main-value {
+  font-size: 20px;
+  font-weight: 600;
+  word-wrap: break-word;
+  margin-bottom: 8px;
+}
+
+.random-history {
+  margin-top: 12px;
+  padding-top: 8px;
+}
+
+/* Стрелки селекторов левее */
+.random-card select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+}
+/* === Дополнительные стили для главной страницы === */
+
+/* Улучшенные интервалы для текста на главной */
+.hero-content p {
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.card p {
+  line-height: 1.5;
+}
+
+/* Улучшенные интервалы в каталоге */
+.catalog-grid {
+  gap: 20px;
+}
+
+.card {
+  padding: 20px 20px 18px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card-link {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+/* Стрелки селекторов для единообразия (на случай появления на главной) */
+select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+}
