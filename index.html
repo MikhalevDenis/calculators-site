@@ -3,141 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Калькуляторы на все случаи жизни</title>
+  <title>Калькуляторы на все случаи жизни — онлайн калькуляторы бесплатно</title>
+  <meta name="description" content="Набор удобных онлайн‑калькуляторов: обычный, процентный, КБЖУ, ИМТ, кредитный, ипотечный, дней, генератор чисел, стоимости товара. Быстрые вычисления без рекламы.">
+  <meta property="og:title" content="Калькуляторы на все случаи жизни">
+  <meta property="og:description" content="Бесплатные точные калькуляторы для любых задач — финансы, здоровье, математика, даты, розыгрыши.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="site-header">
-  <div class="container top-nav">
-    <a href="index.html" class="logo">Сalculators All</a>
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-
-      <div class="nav-dropdown">
-        <button type="button" class="nav-drop-btn">
-          Выбор калькулятора
-        </button>
-        <div class="nav-drop-menu">
-          <a href="calc-basic.html">Обычный калькулятор</a>
-          <a href="calc-percent.html">Калькулятор процентов</a>
-          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
-          <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
-          <a href="calc-credit.html">Кредитный калькулятор</a>
-          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
-          <a href="calc-product.html">Калькулятор стоимости товара</a>
-          <a href="calc-days.html">Калькулятор дней</a>
-          <a href="calc-random.html">Генератор случайных чисел</a>
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Calculators All</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-product.html">Калькулятор стоимости товара</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
-</header>
-
+      </nav>
+    </div>
+  </header>
 
   <main>
-  <!-- Hero-блок -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <h1>Калькуляторы, которые всегда под рукой</h1>
-        <p>
-          Набор точных и удобных онлайн‑калькуляторов — от простых
-          вычислений до КБЖУ, процентов, дат и т.д. Без
-          лишнего шума и сложностей.
+    <!-- Hero-блок -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1>Калькуляторы, которые всегда под рукой</h1>
+          <p>
+            Набор точных и удобных онлайн‑калькуляторов — от простых
+            вычислений до КБЖУ, процентов, дат и т.д. Без
+            лишнего шума и сложностей.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="calc-basic.html">Открыть основной калькулятор</a>
+            <a class="btn-secondary" href="#catalog">Смотреть все калькуляторы</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-calculator-preview">
+            <div class="preview-header">
+              <span class="preview-title">Калькуляторы</span>
+              <span class="preview-mode">Обычный</span>
+            </div>
+            <div class="preview-display">123 × 4 = 492</div>
+            <div class="preview-keys">
+              <span>7</span><span>8</span><span>9</span><span class="op">÷</span>
+              <span>4</span><span>5</span><span>6</span><span class="op">×</span>
+              <span>1</span><span>2</span><span>3</span><span class="op">−</span>
+              <span>0</span><span>,</span><span class="eq">=</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Каталог калькуляторов -->
+    <section id="catalog" class="catalog-section">
+      <div class="container">
+        <h2>Все калькуляторы в одном месте</h2>
+        <p class="section-subtitle">
+          Подберите нужный инструмент под свою задачу. Сайт будет постепенно пополняться
+          новыми калькуляторами.
         </p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="calc-basic.html">Открыть основной калькулятор</a>
-          <a class="btn-secondary" href="#catalog">Смотреть все калькуляторы</a>
+
+        <div class="catalog-grid">
+          <a class="card" href="calc-basic.html" aria-label="Открыть обычный калькулятор">
+            <h3>Обычный калькулятор</h3>
+            <p>Сложение, вычитание, умножение, деление и скобки.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-percent.html" aria-label="Открыть калькулятор процентов">
+            <h3>Калькулятор процентов</h3>
+            <p>Скидки, наценки, проценты от числа и сравнение значений.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-kbju.html" aria-label="Открыть калькулятор КБЖУ">
+            <h3>Калькулятор КБЖУ</h3>
+            <p>Расчёт суточной нормы калорий, белков, жиров и углеводов.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-bmi.html" aria-label="Открыть калькулятор индекса массы тела">
+            <h3>Калькулятор индекса массы тела (ИМТ)</h3>
+            <p>Оценка индекса массы тела по формуле ВОЗ с учётом пола и возраста.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-credit.html" aria-label="Открыть кредитный калькулятор">
+            <h3>Кредитный калькулятор</h3>
+            <p>Расчёт платежей по потребительскому кредиту: аннуитетные и дифференцированные платежи.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-ipotec.html" aria-label="Открыть ипотечный калькулятор">
+            <h3>Ипотечный калькулятор</h3>
+            <p>Расчёт ежемесячного платежа, переплаты и общей стоимости ипотеки.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-product.html" aria-label="Открыть калькулятор стоимости товара">
+            <h3>Калькулятор стоимости товара</h3>
+            <p>Расчёт цены за единицу, по граммам и килограммам, цены продажи, наценки, маржи и т.д.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-days.html" aria-label="Открыть калькулятор дней">
+            <h3>Калькулятор дней</h3>
+            <p>Разница между датами и дни до важного события.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
+
+          <a class="card" href="calc-random.html" aria-label="Открыть генератор случайных чисел">
+            <h3>Генератор случайных чисел</h3>
+            <p>Случайные числа в заданном диапазоне, с настройкой количества, повторов и сортировки.</p>
+            <span class="card-link">Открыть →</span>
+          </a>
         </div>
       </div>
-
-      <div class="hero-visual">
-        <!-- мини-превью калькулятора -->
-        <div class="hero-calculator-preview">
-          <div class="preview-header">
-            <span class="preview-title">Калькуляторы</span>
-            <span class="preview-mode">Обычный</span>
-          </div>
-          <div class="preview-display">123 × 4 = 492</div>
-          <div class="preview-keys">
-            <span>7</span><span>8</span><span>9</span><span class="op">÷</span>
-            <span>4</span><span>5</span><span>6</span><span class="op">×</span>
-            <span>1</span><span>2</span><span>3</span><span class="op">−</span>
-            <span>0</span><span>,</span><span class="eq" colspan="2">=</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Каталог калькуляторов -->
-  <section id="catalog" class="catalog-section">
-    <div class="container">
-      <h2>Калькуляторы</h2>
-      <p class="section-subtitle">
-        Подберите нужный инструмент под свою задачу. Сайт будет постепенно пополняться
-        новыми калькуляторами.
-      </p>
-
-      <div class="catalog-grid">
-        <a class="card" href="calc-basic.html">
-          <h3>Обычный калькулятор</h3>
-          <p>Сложение, вычитание, умножение, деление и скобки.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-
-        <a class="card" href="calc-percent.html">
-          <h3>Калькулятор процентов</h3>
-          <p>Скидки, наценки, проценты от числа и сравнение значений.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-
-        <a class="card" href="calc-kbju.html">
-          <h3>Калькулятор КБЖУ</h3>
-          <p>Рассчёт суточной нормы калорий, белков, жиров и углеводов.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-
-        <a class="card" href="calc-bmi.html">
-          <h3>Калькулятор индекса массы тела (ИМТ)</h3>
-          <p>Оценка индекса массы тела по формуле ВОЗ с учётом пола и возраста.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-
-        <a class="card" href="calc-credit.html">
-          <h3>Кредитный калькулятор</h3>
-          <p>Расчёт платежей по потребительскому кредиту: аннуитетные и дифференцированные платежи.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-        
-        <a class="card" href="calc-ipotec.html">
-          <h3>Ипотечный калькулятор</h3>
-          <p>Расчёт ежемесячного платежа, переплаты и общей стоимости ипотеки.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-        
-        <a class="card" href="calc-product.html">
-          <h3>Калькулятор стоимости товара</h3>
-          <p>Расчёт цены за единицу, по граммам и килограммам, цены продажи, наценки, маржи и т.д.</p>
-          <span class="card-link">Открыть →</span>
-      </a>
-
-        <a class="card" href="calc-days.html">
-          <h3>Калькулятор дней</h3>
-          <p>Разница между датами и дни до важного события.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-
-        <a class="card" href="calc-random.html">
-          <h3>Генератор случайных чисел</h3>
-          <p>Случайные числа в заданном диапазоне, с настройкой количества, повторов и сортировки.</p>
-          <span class="card-link">Открыть →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -146,18 +148,17 @@
   </footer>
 
   <script src="js/main.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

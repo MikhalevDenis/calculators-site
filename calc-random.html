@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Генератор случайных чисел | CalcHub</title>
+  <title>Генератор случайных чисел онлайн — рандомайзер для розыгрышей и игр</title>
+  <meta name="description" content="Бесплатный генератор случайных чисел (рандомайзер). Генерация одного или нескольких случайных чисел в заданном диапазоне, с настройкой уникальности, сортировки и точности. Пресеты: кубик, монетка, 6 из 49.">
+  <meta property="og:title" content="Генератор случайных чисел — рандомайзер онлайн">
+  <meta property="og:description" content="Сгенерируйте случайные числа для розыгрышей, игр и тестов. Настройте диапазон, количество, уникальность и сортировку.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-random.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -13,9 +19,8 @@
       <a href="index.html" class="logo">Сalculators All</a>
       <nav class="main-nav">
         <a href="index.html" class="nav-link">Главная</a>
-
         <div class="nav-dropdown">
-          <button type="button" class="nav-drop-btn">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
             Выбор калькулятора
           </button>
           <div class="nav-drop-menu">
@@ -44,49 +49,33 @@
       </p>
 
       <div class="random-card">
-        <form id="random-form">
+        <form id="random-form" novalidate>
           <div class="random-presets">
             <span class="random-presets-label">Быстрый выбор:</span>
-            <button type="button" class="random-preset-btn" data-preset="dice">Кубик (1–6)</button>
-            <button type="button" class="random-preset-btn" data-preset="coin">Монетка</button>
-            <button type="button" class="random-preset-btn" data-preset="6of49">6 из 49</button>
+            <button type="button" class="random-preset-btn" data-preset="dice" aria-label="Кубик 1–6">Кубик (1–6)</button>
+            <button type="button" class="random-preset-btn" data-preset="coin" aria-label="Монетка орёл/решка">Монетка</button>
+            <button type="button" class="random-preset-btn" data-preset="6of49" aria-label="6 из 49">6 из 49</button>
           </div>
 
           <div class="percent-row">
             <div class="percent-field">
-              <label>Минимальное значение</label>
-              <input
-                type="number"
-                step="any"
-                name="min"
-                placeholder="Например, 1"
-              />
+              <label for="random-min">Минимальное значение</label>
+              <input type="number" step="any" id="random-min" name="min" placeholder="Например, 1" aria-label="Минимальное значение">
             </div>
             <div class="percent-field">
-              <label>Максимальное значение</label>
-              <input
-                type="number"
-                step="any"
-                name="max"
-                placeholder="Например, 100"
-              />
+              <label for="random-max">Максимальное значение</label>
+              <input type="number" step="any" id="random-max" name="max" placeholder="Например, 100" aria-label="Максимальное значение">
             </div>
           </div>
 
           <div class="percent-row">
             <div class="percent-field">
-              <label>Сколько чисел сгенерировать</label>
-              <input
-                type="number"
-                name="count"
-                min="1"
-                max="1000"
-                value="1"
-              />
+              <label for="random-count">Сколько чисел сгенерировать</label>
+              <input type="number" id="random-count" name="count" min="1" max="1000" value="1" aria-label="Количество чисел">
             </div>
             <div class="percent-field">
-              <label>Тип</label>
-              <select name="type">
+              <label for="random-type">Тип</label>
+              <select id="random-type" name="type" aria-label="Тип чисел">
                 <option value="int" selected>Целые числа</option>
                 <option value="float">С дробной частью</option>
               </select>
@@ -95,18 +84,12 @@
 
           <div class="percent-row">
             <div class="percent-field">
-              <label>Точность (знаков после запятой)</label>
-              <input
-                type="number"
-                name="precision"
-                min="0"
-                max="10"
-                value="2"
-              />
+              <label for="random-precision">Точность (знаков после запятой)</label>
+              <input type="number" id="random-precision" name="precision" min="0" max="10" value="2" aria-label="Точность">
             </div>
             <div class="percent-field">
-              <label>Сортировка результата</label>
-              <select name="sort">
+              <label for="random-sort">Сортировка результата</label>
+              <select id="random-sort" name="sort" aria-label="Сортировка">
                 <option value="none">Как сгенерируются</option>
                 <option value="asc">По возрастанию</option>
                 <option value="desc">По убыванию</option>
@@ -116,16 +99,13 @@
 
           <div class="random-options-row">
             <label class="date-checkbox">
-              <input type="checkbox" name="unique" />
-              Без повторений (если возможно)
+              <input type="checkbox" name="unique" aria-label="Без повторений" /> Без повторений (если возможно)
             </label>
           </div>
 
           <div class="percent-actions random-actions">
             <button type="submit" class="btn-calc">Сгенерировать</button>
-            <button type="button" class="btn-secondary random-clear-btn" id="random-clear">
-              Очистить результат
-            </button>
+            <button type="button" class="btn-secondary random-clear-btn" id="random-clear" aria-label="Очистить результат">Очистить результат</button>
           </div>
 
           <div class="random-result">
@@ -136,16 +116,14 @@
             <div class="kbju-note" id="random-note">
               Укажите диапазон, количество чисел и нажмите «Сгенерировать».
             </div>
-            <div class="random-history" id="random-history">
-              <!-- сюда будет подставляться краткая история генераций -->
-            </div>
+            <div class="random-history" id="random-history"></div>
           </div>
         </form>
       </div>
     </section>
 
     <section class="random-info">
-      <h3>Для чего может пригодиться генератор случайных чисел</h3>
+      <h2>Для чего может пригодиться генератор случайных чисел</h2>
       <p>
         Случайный выбор помогает в самых разных ситуациях: разыграть порядок
         выступлений, выбрать победителя конкурса, придумать число для пароля
@@ -170,18 +148,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-random.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>
