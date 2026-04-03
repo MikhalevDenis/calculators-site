@@ -1,4 +1,5 @@
 // Генератор случайных чисел (рандомайзер)
+// С улучшенными сообщениями об ошибках
 
 const randomForm = document.getElementById('random-form');
 const randomOutputEl = document.getElementById('random-output');
@@ -17,12 +18,20 @@ function formatFloat(num, precision) {
   if (!isFinite(num)) return '—';
   const p = Math.max(0, Math.min(10, precision || 0));
   const r = parseFloat(num.toFixed(p));
-  // форматируем по-русски
   return String(r).replace('.', ',');
 }
 
+function showError(message) {
+  randomNoteEl.textContent = message;
+  randomNoteEl.classList.add('error');
+}
+
+function showSuccess(message) {
+  randomNoteEl.textContent = message;
+  randomNoteEl.classList.remove('error');
+}
+
 function generateRandomInt(min, max) {
-  // включительно [min, max]
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -33,26 +42,16 @@ function generateRandomFloat(min, max, precision) {
 
 function addToHistory(resultStr, params) {
   if (!randomHistoryEl) return;
-
   const time = new Date();
   const hh = String(time.getHours()).padStart(2, '0');
   const mm = String(time.getMinutes()).padStart(2, '0');
   const ss = String(time.getSeconds()).padStart(2, '0');
-
   const row = document.createElement('div');
   row.className = 'random-history-row';
-  row.innerHTML = `
-    <div class="random-history-time">${hh}:${mm}:${ss}</div>
-    <div class="random-history-data">${resultStr}</div>
-  `;
-
+  row.innerHTML = `<div class="random-history-time">${hh}:${mm}:${ss}</div><div class="random-history-data">${resultStr}</div>`;
   randomHistoryEl.prepend(row);
-
-  // ограничим историю последними 10 записями
   const rows = randomHistoryEl.querySelectorAll('.random-history-row');
-  if (rows.length > 10) {
-    rows[rows.length - 1].remove();
-  }
+  if (rows.length > 10) rows[rows.length - 1].remove();
 }
 
 if (randomForm) {
@@ -75,7 +74,6 @@ if (randomForm) {
       if (maxVal < minVal) {
         throw new Error('Максимальное значение должно быть не меньше минимального.');
       }
-
       if (isNaN(count) || count <= 0) count = 1;
       if (count > 1000) {
         throw new Error('Количество чисел не должно превышать 1000.');
@@ -85,16 +83,13 @@ if (randomForm) {
       if (unique && type === 'int') {
         const available = Math.floor(maxVal) - Math.ceil(minVal) + 1;
         if (available < count) {
-          throw new Error(
-            `Нельзя сгенерировать ${count} уникальных целых чисел в диапазоне с таким количеством значений.`
-          );
+          throw new Error(`Нельзя сгенерировать ${count} уникальных целых чисел в диапазоне с таким количеством значений.`);
         }
       }
 
       let results = [];
 
       if (type === 'int') {
-        // целые числа
         if (unique) {
           const used = new Set();
           while (results.length < count) {
@@ -106,12 +101,10 @@ if (randomForm) {
           }
         } else {
           for (let i = 0; i < count; i++) {
-            const v = generateRandomInt(Math.ceil(minVal), Math.floor(maxVal));
-            results.push(v);
+            results.push(generateRandomInt(Math.ceil(minVal), Math.floor(maxVal)));
           }
         }
       } else {
-        // числа с дробной частью
         const p = Math.max(0, Math.min(10, precision));
         if (unique) {
           const used = new Set();
@@ -124,50 +117,34 @@ if (randomForm) {
               results.push(v);
             }
             safety++;
-            if (safety > count * 50) break; // защита от вечного цикла
+            if (safety > count * 50) break;
           }
           if (results.length < count) {
-            throw new Error(
-              'Не удалось сгенерировать указанное количество уникальных значений с заданной точностью.'
-            );
+            throw new Error('Не удалось сгенерировать указанное количество уникальных значений с заданной точностью.');
           }
         } else {
           for (let i = 0; i < count; i++) {
-            const v = generateRandomFloat(minVal, maxVal, p);
-            results.push(v);
+            results.push(generateRandomFloat(minVal, maxVal, p));
           }
         }
       }
 
-      // сортировка
-      if (sort === 'asc') {
-        results.sort((a, b) => a - b);
-      } else if (sort === 'desc') {
-        results.sort((a, b) => b - a);
-      }
+      if (sort === 'asc') results.sort((a, b) => a - b);
+      else if (sort === 'desc') results.sort((a, b) => b - a);
 
-      // форматируем вывод
-      const formatted =
-        type === 'int'
-          ? results.join(', ')
-          : results.map((v) => formatFloat(v, precision)).join(', ');
+      const formatted = type === 'int'
+        ? results.join(', ')
+        : results.map((v) => formatFloat(v, precision)).join(', ');
 
       randomOutputEl.textContent = formatted || '—';
-
-      randomNoteEl.textContent =
-        `Сгенерировано ${results.length} значен(ия/ий) в диапазоне от ${minVal} до ${maxVal}.` +
-        (unique ? ' Повторы исключены.' : '');
-      randomNoteEl.classList.remove('error');
-
+      showSuccess(`Сгенерировано ${results.length} значен(ия/ий) в диапазоне от ${minVal} до ${maxVal}.${unique ? ' Повторы исключены.' : ''}`);
       addToHistory(formatted, { minVal, maxVal, count, type, precision, sort, unique });
     } catch (err) {
       randomOutputEl.textContent = '—';
-      randomNoteEl.textContent = err.message || 'Ошибка ввода.';
-      randomNoteEl.classList.add('error');
+      showError(err.message || 'Ошибка ввода.');
     }
   });
 
-  // пресеты (кубик, монетка, 6 из 49)
   presetButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const preset = btn.dataset.preset;
@@ -190,7 +167,6 @@ if (randomForm) {
         sortSelect.value = 'none';
         uniqueCheckbox.checked = false;
       } else if (preset === 'coin') {
-        // монетка будем показывать текстом
         minInput.value = 0;
         maxInput.value = 1;
         countInput.value = 1;
@@ -198,12 +174,9 @@ if (randomForm) {
         precisionInput.value = 0;
         sortSelect.value = 'none';
         uniqueCheckbox.checked = false;
-
-        // сразу "подменим" вывод
         const flip = Math.random() < 0.5 ? 'Орёл' : 'Решка';
         randomOutputEl.textContent = flip;
-        randomNoteEl.textContent = 'Брошена монетка (имитация случайного выбора).';
-        randomNoteEl.classList.remove('error');
+        showSuccess('Брошена монетка (имитация случайного выбора).');
         addToHistory(flip, { preset: 'coin' });
         return;
       } else if (preset === '6of49') {
@@ -215,19 +188,14 @@ if (randomForm) {
         sortSelect.value = 'asc';
         uniqueCheckbox.checked = true;
       }
-
-      // после пресета просто фокус на кнопку "Сгенерировать"
       randomForm.querySelector('.btn-calc')?.focus();
     });
   });
 
-  // очистка результата и истории
   if (randomClearBtn) {
     randomClearBtn.addEventListener('click', () => {
       randomOutputEl.textContent = '—';
-      randomNoteEl.textContent =
-        'Укажите диапазон, количество чисел и нажмите «Сгенерировать».';
-      randomNoteEl.classList.remove('error');
+      showSuccess('Укажите диапазон, количество чисел и нажмите «Сгенерировать».');
       if (randomHistoryEl) randomHistoryEl.innerHTML = '';
     });
   }
