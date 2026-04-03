@@ -82,7 +82,7 @@ main {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--accent); /* тот же синий, что и у кнопок расчёта */
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -90,14 +90,11 @@ main {
   color: var(--accent-dark);
 }
 
-
 .main-nav {
   display: flex;
   align-items: center;
   gap: 18px;
 }
-
-/* одиночная ссылка "Главная" */
 
 .nav-link {
   font-size: 12px;
@@ -109,8 +106,6 @@ main {
 .nav-link:hover {
   color: var(--text-main);
 }
-
-/* выпадающее меню "Выбор калькулятора" */
 
 .nav-dropdown {
   position: relative;
@@ -516,16 +511,14 @@ footer .container {
   line-height: 1.6;
 }
 
-/* делаем калькулятор пошире и ниже от заголовка */
 .calculator-wide {
   max-width: 640px;
   width: 100%;
   margin: 32px auto 36px;
 }
 
-/* блок с описанием под калькулятором */
 .calculator-info {
-  width: 100%;                 /* занимаем всю ширину контейнера */
+  width: 100%;
   margin: 0 auto 48px;
   background: var(--bg-card);
   border-radius: 18px;
@@ -614,7 +607,7 @@ footer .container {
 
 .percent-top {
   display: flex;
-  align-items: center;       /* было flex-end */
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 18px;
@@ -726,8 +719,6 @@ footer .container {
   box-shadow: 0 6px 16px rgba(0, 113, 227, 0.45);
 }
 
-/* Крупный и более отделённый результат */
-
 .percent-result {
   margin-top: 20px;
   padding-top: 10px;
@@ -773,8 +764,6 @@ footer .container {
   color: var(--text-secondary);
   max-width: 720px;
 }
-
-/* Кнопки описаний — сетка на всю ширину */
 
 .scenario-info-list {
   display: grid;
@@ -917,8 +906,6 @@ footer .container {
   line-height: 1.5;
 }
 
-/* пол, активность, селекты */
-
 .kbju-radio-group {
   display: flex;
   gap: 12px;
@@ -987,16 +974,12 @@ footer .container {
   margin-bottom: 0;
 }
 
-/* показываем подсказку при наведении на иконку или подпись */
-
 .kbju-label-with-info:hover .info-tooltip,
 .kbju-label-with-info:focus-within .info-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-
-/* селекты в карточке КБЖУ используют общий стиль percent-field */
 
 .kbju-card select {
   padding: 9px 11px;
@@ -1011,8 +994,6 @@ footer .container {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
 }
-
-/* Кнопки и результаты */
 
 .kbju-actions {
   margin-top: 10px;
@@ -1041,8 +1022,6 @@ footer .container {
   font-size: 16px;
   font-weight: 600;
 }
-
-/* Блок с КБЖУ */
 
 .kbju-macros {
   margin-top: 12px;
@@ -1081,7 +1060,6 @@ footer .container {
   color: #d0021b;
 }
 
-
 .btn-import {
   padding: 7px 14px;
   border-radius: 999px;
@@ -1102,8 +1080,6 @@ footer .container {
   background: #e5e5ea;
   border-color: #c2c2c7;
 }
-
-/* Блок описания и предупреждений */
 
 .kbju-info {
   width: 100%;
@@ -1142,8 +1118,6 @@ footer .container {
   margin-bottom: 4px;
 }
 
-/* FAQ под калькулятором КБЖУ */
-
 .kbju-faq {
   width: 100%;
   margin: 16px auto 56px;
@@ -1170,8 +1144,6 @@ footer .container {
   line-height: 1.6;
 }
 
-/* Адаптив для КБЖУ */
-
 @media (max-width: 768px) {
   .kbju-grid {
     flex-direction: column;
@@ -1194,8 +1166,6 @@ footer .container {
   margin-top: 12px;
 }
 
-/* группа поля "первоначальный взнос" */
-
 .mortgage-dp-group {
   display: flex;
   gap: 8px;
@@ -1216,7 +1186,6 @@ footer .container {
   color: var(--text-secondary);
 }
 
-
 .mortgage-select-inline {
   padding: 9px 11px;
   border-radius: 10px;
@@ -1236,8 +1205,6 @@ footer .container {
   font-size: 12px;
   color: var(--text-secondary);
 }
-
-/* результаты */
 
 .mortgage-results {
   margin-top: 20px;
@@ -1288,14 +1255,10 @@ footer .container {
   font-weight: 600;
 }
 
-
 .mortgage-result-small {
   font-size: 15px;
   font-weight: 600;
 }
-
-
-/* блок описания ипотеки */
 
 .mortgage-info {
   width: 100%;
@@ -1345,7 +1308,7 @@ footer .container {
 .mortgage-card select,
 .credit-card select {
   width: 100%;
-  padding: 9px 30px 9px 11px; /* справа место под стрелку */
+  padding: 9px 30px 9px 11px;
   border-radius: 10px;
   border: 1px solid #d2d2d7;
   font-size: 14px;
@@ -1354,8 +1317,6 @@ footer .container {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
-  /* стрелка, как в других селекторах на сайте */
   background-image:
     linear-gradient(45deg, transparent 50%, #888 50%),
     linear-gradient(135deg, #888 50%, transparent 50%);
@@ -1410,8 +1371,6 @@ footer .container {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
 }
-
-/* мини-календарь */
 
 .mini-calendar {
   background: #f5f5f7;
@@ -1508,8 +1467,6 @@ footer .container {
   background: #e5f1ff;
 }
 
-/* чекбокс и кнопка расчёта */
-
 .date-options-row {
   margin-top: 16px;
   margin-bottom: 6px;
@@ -1526,8 +1483,6 @@ footer .container {
 .date-actions {
   margin-top: 4px;
 }
-
-/* результаты */
 
 .date-results {
   margin-top: 18px;
@@ -1567,8 +1522,6 @@ footer .container {
   font-size: 16px;
   font-weight: 600;
 }
-
-/* блок описания */
 
 .date-info {
   width: 100%;
@@ -1623,7 +1576,6 @@ footer .container {
     padding: 0 12px;
   }
 
-  /* Hero-блок: меньше отступы, компактнее */
   .hero {
     padding: 20px 0 10px;
   }
@@ -1636,7 +1588,6 @@ footer .container {
     max-width: 100%;
   }
 
-  /* Общие карточки и калькуляторы на всю ширину */
   .calculator,
   .calculator-wide,
   .kbju-card,
@@ -1649,7 +1600,6 @@ footer .container {
     padding: 16px 14px 18px;
   }
 
-  /* Кнопки обычного калькулятора покрупнее */
   .btn {
     font-size: 18px;
     padding: 14px 0;
@@ -1661,7 +1611,6 @@ footer .container {
     min-height: 48px;
   }
 
-  /* Поля ввода побольше и удобнее для пальцев */
   .percent-field input,
   .kbju-card select,
   .mortgage-dp-group input,
@@ -1677,7 +1626,6 @@ footer .container {
     font-size: 14px;
   }
 
-  /* Мини-календарь: чуть крупнее цифры */
   .mini-cal-day {
     font-size: 13px;
     padding: 6px 0;
@@ -1689,7 +1637,6 @@ footer .container {
 }
 
 @media (max-width: 400px) {
-  /* Совсем узкие экраны: ещё чуть поджать поля и отступы */
   .container {
     padding: 0 8px;
   }
@@ -1766,8 +1713,6 @@ footer .container {
   font-weight: 600;
 }
 
-/* блок описания ИМТ */
-
 .bmi-info {
   width: 100%;
   margin: 8px auto 56px;
@@ -1816,6 +1761,42 @@ footer .container {
     font-size: 26px;
   }
 }
+
+/* === Дополнительные стили для ИМТ === */
+
+/* Увеличенный отступ между кнопками "Рассчитать" и "Очистить" */
+.kbju-actions {
+  gap: 16px;
+}
+
+/* Стили для блока с результатами и пояснениями – увеличиваем межстрочный интервал и отступы */
+.bmi-result .kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.bmi-details {
+  margin-bottom: 12px;
+}
+
+.bmi-detail-label {
+  margin-bottom: 4px;
+}
+
+.bmi-detail-value {
+  margin-bottom: 8px;
+}
+
+/* Улучшенное отображение сообщений об ошибках */
+.kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
 /* === Генератор случайных чисел === */
 
 .random-card {
@@ -1897,8 +1878,6 @@ footer .container {
   word-wrap: break-word;
 }
 
-/* история генераций */
-
 .random-history {
   margin-top: 10px;
   border-top: 1px dashed #e0e0e5;
@@ -1922,8 +1901,6 @@ footer .container {
 .random-history-data {
   flex: 1;
 }
-
-/* блок описания */
 
 .random-info {
   width: 100%;
@@ -1961,7 +1938,7 @@ footer .container {
 
 .random-card select {
   width: 100%;
-  padding: 9px 30px 9px 11px; /* справа место под стрелку */
+  padding: 9px 30px 9px 11px;
   border-radius: 10px;
   border: 1px solid #d2d2d7;
   font-size: 14px;
@@ -1970,8 +1947,6 @@ footer .container {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
-  /* стрелка как у других селектов */
   background-image:
     linear-gradient(45deg, transparent 50%, #888 50%),
     linear-gradient(135deg, #888 50%, transparent 50%);
@@ -2064,8 +2039,6 @@ footer .container {
   font-weight: 600;
 }
 
-/* описание под калькулятором */
-
 .product-info {
   width: 100%;
   margin: 8px auto 32px;
@@ -2086,8 +2059,6 @@ footer .container {
   color: var(--text-secondary);
   line-height: 1.6;
 }
-
-/* блок описаний сценариев */
 
 .product-scenarios-info {
   width: 100%;
@@ -2166,8 +2137,6 @@ footer .container {
   padding: 0;
 }
 
-/* FAQ под калькулятором стоимости товара */
-
 .product-faq {
   width: 100%;
   margin: 16px auto 56px;
@@ -2194,8 +2163,6 @@ footer .container {
   line-height: 1.6;
 }
 
-/* адаптив */
-
 @media (max-width: 600px) {
   .product-card {
     max-width: 100%;
@@ -2210,4 +2177,452 @@ footer .container {
   .product-scenario-info-list {
     grid-template-columns: 1fr;
   }
+}
+/* === Дополнительные стили для кредитного калькулятора === */
+
+/* Увеличенный отступ между кнопками */
+.credit-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках (единообразие с ИМТ) */
+.credit-results .kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+/* Улучшенный вид блока результатов */
+.credit-results {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.credit-result-main {
+  margin-bottom: 14px;
+}
+
+.credit-result-value {
+  font-size: 24px;
+  font-weight: 600;
+}
+/* === Улучшенные интервалы для кредитного калькулятора (как в ИМТ) === */
+
+.credit-results .mortgage-results-grid {
+  margin-bottom: 16px;
+}
+
+.credit-results .mortgage-result-label {
+  margin-bottom: 4px;
+}
+
+.credit-results .mortgage-result-small {
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.credit-results .kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.credit-result-main {
+  margin-bottom: 16px;
+}
+
+.credit-result-label {
+  margin-bottom: 4px;
+}
+/* === Дополнительные стили для калькулятора дней === */
+
+/* Переключатель режимов */
+.date-mode-switch {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.date-mode-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+}
+
+.date-mode-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.35);
+}
+
+.date-mode-btn:hover:not(.active) {
+  background: #e5e5ea;
+  border-color: #c2c2c7;
+}
+
+/* Панели режимов */
+.date-mode-panel {
+  display: none;
+}
+
+.date-mode-panel.active {
+  display: block;
+}
+
+/* Увеличенные отступы и интервалы */
+.date-results {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.date-main-result {
+  margin-bottom: 16px;
+}
+
+.date-main-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.date-main-number {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.date-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.date-detail-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.date-detail-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Стилизованные сообщения об ошибках */
+.date-results .kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.date-results .kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Отступы для кнопок */
+.date-actions {
+  gap: 16px;
+  margin-top: 20px;
+}
+/* === Дополнительные стили для ипотечного калькулятора === */
+
+/* Увеличенный отступ между кнопками */
+.mortgage-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках (единообразие с ИМТ) */
+.mortgage-results .kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.mortgage-results .kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Улучшенные интервалы для результатов */
+.mortgage-results {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.mortgage-result-main {
+  margin-bottom: 16px;
+}
+
+.mortgage-result-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.mortgage-result-value {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.mortgage-results-grid {
+  margin-bottom: 16px;
+}
+
+.mortgage-results-grid .mortgage-result-label {
+  margin-bottom: 4px;
+}
+
+.mortgage-results-grid .mortgage-result-small {
+  margin-bottom: 8px;
+  display: inline-block;
+}
+/* === Дополнительные стили для калькулятора КБЖУ === */
+
+/* Увеличенный отступ между кнопками */
+.kbju-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках (единообразие с ИМТ) */
+.kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Улучшенные интервалы для результатов */
+.kbju-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.kbju-result-row {
+  margin-bottom: 12px;
+}
+
+.kbju-macros {
+  margin-top: 16px;
+}
+
+.kbju-macros-grid {
+  margin-bottom: 12px;
+}
+
+/* Кнопка импорта */
+.btn-import {
+  margin-top: 24px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+}
+
+.btn-import:hover {
+  background: #e5e5ea;
+  border-color: #c2c2c7;
+}
+/* === Дополнительные стили для калькулятора КБЖУ === */
+
+/* Увеличенный отступ между кнопками */
+.kbju-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках */
+.kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Улучшенные интервалы для результатов */
+.kbju-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.kbju-result-row {
+  margin-bottom: 12px;
+}
+
+.kbju-macros {
+  margin-top: 16px;
+}
+
+.kbju-macros-grid {
+  margin-bottom: 12px;
+}
+
+/* Выравнивание строки с целью и кнопкой импорта */
+.kbju-progress-row {
+  align-items: flex-end;
+}
+
+.kbju-import-cell {
+  display: flex;
+  align-items: flex-end;
+}
+
+.kbju-import-cell .btn-import {
+  margin-top: 0;
+  width: 100%;
+}
+
+.btn-import {
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-import:hover {
+  background: #e5e5ea;
+  border-color: #c2c2c7;
+}
+
+/* === Стили для селекторов (стрелки левее) === */
+
+/* Для всех селектов на сайте */
+select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+}
+
+/* Специально для селектов в карточках КБЖУ */
+.kbju-card select,
+.percent-field select,
+.mortgage-card select,
+.credit-card select,
+.random-card select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+}
+/* === Дополнительные стили для калькулятора процентов === */
+
+/* Увеличенный отступ между кнопками */
+.percent-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках */
+.percent-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.percent-note {
+  margin-top: 8px;
+  line-height: 1.5;
+  font-size: 12px;
+}
+
+/* Улучшенные интервалы для результатов */
+.percent-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.percent-result-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Стрелки селекторов левее */
+.percent-scenario-select select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
+}
+/* === Дополнительные стили для калькулятора стоимости товара === */
+
+/* Увеличенный отступ между кнопками */
+.product-actions {
+  gap: 16px;
+}
+
+/* Стили для сообщений об ошибках */
+.kbju-note.error {
+  color: #d0021b;
+  background-color: rgba(208, 2, 27, 0.05);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+
+.kbju-note {
+  margin-top: 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* Улучшенные интервалы для результатов */
+.product-result {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f2;
+}
+
+.product-main-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-details-grid {
+  margin-bottom: 12px;
+}
+
+/* Стрелки селектора левее */
+.percent-scenario-select select {
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
 }
