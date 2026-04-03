@@ -30,6 +30,9 @@ gridEl.addEventListener('click', (e) => {
     case 'clear':
       handleClear();
       break;
+    case 'backspace':
+      handleBackspace();
+      break;
     case 'plusminus':
       handlePlusMinus();
       break;
@@ -95,6 +98,20 @@ function handleClear() {
   justEvaluated = false;
 }
 
+function handleBackspace() {
+  if (expression === 'Ошибка') {
+    expression = '0';
+    justEvaluated = false;
+    return;
+  }
+  if (expression.length === 1) {
+    expression = '0';
+  } else {
+    expression = expression.slice(0, -1);
+  }
+  justEvaluated = false;
+}
+
 function handlePlusMinus() {
   if (expression === 'Ошибка') return;
 
@@ -151,8 +168,12 @@ function handleEquals() {
   if (expression === 'Ошибка') return;
 
   try {
-    // вычисляем выражение
-    const result = eval(expression);
+    // Проверка на опасные символы (только математические)
+    if (/[^0-9+\-*/%(). ]/i.test(expression)) {
+      throw new Error('Недопустимые символы');
+    }
+    // Используем Function вместо eval для большей безопасности
+    const result = new Function('return (' + expression + ')')();
     expression = String(result);
     justEvaluated = true;
   } catch (err) {
@@ -160,16 +181,6 @@ function handleEquals() {
     justEvaluated = true;
   }
 }
-
-// визуальное переключение DEG/RAD (пока без влияния на расчёты)
-document.querySelectorAll('.mode-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mode-btn').forEach((b) =>
-      b.classList.remove('active')
-    );
-    btn.classList.add('active');
-  });
-});
 
 // начальный вывод
 updateDisplay();

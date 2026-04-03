@@ -1,6 +1,7 @@
 // Кредитный калькулятор (аннуитет / дифференцированный)
 
 const creditForm = document.getElementById('credit-form');
+const creditClearBtn = document.getElementById('credit-clear-btn');
 
 const crPayEl = document.getElementById('cr-pay');
 const crAmountEl = document.getElementById('cr-amount');
@@ -34,6 +35,39 @@ function cPercent(n, digits = 1) {
   return r.toLocaleString('ru-RU') + ' %';
 }
 
+function resetCreditForm() {
+  const formElements = creditForm.elements;
+  if (formElements['amount']) formElements['amount'].value = '';
+  if (formElements['rate']) formElements['rate'].value = '';
+  if (formElements['years']) formElements['years'].value = '';
+  if (formElements['months']) formElements['months'].value = '';
+  if (formElements['income']) formElements['income'].value = '';
+  if (formElements['paymentType']) formElements['paymentType'].value = 'annuity';
+
+  // Сброс результатов
+  crPayEl.textContent = '—';
+  crAmountEl.textContent = '—';
+  crMonthsEl.textContent = '—';
+  crTotalEl.textContent = '—';
+  crInterestEl.textContent = '—';
+  crOverpayPctEl.textContent = '—';
+  crIncomeShareEl.textContent = '—';
+  crNoteEl.textContent = 'Заполните поля и нажмите «Рассчитать кредит».';
+  crNoteEl.classList.remove('error');
+}
+
+function showError(message) {
+  crPayEl.textContent = '—';
+  crAmountEl.textContent = '—';
+  crMonthsEl.textContent = '—';
+  crTotalEl.textContent = '—';
+  crInterestEl.textContent = '—';
+  crOverpayPctEl.textContent = '—';
+  crIncomeShareEl.textContent = '—';
+  crNoteEl.textContent = message;
+  crNoteEl.classList.add('error');
+}
+
 if (creditForm) {
   creditForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -46,34 +80,33 @@ if (creditForm) {
     const income = cNum(formData.get('income'));
     const paymentType = formData.get('paymentType') || 'annuity';
 
+    // Валидация
+    if (!amount || amount <= 0) {
+      showError('Укажите сумму кредита (должна быть больше нуля).');
+      return;
+    }
+    if (rate == null || isNaN(rate) || rate < 0) {
+      showError('Укажите процентную ставку (неотрицательное число).');
+      return;
+    }
+
+    let totalMonths = 0;
+    if (!isNaN(years) && years > 0) totalMonths += years * 12;
+    if (!isNaN(monthsInput) && monthsInput > 0) totalMonths += monthsInput;
+
+    if (totalMonths <= 0) {
+      showError('Укажите срок кредита (хотя бы 1 месяц).');
+      return;
+    }
+
+    const monthlyRate = rate / 100 / 12;
+    let paymentText = '—';
+    let totalPaid = 0;
+    let interestPaid = 0;
+    let overpayPct = 0;
+
     try {
-      if (!amount || amount <= 0) {
-        throw new Error('Укажите сумму кредита.');
-      }
-      if (rate == null || isNaN(rate)) {
-        throw new Error('Укажите процентную ставку.');
-      }
-
-      let totalMonths = 0;
-      if (!isNaN(years) && years > 0) {
-        totalMonths += years * 12;
-      }
-      if (!isNaN(monthsInput) && monthsInput > 0) {
-        totalMonths += monthsInput;
-      }
-
-      if (totalMonths <= 0) {
-        throw new Error('Укажите срок кредита (годы и/или месяцы).');
-      }
-
-      const monthlyRate = rate / 100 / 12;
-      let paymentText = '—';
-      let totalPaid = 0;
-      let interestPaid = 0;
-      let overpayPct = 0;
-
       if (paymentType === 'annuity') {
-        // Аннуитет: равный ежемесячный платёж
         let payment;
         if (monthlyRate === 0) {
           payment = amount / totalMonths;
@@ -82,11 +115,9 @@ if (creditForm) {
           const k = (monthlyRate * pow) / (pow - 1);
           payment = amount * k;
         }
-
         totalPaid = payment * totalMonths;
         interestPaid = totalPaid - amount;
         overpayPct = (interestPaid / amount) * 100;
-
         paymentText = cMoney(payment);
       } else {
         // Дифференцированные платежи
@@ -104,29 +135,34 @@ if (creditForm) {
           if (i === 0) firstPayment = payment;
           if (i === n - 1) lastPayment = payment;
         }
-
         totalPaid = sum;
         interestPaid = totalPaid - amount;
         overpayPct = (interestPaid / amount) * 100;
 
-        paymentText =
-          `первый платёж: ${cMoney(firstPayment)}, ` +
-          `последний: ${cMoney(lastPayment)}`;
+        // Показываем диапазон платежей
+        paymentText = `от ${cMoney(lastPayment)} до ${cMoney(firstPayment)} ₽`;
       }
 
       let incomeShare = NaN;
       if (income && income > 0 && paymentType === 'annuity') {
-        // для аннуитета долю считаем по одному платежу
-        const monthlyRateLocal = rate / 100 / 12;
-        let payment;
-        if (monthlyRateLocal === 0) {
-          payment = amount / totalMonths;
+        // Для аннуитета считаем долю по одному платежу
+        let paymentForShare;
+        if (monthlyRate === 0) {
+          paymentForShare = amount / totalMonths;
         } else {
-          const pow = Math.pow(1 + monthlyRateLocal, totalMonths);
-          const k = (monthlyRateLocal * pow) / (pow - 1);
-          payment = amount * k;
+          const pow = Math.pow(1 + monthlyRate, totalMonths);
+          const k = (monthlyRate * pow) / (pow - 1);
+          paymentForShare = amount * k;
         }
-        incomeShare = (payment / income) * 100;
+        incomeShare = (paymentForShare / income) * 100;
+      } else if (income && income > 0 && paymentType === 'diff') {
+        // Для дифференцированных – показываем диапазон доли
+        const principalPart = amount / totalMonths;
+        const firstPaymentShare = (principalPart + (amount * monthlyRate)) / income * 100;
+        const lastPaymentShare = (principalPart + (principalPart * monthlyRate)) / income * 100;
+        crIncomeShareEl.textContent = `от ${cPercent(lastPaymentShare)} до ${cPercent(firstPaymentShare)}`;
+        // отдельно установим incomeShare, чтобы не выводить лишнее
+        incomeShare = NaN;
       }
 
       // Вывод
@@ -137,27 +173,24 @@ if (creditForm) {
       crInterestEl.textContent = cMoney(interestPaid);
       crOverpayPctEl.textContent = cPercent(overpayPct);
 
-      crIncomeShareEl.textContent =
-        isFinite(incomeShare) && incomeShare > 0
-          ? cPercent(incomeShare)
-          : '—';
+      if (paymentType === 'annuity' && !isNaN(incomeShare) && incomeShare > 0) {
+        crIncomeShareEl.textContent = cPercent(incomeShare);
+      } else if (paymentType !== 'diff') {
+        crIncomeShareEl.textContent = '—';
+      }
 
-      crNoteEl.textContent =
-        paymentType === 'annuity'
-          ? 'Расчёт выполнен по аннуитетной схеме (равные ежемесячные платежи). Фактические условия банка могут отличаться.'
-          : 'Расчёт выполнен по дифференцированной схеме (убывающие платежи). Фактические условия банка могут отличаться.';
+      crNoteEl.textContent = paymentType === 'annuity'
+        ? 'Расчёт выполнен по аннуитетной схеме (равные ежемесячные платежи). Фактические условия банка могут отличаться.'
+        : 'Расчёт выполнен по дифференцированной схеме (убывающие платежи). Показан диапазон от минимального до максимального платежа.';
       crNoteEl.classList.remove('error');
     } catch (err) {
-      crPayEl.textContent = '—';
-      crAmountEl.textContent = '—';
-      crMonthsEl.textContent = '—';
-      crTotalEl.textContent = '—';
-      crInterestEl.textContent = '—';
-      crOverpayPctEl.textContent = '—';
-      crIncomeShareEl.textContent = '—';
-
-      crNoteEl.textContent = err.message || 'Ошибка ввода.';
-      crNoteEl.classList.add('error');
+      showError('Ошибка расчёта. Проверьте введённые данные.');
     }
+  });
+}
+
+if (creditClearBtn) {
+  creditClearBtn.addEventListener('click', () => {
+    resetCreditForm();
   });
 }

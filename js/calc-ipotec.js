@@ -1,6 +1,7 @@
-// Ипотечный калькулятор (аннуитетные платежи)
+// Ипотечный калькулятор (аннуитетные и дифференцированные платежи)
 
 const mortgageForm = document.getElementById('mortgage-form');
+const mortgageClearBtn = document.getElementById('mortgage-clear-btn');
 
 const elPay = document.getElementById('m-pay');
 const elLoan = document.getElementById('m-loan');
@@ -34,6 +35,43 @@ function fmtPercent(n, digits = 1) {
   return r.toLocaleString('ru-RU') + ' %';
 }
 
+function showError(message) {
+  elPay.textContent = '—';
+  elLoan.textContent = '—';
+  elMonths.textContent = '—';
+  elTotal.textContent = '—';
+  elInterest.textContent = '—';
+  elOverpayPct.textContent = '—';
+  elIncomeShare.textContent = '—';
+  elNote.textContent = message;
+  elNote.classList.add('error');
+}
+
+function showSuccess(message) {
+  elNote.textContent = message;
+  elNote.classList.remove('error');
+}
+
+function resetMortgageForm() {
+  const formElements = mortgageForm.elements;
+  if (formElements['price']) formElements['price'].value = '';
+  if (formElements['years']) formElements['years'].value = '';
+  if (formElements['downValue']) formElements['downValue'].value = '';
+  if (formElements['downType']) formElements['downType'].value = 'percent';
+  if (formElements['rate']) formElements['rate'].value = '';
+  if (formElements['paymentType']) formElements['paymentType'].value = 'annuity';
+  if (formElements['income']) formElements['income'].value = '';
+
+  elPay.textContent = '—';
+  elLoan.textContent = '—';
+  elMonths.textContent = '—';
+  elTotal.textContent = '—';
+  elInterest.textContent = '—';
+  elOverpayPct.textContent = '—';
+  elIncomeShare.textContent = '—';
+  showSuccess('Заполните поля и нажмите «Рассчитать ипотеку».');
+}
+
 if (mortgageForm) {
   mortgageForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -45,83 +83,136 @@ if (mortgageForm) {
     const downType = formData.get('downType') || 'percent';
     const rate = num(formData.get('rate'));
     const income = num(formData.get('income'));
+    const paymentType = formData.get('paymentType') || 'annuity';
+
+    // Валидация
+    if (!price || price <= 0) {
+      showError('Укажите стоимость недвижимости (должна быть больше нуля).');
+      return;
+    }
+    if (!years || years <= 0) {
+      showError('Укажите срок кредита в годах (больше нуля).');
+      return;
+    }
+    if (rate == null || isNaN(rate) || rate < 0) {
+      showError('Укажите процентную ставку (неотрицательное число).');
+      return;
+    }
+
+    let downPayment = 0;
+    if (!isNaN(downValue) && downValue > 0) {
+      if (downType === 'percent') {
+        if (downValue >= 100) {
+          showError('Первоначальный взнос в процентах должен быть меньше 100%.');
+          return;
+        }
+        downPayment = (price * downValue) / 100;
+      } else {
+        if (downValue >= price) {
+          showError('Первоначальный взнос не может быть больше или равен стоимости.');
+          return;
+        }
+        downPayment = downValue;
+      }
+    }
+
+    const loanAmount = price - downPayment;
+    if (loanAmount <= 0) {
+      showError('Сумма кредита должна быть больше нуля (уменьшите первоначальный взнос).');
+      return;
+    }
+
+    const months = Math.round(years * 12);
+    const monthlyRate = rate / 100 / 12;
+    let paymentText = '—';
+    let totalPaid = 0;
+    let interestPaid = 0;
+    let overpayPct = 0;
 
     try {
-      if (!price || !years || rate == null || isNaN(rate)) {
-        throw new Error('Заполните стоимость, срок и процентную ставку.');
-      }
-
-      if (price <= 0 || years <= 0 || rate < 0) {
-        throw new Error('Проверьте корректность введённых значений.');
-      }
-
-      let downPayment = 0;
-      if (!isNaN(downValue) && downValue > 0) {
-        if (downType === 'percent') {
-          if (downValue >= 100) {
-            throw new Error('Первоначальный взнос в процентах должен быть меньше 100%.');
-          }
-          downPayment = (price * downValue) / 100;
+      if (paymentType === 'annuity') {
+        // Аннуитетный платёж
+        let payment;
+        if (monthlyRate === 0) {
+          payment = loanAmount / months;
         } else {
-          if (downValue >= price) {
-            throw new Error('Первоначальный взнос не может быть больше или равен стоимости.');
-          }
-          downPayment = downValue;
+          const pow = Math.pow(1 + monthlyRate, months);
+          const k = (monthlyRate * pow) / (pow - 1);
+          payment = loanAmount * k;
         }
-      }
-
-      const loanAmount = price - downPayment;
-      if (loanAmount <= 0) {
-        throw new Error('Сумма кредита должна быть больше нуля.');
-      }
-
-      const months = Math.round(years * 12);
-      const monthlyRate = rate / 100 / 12;
-
-      let payment;
-      if (monthlyRate === 0) {
-        payment = loanAmount / months;
+        totalPaid = payment * months;
+        interestPaid = totalPaid - loanAmount;
+        overpayPct = (interestPaid / loanAmount) * 100;
+        paymentText = fmtMoney(payment);
       } else {
-        const k = monthlyRate * Math.pow(1 + monthlyRate, months) /
-                  (Math.pow(1 + monthlyRate, months) - 1);
-        payment = loanAmount * k;
+        // Дифференцированные платежи
+        const n = months;
+        const principalPart = loanAmount / n;
+        let sum = 0;
+        let firstPayment = 0;
+        let lastPayment = 0;
+
+        for (let i = 0; i < n; i++) {
+          const remaining = loanAmount - principalPart * i;
+          const interestForMonth = remaining * monthlyRate;
+          const payment = principalPart + interestForMonth;
+          sum += payment;
+          if (i === 0) firstPayment = payment;
+          if (i === n - 1) lastPayment = payment;
+        }
+        totalPaid = sum;
+        interestPaid = totalPaid - loanAmount;
+        overpayPct = (interestPaid / loanAmount) * 100;
+        paymentText = `от ${fmtMoney(lastPayment)} до ${fmtMoney(firstPayment)} ₽`;
       }
 
-      const totalPaid = payment * months;
-      const interestPaid = totalPaid - loanAmount;
-      const overpayPct = (interestPaid / loanAmount) * 100;
-
+      // Расчёт доли платежа от дохода
       let incomeShare = NaN;
-      if (income && income > 0) {
-        incomeShare = (payment / income) * 100;
+      if (income && income > 0 && paymentType === 'annuity') {
+        let paymentForShare;
+        if (monthlyRate === 0) {
+          paymentForShare = loanAmount / months;
+        } else {
+          const pow = Math.pow(1 + monthlyRate, months);
+          const k = (monthlyRate * pow) / (pow - 1);
+          paymentForShare = loanAmount * k;
+        }
+        incomeShare = (paymentForShare / income) * 100;
+      } else if (income && income > 0 && paymentType === 'diff') {
+        // Для дифференцированных – показываем диапазон доли
+        const principalPart = loanAmount / months;
+        const firstPaymentShare = (principalPart + (loanAmount * monthlyRate)) / income * 100;
+        const lastPaymentShare = (principalPart + (principalPart * monthlyRate)) / income * 100;
+        elIncomeShare.textContent = `от ${fmtPercent(lastPaymentShare)} до ${fmtPercent(firstPaymentShare)}`;
+        incomeShare = NaN;
       }
 
-      // вывод
-      elPay.textContent = fmtMoney(payment);
+      // Вывод результатов
+      elPay.textContent = paymentText;
       elLoan.textContent = fmtMoney(loanAmount);
       elMonths.textContent = fmtNumber(months);
       elTotal.textContent = fmtMoney(totalPaid);
       elInterest.textContent = fmtMoney(interestPaid);
       elOverpayPct.textContent = fmtPercent(overpayPct);
 
-      elIncomeShare.textContent = isFinite(incomeShare)
-        ? fmtPercent(incomeShare)
-        : '—';
+      if (paymentType === 'annuity' && !isNaN(incomeShare) && incomeShare > 0) {
+        elIncomeShare.textContent = fmtPercent(incomeShare);
+      } else if (paymentType !== 'diff') {
+        elIncomeShare.textContent = '—';
+      }
 
-      elNote.textContent =
-        'Расчёт выполнен по аннуитетной схеме. Фактические условия банка могут отличаться.';
-      elNote.classList.remove('error');
+      const message = paymentType === 'annuity'
+        ? 'Расчёт выполнен по аннуитетной схеме (равные ежемесячные платежи). Фактические условия банка могут отличаться.'
+        : 'Расчёт выполнен по дифференцированной схеме (убывающие платежи). Показан диапазон от минимального до максимального платежа.';
+      showSuccess(message);
     } catch (err) {
-      elPay.textContent = '—';
-      elLoan.textContent = '—';
-      elMonths.textContent = '—';
-      elTotal.textContent = '—';
-      elInterest.textContent = '—';
-      elOverpayPct.textContent = '—';
-      elIncomeShare.textContent = '—';
-
-      elNote.textContent = err.message || 'Ошибка ввода.';
-      elNote.classList.add('error');
+      showError('Ошибка расчёта. Проверьте введённые данные.');
     }
+  });
+}
+
+if (mortgageClearBtn) {
+  mortgageClearBtn.addEventListener('click', () => {
+    resetMortgageForm();
   });
 }

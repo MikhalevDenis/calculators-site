@@ -1,6 +1,7 @@
 // Калькулятор индекса массы тела (ИМТ) по формуле ВОЗ
 
 const bmiForm = document.getElementById('bmi-form');
+const bmiClearBtn = document.getElementById('bmi-clear-btn');
 
 const bmiValueEl = document.getElementById('bmi-value');
 const bmiCategoryEl = document.getElementById('bmi-category');
@@ -16,7 +17,6 @@ function toNum(value) {
 function formatNumber(num, digits = 1) {
   if (!isFinite(num)) return '—';
   const r = parseFloat(num.toFixed(digits));
-  // заменяем точку на запятую и форматируем по-русски
   return String(r).replace('.', ',');
 }
 
@@ -40,6 +40,34 @@ function getBmiCategory(bmi) {
   }
 }
 
+function resetBmiForm() {
+  // Очищаем поля ввода
+  const formElements = bmiForm.elements;
+  if (formElements['age']) formElements['age'].value = '';
+  if (formElements['height']) formElements['height'].value = '';
+  if (formElements['weight']) formElements['weight'].value = '';
+  // Сброс пола на мужской
+  if (formElements['sex']) {
+    formElements['sex'].value = 'male';
+    document.querySelector('input[name="sex"][value="male"]').checked = true;
+  }
+  // Сброс результата
+  bmiValueEl.textContent = '—';
+  bmiCategoryEl.textContent = '—';
+  bmiIdealWeightEl.textContent = '—';
+  bmiNoteEl.textContent = 'Введите рост и вес, затем нажмите «Рассчитать ИМТ».';
+  bmiNoteEl.classList.remove('error');
+}
+
+// Функция для показа кастомной ошибки
+function showError(message) {
+  bmiValueEl.textContent = '—';
+  bmiCategoryEl.textContent = '—';
+  bmiIdealWeightEl.textContent = '—';
+  bmiNoteEl.textContent = message;
+  bmiNoteEl.classList.add('error');
+}
+
 if (bmiForm) {
   bmiForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -50,29 +78,37 @@ if (bmiForm) {
     const heightCm = toNum(formData.get('height'));
     const weight = toNum(formData.get('weight'));
 
+    // Валидация с понятными сообщениями
+    if (!heightCm || !weight) {
+      showError('Пожалуйста, заполните рост и вес.');
+      return;
+    }
+    if (heightCm < 120 || heightCm > 230) {
+      showError('Рост должен быть в диапазоне от 120 до 230 см.');
+      return;
+    }
+    if (weight < 30 || weight > 250) {
+      showError('Вес должен быть в диапазоне от 30 до 250 кг.');
+      return;
+    }
+    if (!isNaN(age) && (age < 5 || age > 120)) {
+      showError('Возраст должен быть в диапазоне от 5 до 120 лет.');
+      return;
+    }
+
     try {
-      if (!heightCm || !weight) {
-        throw new Error('Заполните рост и вес.');
-      }
-
       const heightM = heightCm / 100;
-      if (heightM <= 0) {
-        throw new Error('Рост должен быть положительным числом.');
-      }
-
       const bmi = weight / (heightM * heightM);
 
       bmiValueEl.textContent = formatNumber(bmi, 1);
       bmiCategoryEl.textContent = getBmiCategory(bmi);
       bmiNormalRangeEl.textContent = '18,5–24,9';
 
-      // ориентировочный "здоровый" вес по границам нормы ИМТ
       const minNormalWeight = 18.5 * heightM * heightM;
       const maxNormalWeight = 24.9 * heightM * heightM;
       bmiIdealWeightEl.textContent =
         `${formatNumber(minNormalWeight, 1)}–${formatNumber(maxNormalWeight, 1)} кг`;
 
-      // пояснение в зависимости от возраста
       let note = 'Расчёт выполнен по формуле ВОЗ для взрослых. ';
       if (!isNaN(age) && age > 0 && age < 18) {
         note +=
@@ -94,11 +130,13 @@ if (bmiForm) {
       bmiNoteEl.textContent = note;
       bmiNoteEl.classList.remove('error');
     } catch (err) {
-      bmiValueEl.textContent = '—';
-      bmiCategoryEl.textContent = '—';
-      bmiIdealWeightEl.textContent = '—';
-      bmiNoteEl.textContent = err.message || 'Ошибка ввода.';
-      bmiNoteEl.classList.add('error');
+      showError('Произошла ошибка при расчёте. Проверьте введённые данные.');
     }
+  });
+}
+
+if (bmiClearBtn) {
+  bmiClearBtn.addEventListener('click', () => {
+    resetBmiForm();
   });
 }

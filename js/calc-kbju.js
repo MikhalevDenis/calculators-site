@@ -1,8 +1,11 @@
 // Калькулятор КБЖУ
+// С ОРИГИНАЛЬНЫМИ ФОРМУЛАМИ (эвристика с тренировками)
 
 const kbjuMainForm = document.getElementById('kbju-main-form');
 const kbjuProgressForm = document.getElementById('kbju-progress-form');
 const kbjuImportBtn = document.getElementById('kbju-import-btn');
+const kbjuMainClearBtn = document.getElementById('kbju-main-clear-btn');
+const kbjuProgressClearBtn = document.getElementById('kbju-progress-clear-btn');
 
 // элементы для вывода результатов калькулятора 1
 const elBmr = document.getElementById('kbju-bmr');
@@ -39,47 +42,67 @@ function fmt(num, digits = 0) {
   return String(rounded).replace('.', ',');
 }
 
-// ==== Калькулятор 1: суточная норма и КБЖУ ====
+function showError(element, message) {
+  element.textContent = message;
+  element.classList.add('error');
+}
 
-// Расчёт поддерживающей нормы калорий с учётом активности
+function showSuccess(element, message) {
+  element.textContent = message;
+  element.classList.remove('error');
+}
+
+// Расчёт поддерживающей нормы с учётом активности (оригинальная эвристика)
 function calcMaintenanceWithActivity(bmr, activity) {
-  // базовый обмен
   const base = bmr;
-
-  // "сидячий" расход — 15% от BMR
   const sedentaryExtra = 0.15 * base;
-
-  // одна тренировка по 1 часу = ~25% от BMR
   const trainingExtraPerSession = 0.25 * base;
-
   let extraPerDay = 0;
 
   switch (activity) {
     case 'sedentary':
-      // только базовая бытовая активность
       extraPerDay = sedentaryExtra;
       break;
     case 'light':
-      // сидячий + 1–2 тренировки/нед, берём 2 тренировки
       extraPerDay = sedentaryExtra + (2 * trainingExtraPerSession) / 7;
       break;
     case 'moderate':
-      // сидячий + 3–4 тренировки/нед, берём 4 тренировки
       extraPerDay = sedentaryExtra + (4 * trainingExtraPerSession) / 7;
       break;
     case 'active':
-      // сидячий + 7 тренировок/нед (каждый день)
       extraPerDay = sedentaryExtra + (7 * trainingExtraPerSession) / 7;
       break;
     case 'very_active':
-      // очень высокая активность: +80% от BMR в день
       extraPerDay = 0.8 * base;
       break;
     default:
       extraPerDay = sedentaryExtra;
   }
-
   return base + extraPerDay;
+}
+
+// ===== Калькулятор 1: суточная норма и КБЖУ =====
+
+function resetMainForm() {
+  const formElements = kbjuMainForm.elements;
+  if (formElements['age']) formElements['age'].value = '';
+  if (formElements['height']) formElements['height'].value = '';
+  if (formElements['weight']) formElements['weight'].value = '';
+  if (formElements['activity']) formElements['activity'].value = 'moderate';
+  if (formElements['goal']) formElements['goal'].value = 'maintain';
+  if (formElements['sex']) {
+    formElements['sex'].value = 'male';
+    document.querySelector('input[name="sex"][value="male"]').checked = true;
+  }
+  
+  elBmr.textContent = '—';
+  elMaintenance.textContent = '—';
+  elGoalCalories.textContent = '—';
+  elKcal.textContent = '—';
+  elProtein.textContent = '—';
+  elFat.textContent = '—';
+  elCarbs.textContent = '—';
+  showSuccess(elKbjuNote, 'Заполните поля и нажмите «Рассчитать КБЖУ».');
 }
 
 if (kbjuMainForm) {
@@ -98,6 +121,9 @@ if (kbjuMainForm) {
       if (!age || !height || !weight) {
         throw new Error('Заполните возраст, рост и вес.');
       }
+      if (age < 10 || age > 99) throw new Error('Возраст должен быть от 10 до 99 лет.');
+      if (height < 120 || height > 230) throw new Error('Рост должен быть от 120 до 230 см.');
+      if (weight < 30 || weight > 250) throw new Error('Вес должен быть от 30 до 250 кг.');
 
       // BMR по формуле Миффлина — Сан Жеора
       let bmr;
@@ -107,32 +133,23 @@ if (kbjuMainForm) {
         bmr = 10 * weight + 6.25 * height - 5 * age - 161;
       }
 
-      // Поддерживающая норма с учётом активности по новой схеме
+      // Поддерживающая норма с учётом активности (оригинальная эвристика)
       const maintenance = calcMaintenanceWithActivity(bmr, activity);
 
       // Целевая калорийность в зависимости от цели
       let goalCalories;
       if (goal === 'loss') {
-        // похудение: дефицит 20% от поддерживающей нормы
         goalCalories = maintenance * 0.8;
       } else if (goal === 'gain') {
-        // набор мышечной массы: профицит 15%
         goalCalories = maintenance * 1.15;
       } else {
-        // поддержание текущего веса
         goalCalories = maintenance;
       }
 
       // Расчёт КБЖУ через проценты от goalCalories
-      let proteinPct; // доля калорий из белков (0–1)
-      let fatPct;
-      let carbsPct;
-      let noteText = '';
+      let proteinPct, fatPct, carbsPct;
 
       if (goal === 'loss') {
-        // Похудение:
-        // Женщины: Б 32,5%, Ж 27,5%, У 40%.
-        // Мужчины: Б 37,5%, Ж 25%,   У 37,5%.
         if (sex === 'female') {
           proteinPct = 0.325;
           fatPct = 0.275;
@@ -140,22 +157,13 @@ if (kbjuMainForm) {
         } else {
           proteinPct = 0.350;
           fatPct = 0.25;
-          carbsPct = 0.400;
+          carbsPct = 0.40;
         }
-
-        noteText =
-          '';
       } else if (goal === 'maintain') {
-        // Поддержание веса: 30% Б, 25% Ж, 45% У (для мужчин и женщин одинаково)
         proteinPct = 0.30;
         fatPct = 0.25;
         carbsPct = 0.45;
-
-        noteText =
-          '';
-      } else {
-        // Набор мышечной массы:
-        // те же пропорции, что и при похудении, но на калорийности с профицитом 15%
+      } else { // gain
         if (sex === 'female') {
           proteinPct = 0.325;
           fatPct = 0.275;
@@ -163,14 +171,10 @@ if (kbjuMainForm) {
         } else {
           proteinPct = 0.350;
           fatPct = 0.25;
-          carbsPct = 0.400;
+          carbsPct = 0.40;
         }
-
-        noteText =
-          '';
       }
 
-      // Пересчёт процентов в граммы
       const proteinKcal = goalCalories * proteinPct;
       const fatKcal = goalCalories * fatPct;
       const carbsKcal = goalCalories * carbsPct;
@@ -179,25 +183,20 @@ if (kbjuMainForm) {
       const fatGrams = fatKcal / 9;
       const carbsGrams = carbsKcal / 4;
 
-      // Выводим результаты
       elBmr.textContent = `${fmt(bmr, 0)} ккал`;
       elMaintenance.textContent = `${fmt(maintenance, 0)} ккал`;
       elGoalCalories.textContent = `${fmt(goalCalories, 0)} ккал`;
-
       elKcal.textContent = `${fmt(goalCalories, 0)} ккал`;
       elProtein.textContent = `${fmt(proteinGrams, 0)} г`;
       elFat.textContent = `${fmt(fatGrams, 0)} г`;
       elCarbs.textContent = `${fmt(carbsGrams, 0)} г`;
 
-      elKbjuNote.textContent =
-        noteText +
-        ' Расчёты носят ориентировочный характер и не учитывают медицинские противопоказания, состав тела и другие индивидуальные особенности.';
-
-      // Сохраняем в состояние для калькулятора 2
       kbjuState.maintenance = maintenance;
       kbjuState.goalCalories = goalCalories;
       kbjuState.goalType = goal;
       kbjuState.weight = weight;
+
+      showSuccess(elKbjuNote, 'Расчёт выполнен. Данные можно импортировать в калькулятор прогноза.');
     } catch (err) {
       elBmr.textContent = '—';
       elMaintenance.textContent = '—';
@@ -206,37 +205,53 @@ if (kbjuMainForm) {
       elProtein.textContent = '—';
       elFat.textContent = '—';
       elCarbs.textContent = '—';
-      elKbjuNote.textContent = err.message || 'Ошибка ввода.';
+      showError(elKbjuNote, err.message || 'Ошибка ввода.');
     }
   });
 }
 
-// ==== Калькулятор 2: прогноз прогресса ====
+if (kbjuMainClearBtn) {
+  kbjuMainClearBtn.addEventListener('click', () => {
+    resetMainForm();
+  });
+}
+
+// ===== Калькулятор 2: прогноз прогресса =====
+
+function resetProgressForm() {
+  const formElements = kbjuProgressForm.elements;
+  if (formElements['currentWeight']) formElements['currentWeight'].value = '';
+  if (formElements['targetWeight']) formElements['targetWeight'].value = '';
+  if (formElements['maintenance']) formElements['maintenance'].value = '';
+  if (formElements['intake']) formElements['intake'].value = '';
+  if (formElements['goal']) formElements['goal'].value = 'loss';
+  
+  elDelta.textContent = '—';
+  elTime.textContent = '—';
+  showSuccess(elProgressNote, 'Заполните поля и нажмите «Рассчитать срок достижения цели».');
+}
 
 if (kbjuImportBtn && kbjuProgressForm) {
   kbjuImportBtn.addEventListener('click', () => {
     const maintenanceInput = kbjuProgressForm.querySelector('input[name="maintenance"]');
     const intakeInput = kbjuProgressForm.querySelector('input[name="intake"]');
     const goalSelect = kbjuProgressForm.querySelector('select[name="goal"]');
+    const currentWeightInput = kbjuProgressForm.querySelector('input[name="currentWeight"]');
 
     if (!kbjuState.maintenance || !kbjuState.goalCalories) {
-      elProgressNote.textContent =
-        'Сначала рассчитайте КБЖУ в калькуляторе №1, чтобы можно было подставить данные.';
-      elProgressNote.classList.add('error');
+      showError(elProgressNote, 'Сначала рассчитайте КБЖУ в калькуляторе №1, чтобы можно было подставить данные.');
       return;
     }
 
     if (maintenanceInput) maintenanceInput.value = Math.round(kbjuState.maintenance);
     if (intakeInput) intakeInput.value = Math.round(kbjuState.goalCalories);
+    if (currentWeightInput && kbjuState.weight) currentWeightInput.value = kbjuState.weight;
 
     if (kbjuState.goalType && goalSelect) {
-      // цель в калькуляторе 2 по умолчанию такая же, как в калькуляторе 1
       goalSelect.value = kbjuState.goalType === 'gain' ? 'gain' : 'loss';
     }
 
-    elProgressNote.textContent =
-      'Данные из калькулятора №1 подставлены. При необходимости скорректируйте значения вручную.';
-    elProgressNote.classList.remove('error');
+    showSuccess(elProgressNote, 'Данные из калькулятора №1 подставлены. При необходимости скорректируйте значения вручную.');
   });
 }
 
@@ -251,15 +266,21 @@ if (kbjuProgressForm) {
     const intake = toNumber(formData.get('intake'));
     const goal = formData.get('goal') || 'loss';
 
-    const KCAL_PER_KG_FAT = 7700;   // для похудения
-    const KCAL_PER_KG_MUSCLE = 5000; // грубая оценка для набора мышц
+    const KCAL_PER_KG_FAT = 7700;
+    const KCAL_PER_KG_MUSCLE = 5000;
 
     try {
       if (!currentWeight || !targetWeight || !maintenance || !intake) {
         throw new Error('Заполните все поля для расчёта прогноза.');
       }
+      if (currentWeight <= 0 || targetWeight <= 0) {
+        throw new Error('Вес должен быть положительным числом.');
+      }
+      if (maintenance <= 0 || intake <= 0) {
+        throw new Error('Калорийность должна быть положительным числом.');
+      }
 
-      const deltaPerDay = intake - maintenance; // >0 профицит, <0 дефицит
+      const deltaPerDay = intake - maintenance;
       let daysNeeded;
       let note = '';
 
@@ -274,11 +295,8 @@ if (kbjuProgressForm) {
         const kgToLose = currentWeight - targetWeight;
         const totalDeficit = kgToLose * KCAL_PER_KG_FAT;
         daysNeeded = totalDeficit / Math.abs(deltaPerDay);
-
-        note =
-          'Расчёт основан на предположении, что дефицит примерно 7 700 ккал соответствует снижению веса на 1 кг жировой массы.';
+        note = 'Расчёт основан на предположении, что дефицит 7 700 ккал соответствует снижению веса на 1 кг жировой массы.';
       } else {
-        // goal === 'gain'
         if (currentWeight >= targetWeight) {
           throw new Error('Для цели «Набор мышечной массы» желаемый вес должен быть больше текущего.');
         }
@@ -289,22 +307,24 @@ if (kbjuProgressForm) {
         const kgToGain = targetWeight - currentWeight;
         const totalSurplus = kgToGain * KCAL_PER_KG_MUSCLE;
         daysNeeded = totalSurplus / deltaPerDay;
-
-        note =
-          '';
+        note = 'Расчёт ориентировочный, так как набор мышечной массы зависит от тренировок, генетики и других факторов.';
       }
 
       const weeks = daysNeeded / 7;
 
       elDelta.textContent = `${deltaPerDay > 0 ? '+' : ''}${fmt(deltaPerDay, 0)} ккал/день`;
       elTime.textContent = `${fmt(daysNeeded, 0)} дн. (~${fmt(weeks, 1)} нед.)`;
-      elProgressNote.textContent = note;
-      elProgressNote.classList.remove('error');
+      showSuccess(elProgressNote, note);
     } catch (err) {
       elDelta.textContent = '—';
       elTime.textContent = '—';
-      elProgressNote.textContent = err.message || 'Ошибка ввода.';
-      elProgressNote.classList.add('error');
+      showError(elProgressNote, err.message || 'Ошибка ввода.');
     }
+  });
+}
+
+if (kbjuProgressClearBtn) {
+  kbjuProgressClearBtn.addEventListener('click', () => {
+    resetProgressForm();
   });
 }
