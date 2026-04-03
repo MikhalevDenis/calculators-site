@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Калькулятор индекса массы тела (ИМТ) | CalcHub</title>
+
+  <title>Калькулятор индекса массы тела (ИМТ) онлайн — рассчитать ИМТ по формуле ВОЗ</title>
+
+  <meta name="description" content="Бесплатный калькулятор индекса массы тела (ИМТ) для взрослых. Рассчитайте свой ИМТ по формуле ВОЗ, узнайте категорию веса и рекомендуемый здоровый диапазон. Учитывает пол и возраст.">
+
+  <meta property="og:title" content="Калькулятор индекса массы тела (ИМТ)">
+  <meta property="og:description" content="Онлайн расчёт ИМТ с классификацией ВОЗ. Просто введите рост, вес, возраст и пол.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-bmi.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
+
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -13,9 +23,8 @@
       <a href="index.html" class="logo">Сalculators All</a>
       <nav class="main-nav">
         <a href="index.html" class="nav-link">Главная</a>
-
         <div class="nav-dropdown">
-          <button type="button" class="nav-drop-btn">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
             Выбор калькулятора
           </button>
           <div class="nav-drop-menu">
@@ -45,59 +54,41 @@
       </p>
 
       <div class="bmi-card">
-        <form id="bmi-form">
+        <form id="bmi-form" novalidate>
           <div class="percent-row">
             <div class="percent-field">
               <label>Пол</label>
               <div class="kbju-radio-group">
                 <label>
-                  <input type="radio" name="sex" value="male" checked />
+                  <input type="radio" name="sex" value="male" checked aria-label="Мужской" />
                   Мужской
                 </label>
                 <label>
-                  <input type="radio" name="sex" value="female" />
+                  <input type="radio" name="sex" value="female" aria-label="Женский" />
                   Женский
                 </label>
               </div>
             </div>
             <div class="percent-field">
               <label>Возраст, лет</label>
-              <input
-                type="number"
-                name="age"
-                min="5"
-                max="120"
-                placeholder="Например, 30"
-              />
+              <input type="number" name="age" placeholder="Например, 30" aria-label="Возраст в годах" />
             </div>
           </div>
 
           <div class="percent-row">
             <div class="percent-field">
               <label>Рост, см</label>
-              <input
-                type="number"
-                name="height"
-                min="120"
-                max="230"
-                placeholder="Например, 175"
-              />
+              <input type="number" name="height" placeholder="Например, 175" aria-label="Рост в сантиметрах" required />
             </div>
             <div class="percent-field">
               <label>Вес, кг</label>
-              <input
-                type="number"
-                step="any"
-                name="weight"
-                min="30"
-                max="250"
-                placeholder="Например, 70"
-              />
+              <input type="number" step="any" name="weight" placeholder="Например, 70" aria-label="Вес в килограммах" required />
             </div>
           </div>
 
           <div class="percent-actions kbju-actions">
             <button type="submit" class="btn-calc">Рассчитать ИМТ</button>
+            <button type="button" class="btn-secondary" id="bmi-clear-btn">Очистить</button>
           </div>
 
           <div class="bmi-result">
@@ -130,7 +121,7 @@
     </section>
 
     <section class="bmi-info">
-      <h3>Как рассчитывается индекс массы тела</h3>
+      <h2>Как рассчитывается индекс массы тела</h2>
       <p>
         Индекс массы тела (ИМТ) рассчитывается по стандартной формуле,
         рекомендованной Всемирной организацией здравоохранения:
@@ -142,7 +133,7 @@
         «нормальной массы тела» по классификации ВОЗ.
       </p>
 
-      <h4>Классификация ИМТ для взрослых (ВОЗ)</h4>
+      <h3>Классификация ИМТ для взрослых (ВОЗ)</h3>
       <ul>
         <li>&lt; 16,0 — выраженный дефицит массы тела;</li>
         <li>16,0–16,9 — умеренный дефицит;</li>
@@ -154,7 +145,7 @@
         <li>≥ 40,0 — ожирение III степени.</li>
       </ul>
 
-      <h4>Ограничения и важные замечания</h4>
+      <h3>Ограничения и важные замечания</h3>
       <ul>
         <li>
           ИМТ — ориентировочный показатель и не учитывает распределение
@@ -163,8 +154,8 @@
         </li>
         <li>
           Для детей и подростков до 18 лет используются специальные
-          возрастные и половые таблицы и перцентильные графики, поэтому
-          стандартная классификация ИМТ для взрослых к ним не применяется.
+          возрастные и половые таблицы, поэтому стандартная классификация
+          ИМТ для взрослых к ним не применяется.
         </li>
         <li>
           У спортсменов с развитой мышечной массой ИМТ может быть выше
@@ -172,8 +163,7 @@
         </li>
         <li>
           При наличии хронических заболеваний или сомнений в состоянии
-          здоровья важно обсуждать результаты с врачом или другим
-          профильным специалистом.
+          здоровья важно обсуждать результаты с врачом.
         </li>
       </ul>
     </section>
@@ -187,18 +177,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-bmi.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

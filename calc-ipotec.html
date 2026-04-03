@@ -3,211 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ипотечный калькулятор</title>
+  <title>Ипотечный калькулятор онлайн — рассчитать ипотеку, платежи, переплату</title>
+  <meta name="description" content="Бесплатный ипотечный калькулятор. Рассчитайте ежемесячный платёж, переплату и общую стоимость ипотеки. Аннуитетные и дифференцированные платежи. Учитывает первоначальный взнос.">
+  <meta property="og:title" content="Ипотечный калькулятор — рассчитать ипотеку онлайн">
+  <meta property="og:description" content="Узнайте ежемесячный платёж, переплату и срок ипотеки. Поддерживаются аннуитетные и дифференцированные платежи.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-ipotec.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="site-header">
-  <div class="container top-nav">
-    <a href="index.html" class="logo">Сalculators All</a>
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-
-      <div class="nav-dropdown">
-        <button type="button" class="nav-drop-btn">
-          Выбор калькулятора
-        </button>
-        <div class="nav-drop-menu">
-          <a href="calc-basic.html">Обычный калькулятор</a>
-          <a href="calc-percent.html">Калькулятор процентов</a>
-          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
-          <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
-          <a href="calc-credit.html">Кредитный калькулятор</a>
-          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
-          <a href="calc-product.html">Калькулятор стоимости товара</a>
-          <a href="calc-days.html">Калькулятор дней</a>
-          <a href="calc-random.html">Генератор случайных чисел</a>
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Сalculators All</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-product.html">Калькулятор стоимости товара</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
-</header>
-
+      </nav>
+    </div>
+  </header>
 
   <main class="container page-main calculator-page">
-  <section class="calculator-section">
-    <h2 class="page-title">Ипотечный калькулятор</h2>
-    <p class="calculator-section-intro">
-      Калькулятор помогает оценить размер ежемесячного платежа, сумму
-      переплаты и общую стоимость ипотеки при заданной стоимости недвижимости,
-      первоначальном взносе, процентной ставке и сроке кредита.
-    </p>
+    <section class="calculator-section">
+      <h1 class="page-title">Ипотечный калькулятор</h1>
+      <p class="calculator-section-intro">
+        Калькулятор помогает оценить размер ежемесячного платежа, сумму
+        переплаты и общую стоимость ипотеки при заданной стоимости недвижимости,
+        первоначальном взносе, процентной ставке и сроке кредита.
+        Поддерживаются аннуитетные и дифференцированные схемы платежей.
+      </p>
 
-    <div class="mortgage-card">
-      <form id="mortgage-form">
-        <div class="percent-row">
-          <div class="percent-field">
-            <label>Стоимость недвижимости</label>
-            <input
-              type="number"
-              step="any"
-              name="price"
-              placeholder="Например, 8 000 000"
-            />
+      <div class="mortgage-card">
+        <form id="mortgage-form" novalidate>
+          <div class="percent-row">
+            <div class="percent-field">
+              <label for="mortgage-price">Стоимость недвижимости, ₽</label>
+              <input type="number" step="any" id="mortgage-price" name="price" placeholder="Например, 8 000 000" aria-label="Стоимость недвижимости" required>
+            </div>
+            <div class="percent-field">
+              <label for="mortgage-years">Срок кредита, лет</label>
+              <input type="number" step="1" min="1" max="40" id="mortgage-years" name="years" placeholder="Например, 20" aria-label="Срок кредита в годах" required>
+            </div>
           </div>
-          <div class="percent-field">
-            <label>Срок кредита, лет</label>
-            <input
-              type="number"
-              step="1"
-              min="1"
-              max="40"
-              name="years"
-              placeholder="Например, 20"
-            />
-          </div>
-        </div>
 
-        <div class="percent-row">
-          <div class="percent-field">
-            <label>Первоначальный взнос</label>
-            <div class="mortgage-dp-group">
-              <input
-                type="number"
-                step="any"
-                name="downValue"
-                placeholder="Например, 20"
-              />
-              <select name="downType" class="mortgage-select-inline">
-                <option value="percent">%</option>
-                <option value="amount">₽</option>
+          <div class="percent-row">
+            <div class="percent-field">
+              <label>Первоначальный взнос</label>
+              <div class="mortgage-dp-group">
+                <input type="number" step="any" id="mortgage-down-value" name="downValue" placeholder="Например, 20" aria-label="Первоначальный взнос">
+                <select id="mortgage-down-type" name="downType" class="mortgage-select-inline" aria-label="Тип взноса: проценты или рубли">
+                  <option value="percent">%</option>
+                  <option value="amount">₽</option>
+                </select>
+              </div>
+              <div class="mortgage-dp-hint">
+                Можно указать взнос в процентах от стоимости или фиксированной суммой.
+              </div>
+            </div>
+            <div class="percent-field">
+              <label for="mortgage-rate">Процентная ставка, % годовых</label>
+              <input type="number" step="0.01" min="0" id="mortgage-rate" name="rate" placeholder="Например, 9.5" aria-label="Процентная ставка" required>
+            </div>
+          </div>
+
+          <div class="percent-row">
+            <div class="percent-field">
+              <label for="mortgage-type">Тип платежей</label>
+              <select id="mortgage-type" name="paymentType" aria-label="Тип платежей">
+                <option value="annuity" selected>Аннуитетные (равные платежи)</option>
+                <option value="diff">Дифференцированные (убывающие платежи)</option>
               </select>
             </div>
-            <div class="mortgage-dp-hint">
-              Можно указать взнос в процентах от стоимости или фиксированной суммой.
-            </div>
-          </div>
-          <div class="percent-field">
-            <label>Процентная ставка, % годовых</label>
-            <input
-              type="number"
-              step="0.01"
-              min="0"
-              name="rate"
-              placeholder="Например, 9.5"
-            />
-          </div>
-        </div>
-
-        <div class="percent-row">
-          <div class="percent-field">
-            <label>Ежемесячный доход (по желанию)</label>
-            <input
-              type="number"
-              step="any"
-              name="income"
-              placeholder="Например, 120 000"
-            />
-            <div class="mortgage-dp-hint">
-              Нужен, чтобы оценить долю платежа от дохода.
-            </div>
-          </div>
-        </div>
-
-        <div class="percent-actions mortgage-actions">
-          <button type="submit" class="btn-calc">
-            Рассчитать ипотеку
-          </button>
-        </div>
-
-        <div class="mortgage-results">
-          <div class="mortgage-result-main">
-            <div class="mortgage-result-label">Ежемесячный платеж</div>
-            <div class="mortgage-result-value" id="m-pay">—</div>
-          </div>
-
-          <div class="mortgage-results-grid">
-            <div>
-              <div class="mortgage-result-label">Сумма кредита</div>
-              <div class="mortgage-result-small" id="m-loan">—</div>
-            </div>
-            <div>
-              <div class="mortgage-result-label">Срок в месяцах</div>
-              <div class="mortgage-result-small" id="m-months">—</div>
-            </div>
-            <div>
-              <div class="mortgage-result-label">Всего выплат по кредиту</div>
-              <div class="mortgage-result-small" id="m-total">—</div>
-            </div>
-            <div>
-              <div class="mortgage-result-label">Начисленные проценты</div>
-              <div class="mortgage-result-small" id="m-interest">—</div>
-            </div>
-            <div>
-              <div class="mortgage-result-label">Переплата, % от суммы кредита</div>
-              <div class="mortgage-result-small" id="m-overpay-pct">—</div>
-            </div>
-            <div>
-              <div class="mortgage-result-label">
-                Доля платежа от дохода
+            <div class="percent-field">
+              <label for="mortgage-income">Ежемесячный доход (по желанию)</label>
+              <input type="number" step="any" id="mortgage-income" name="income" placeholder="Например, 120 000" aria-label="Ежемесячный доход">
+              <div class="mortgage-dp-hint">
+                Нужен, чтобы оценить долю платежа от дохода.
               </div>
-              <div class="mortgage-result-small" id="m-income-share">—</div>
             </div>
           </div>
 
-          <div class="kbju-note" id="m-note">
-            Заполните поля и нажмите «Рассчитать ипотеку».
+          <div class="percent-actions mortgage-actions">
+            <button type="submit" class="btn-calc">Рассчитать ипотеку</button>
+            <button type="button" class="btn-secondary" id="mortgage-clear-btn">Очистить</button>
           </div>
-        </div>
-      </form>
-    </div>
-  </section>
 
-  <section class="mortgage-info">
-    <h3>Как работает ипотечный калькулятор</h3>
-    <p>
-      В расчётах используется классическая схема аннуитетных платежей,
-      при которой ежемесячный платёж остаётся примерно постоянным на
-      всём сроке кредита. Сначала определяется сумма кредита как разница
-      между стоимостью недвижимости и первоначальным взносом, затем по
-      процентной ставке и сроку вычисляется платёж, общее количество
-      выплат и сумма начисленных процентов.
-    </p>
-    <p>
-      Калькулятор помогает заранее оценить нагрузку на бюджет и сравнить
-      разные варианты: изменить срок, размер первоначального взноса или
-      процентную ставку и сразу увидеть, как меняется ежемесячный платёж
-      и переплата по кредиту. Дополнительно можно указать ежемесячный
-      доход, чтобы прикинуть, какую долю от дохода будет занимать платёж.
-    </p>
+          <div class="mortgage-results">
+            <div class="mortgage-result-main">
+              <div class="mortgage-result-label">Ежемесячный платёж</div>
+              <div class="mortgage-result-value" id="m-pay">—</div>
+            </div>
 
-    <h4>Ограничения и важные замечания</h4>
-    <ul>
-      <li>
-        Расчёты носят ориентировочный характер и не являются
-        индивидуальным финансовым советом или официальным предложением
-        банка.
-      </li>
-      <li>
-        В модели не учитываются страхование, комиссии, возможные
-        изменения процентной ставки, налоговые вычеты и другие условия
-        конкретных программ.
-      </li>
-      <li>
-        Фактический график платежей и итоговая переплата могут отличаться
-        от расчёта, особенно при досрочном погашении, изменении ставки
-        или пересмотре условий.
-      </li>
-      <li>
-        Перед оформлением ипотеки рекомендуется сравнить предложения
-        разных банков и при необходимости проконсультироваться с
-        финансовым специалистом.
-      </li>
-    </ul>
-  </section>
-</main>
+            <div class="mortgage-results-grid">
+              <div>
+                <div class="mortgage-result-label">Сумма кредита</div>
+                <div class="mortgage-result-small" id="m-loan">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Срок в месяцах</div>
+                <div class="mortgage-result-small" id="m-months">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Всего выплат по кредиту</div>
+                <div class="mortgage-result-small" id="m-total">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Начисленные проценты</div>
+                <div class="mortgage-result-small" id="m-interest">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Переплата, % от суммы кредита</div>
+                <div class="mortgage-result-small" id="m-overpay-pct">—</div>
+              </div>
+              <div>
+                <div class="mortgage-result-label">Доля платежа от дохода</div>
+                <div class="mortgage-result-small" id="m-income-share">—</div>
+              </div>
+            </div>
 
+            <div class="kbju-note" id="m-note">
+              Заполните поля и нажмите «Рассчитать ипотеку».
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="mortgage-info">
+      <h2>Как работает ипотечный калькулятор</h2>
+      <p>
+        В расчётах используются аннуитетная и дифференцированная схемы платежей.
+        Аннуитет — ежемесячный платёж остаётся постоянным на всём сроке кредита.
+        Дифференцированный — платёж уменьшается со временем, так как проценты
+        начисляются на остаток долга.
+      </p>
+      <p>
+        Сначала определяется сумма кредита как разница между стоимостью
+        недвижимости и первоначальным взносом, затем по процентной ставке
+        и сроку вычисляется платёж, общее количество выплат и сумма
+        начисленных процентов.
+      </p>
+      <p>
+        Калькулятор помогает заранее оценить нагрузку на бюджет и сравнить
+        разные варианты: изменить срок, размер первоначального взноса или
+        процентную ставку и сразу увидеть, как меняется ежемесячный платёж
+        и переплата по кредиту.
+      </p>
+
+      <h3>Ограничения и важные замечания</h3>
+      <ul>
+        <li>Расчёты носят ориентировочный характер и не являются индивидуальным финансовым советом или официальным предложением банка.</li>
+        <li>В модели не учитываются страхование, комиссии, возможные изменения процентной ставки, налоговые вычеты и другие условия конкретных программ.</li>
+        <li>Фактический график платежей и итоговая переплата могут отличаться от расчёта, особенно при досрочном погашении, изменении ставки или пересмотре условий.</li>
+        <li>Перед оформлением ипотеки рекомендуется сравнить предложения разных банков и при необходимости проконсультироваться с финансовым специалистом.</li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -216,19 +183,18 @@
   </footer>
 
   <script src="js/main.js"></script>
-<script src="js/calc-ipotec.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <script src="js/calc-ipotec.js"></script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

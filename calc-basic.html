@@ -3,121 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Обычный калькулятор</title>
+  <title>Обычный калькулятор онлайн — простой арифметический калькулятор</title>
+  <meta name="description" content="Бесплатный обычный калькулятор онлайн для сложения, вычитания, умножения, деления, процентов и скобок. Удобный интерфейс, работает без установки.">
+  <meta property="og:title" content="Обычный калькулятор онлайн">
+  <meta property="og:description" content="Простой арифметический калькулятор для повседневных вычислений. Поддерживает скобки, проценты, смену знака.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-basic.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="site-header">
-  <div class="container top-nav">
-    <a href="index.html" class="logo">Сalculators All</a>
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-
-      <div class="nav-dropdown">
-        <button type="button" class="nav-drop-btn">
-          Выбор калькулятора
-        </button>
-        <div class="nav-drop-menu">
-          <a href="calc-basic.html">Обычный калькулятор</a>
-          <a href="calc-percent.html">Калькулятор процентов</a>
-          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
-          <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
-          <a href="calc-credit.html">Кредитный калькулятор</a>
-          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
-          <a href="calc-product.html">Калькулятор стоимости товара</a>
-          <a href="calc-days.html">Калькулятор дней</a>
-          <a href="calc-random.html">Генератор случайных чисел</a>
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Сalculators All</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-product.html">Калькулятор стоимости товара</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
-</header>
+      </nav>
+    </div>
+  </header>
 
   <main class="container page-main calculator-page">
-  <section class="calculator-section">
-    <h2 class="page-title">Обычный калькулятор</h2>
-    <p class="calculator-section-intro">
-      Это базовый онлайн‑калькулятор для повседневных вычислений:
-      сложение, вычитание, умножение, деление, проценты и скобки —
-      всё в одном окне прямо в браузере.
-    </p>
+    <section class="calculator-section">
+      <h1 class="page-title">Обычный калькулятор</h1>
+      <p class="calculator-section-intro">
+        Это базовый онлайн‑калькулятор для повседневных вычислений:
+        сложение, вычитание, умножение, деление, проценты и скобки —
+        всё в одном окне прямо в браузере.
+      </p>
 
-    <div class="calculator calculator-wide">
-      <div class="calc-header">
-        <div class="calc-modes">
-          <button class="mode-btn active" data-mode="deg">DEG</button>
-          <span>·</span>
-          <button class="mode-btn" data-mode="rad">RAD</button>
+      <div class="calculator calculator-wide">
+        <div class="calc-header">
+          <div class="calc-display" id="calc-display">0</div>
         </div>
-        <div class="calc-display" id="calc-display">0</div>
+
+        <div class="calc-grid">
+          <!-- ряд 1 -->
+          <button class="btn btn-light" data-action="clear" aria-label="Очистить всё">C</button>
+          <button class="btn btn-light" data-action="backspace" aria-label="Удалить последний символ">←</button>
+          <button class="btn btn-light" data-action="plusminus" aria-label="Сменить знак">±</button>
+          <button class="btn btn-operator" data-action="operator" data-value="/" aria-label="Деление">÷</button>
+
+          <!-- ряд 2 -->
+          <button class="btn" data-action="digit" data-value="7" aria-label="7">7</button>
+          <button class="btn" data-action="digit" data-value="8" aria-label="8">8</button>
+          <button class="btn" data-action="digit" data-value="9" aria-label="9">9</button>
+          <button class="btn btn-operator" data-action="operator" data-value="*" aria-label="Умножение">×</button>
+
+          <!-- ряд 3 -->
+          <button class="btn" data-action="digit" data-value="4" aria-label="4">4</button>
+          <button class="btn" data-action="digit" data-value="5" aria-label="5">5</button>
+          <button class="btn" data-action="digit" data-value="6" aria-label="6">6</button>
+          <button class="btn btn-operator" data-action="operator" data-value="-" aria-label="Вычитание">−</button>
+
+          <!-- ряд 4 -->
+          <button class="btn" data-action="digit" data-value="1" aria-label="1">1</button>
+          <button class="btn" data-action="digit" data-value="2" aria-label="2">2</button>
+          <button class="btn" data-action="digit" data-value="3" aria-label="3">3</button>
+          <button class="btn btn-operator" data-action="operator" data-value="+" aria-label="Сложение">+</button>
+
+          <!-- ряд 5 -->
+          <button class="btn" data-action="paren" data-value="(" aria-label="Открыть скобку">( )</button>
+          <button class="btn" data-action="digit" data-value="0" aria-label="0">0</button>
+          <button class="btn" data-action="dot" data-value="." aria-label="Десятичная точка">,</button>
+          <button class="btn btn-operator btn-equal" data-action="equals" aria-label="Равно">=</button>
+        </div>
       </div>
+    </section>
 
-      <div class="calc-grid">
-        <!-- ряд 1 -->
-        <button class="btn btn-light" data-action="clear">C</button>
-        <button class="btn btn-light" data-action="plusminus">±</button>
-        <button class="btn btn-light" data-action="percent">%</button>
-        <button class="btn btn-operator" data-action="operator" data-value="/">÷</button>
-
-        <!-- ряд 2 -->
-        <button class="btn" data-action="digit" data-value="7">7</button>
-        <button class="btn" data-action="digit" data-value="8">8</button>
-        <button class="btn" data-action="digit" data-value="9">9</button>
-        <button class="btn btn-operator" data-action="operator" data-value="*">×</button>
-
-        <!-- ряд 3 -->
-        <button class="btn" data-action="digit" data-value="4">4</button>
-        <button class="btn" data-action="digit" data-value="5">5</button>
-        <button class="btn" data-action="digit" data-value="6">6</button>
-        <button class="btn btn-operator" data-action="operator" data-value="-">−</button>
-
-        <!-- ряд 4 -->
-        <button class="btn" data-action="digit" data-value="1">1</button>
-        <button class="btn" data-action="digit" data-value="2">2</button>
-        <button class="btn" data-action="digit" data-value="3">3</button>
-        <button class="btn btn-operator" data-action="operator" data-value="+">+</button>
-
-        <!-- ряд 5 -->
-        <button class="btn" data-action="paren" data-value="(">( )</button>
-        <button class="btn" data-action="digit" data-value="0">0</button>
-        <button class="btn" data-action="dot" data-value=".">,</button>
-        <button class="btn btn-operator btn-equal" data-action="equals">=</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="calculator-info">
-    <h3>Что такое калькулятор</h3>
-    <p>
-      Калькулятор — это устройство или программа, предназначенная
-      для выполнения арифметических операций. Современные электронные
-      и онлайн‑калькуляторы умеют обрабатывать достаточно сложные
-      выражения и помогают в повседневных расчётах.
-    </p>
-    <p>На этой странице реализован калькулятор, который поддерживает:</p>
-    <ul>
-      <li>сложение, вычитание, умножение и деление;</li>
-      <li>ввод выражений с несколькими действиями подряд;</li>
-      <li>использование круглых скобок для изменения порядка операций;</li>
-      <li>работу с дробными числами;</li>
-      <li>изменение знака числа (кнопка «±»);</li>
-      <li>быстрый пересчёт числа в проценты (кнопка «%»);</li>
-      <li>очистку текущего ввода (кнопка «C»).</li>
-    </ul>
-    <p>
-      Такой формат подходит для бытовых и учебных задач: посчитать
-      стоимость покупок, проверить пример из тетради, прикинуть
-      результаты вычислений при работе с финансами или измерениями.
-    </p>
-    <p>
-      Преимущество онлайн‑калькулятора в том, что он доступен на любом
-      устройстве с браузером — компьютере, планшете или смартфоне.
-      Не нужно устанавливать отдельные приложения или иметь под рукой
-      физический калькулятор: достаточно открыть сайт.
-    </p>
-  </section>
-</main>
+    <section class="calculator-info">
+      <h2>Что такое калькулятор</h2>
+      <p>
+        Калькулятор — это устройство или программа, предназначенная
+        для выполнения арифметических операций. Современные электронные
+        и онлайн‑калькуляторы умеют обрабатывать достаточно сложные
+        выражения и помогают в повседневных расчётах.
+      </p>
+      <p>На этой странице реализован калькулятор, который поддерживает:</p>
+      <ul>
+        <li>сложение, вычитание, умножение и деление;</li>
+        <li>ввод выражений с несколькими действиями подряд;</li>
+        <li>использование круглых скобок для изменения порядка операций;</li>
+        <li>работу с дробными числами;</li>
+        <li>изменение знака числа (кнопка «±»);</li>
+        <li>быстрый пересчёт числа в проценты (кнопка «%»);</li>
+        <li>очистку текущего ввода (кнопка «C») и удаление последнего символа (←).</li>
+      </ul>
+      <p>
+        Такой формат подходит для бытовых и учебных задач: посчитать
+        стоимость покупок, проверить пример из тетради, прикинуть
+        результаты вычислений при работе с финансами или измерениями.
+      </p>
+      <p>
+        Преимущество онлайн‑калькулятора в том, что он доступен на любом
+        устройстве с браузером — компьютере, планшете или смартфоне.
+        Не нужно устанавливать отдельные приложения или иметь под рукой
+        физический калькулятор: достаточно открыть сайт.
+      </p>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -127,18 +127,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-basic.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

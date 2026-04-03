@@ -8,360 +8,290 @@
 
   <meta name="description" content="Бесплатный калькулятор КБЖУ онлайн. Расчёт суточной нормы калорий и белков, жиров, углеводов для похудения, набора мышечной массы и поддержания веса с учётом пола, возраста, роста, веса и уровня активности.">
 
+  <meta property="og:title" content="Калькулятор КБЖУ — рассчитать норму калорий, белков, жиров, углеводов">
+  <meta property="og:description" content="Определите свою суточную норму калорий и баланс БЖУ для похудения, набора массы или поддержания веса.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-kbju.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
+
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- если у тебя есть теги верификации Яндекса/Google, оставь их тоже здесь -->
-  <!-- <meta name="yandex-verification" content="..."> -->
-  <!-- <meta name="google-site-verification" content="..."> -->
 </head>
 <body>
   <header class="site-header">
-  <div class="container top-nav">
-    <a href="index.html" class="logo">Сalculators All</a>
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-
-      <div class="nav-dropdown">
-        <button type="button" class="nav-drop-btn">
-          Выбор калькулятора
-        </button>
-        <div class="nav-drop-menu">
-          <a href="calc-basic.html">Обычный калькулятор</a>
-          <a href="calc-percent.html">Калькулятор процентов</a>
-          <a href="calc-kbju.html">Калькулятор КБЖУ</a>
-          <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
-          <a href="calc-credit.html">Кредитный калькулятор</a>
-          <a href="calc-ipotec.html">Ипотечный калькулятор</a>
-          <a href="calc-product.html">Калькулятор стоимости товара</a>
-          <a href="calc-days.html">Калькулятор дней</a>
-          <a href="calc-random.html">Генератор случайных чисел</a>
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Сalculators All</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-product.html">Калькулятор стоимости товара</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
-</header>
-
+      </nav>
+    </div>
+  </header>
 
   <main class="container page-main calculator-page">
-  <section class="calculator-section">
-    <h1 class="page-title">Калькулятор КБЖУ онлайн</h1>
-    <p class="calculator-section-intro">
-      Этот калькулятор КБЖУ помогает рассчитать суточную норму калорий,
-      белков, жиров и углеводов с учётом пола, возраста, роста, веса и
-      уровня физической активности. Вы можете подобрать рацион для
-      <strong>похудения</strong>, <strong>поддержания веса</strong> или
-      <strong>набора мышечной массы</strong> и увидеть рекомендуемое
-      количество нутриентов в граммах.
-  </p>
+    <section class="calculator-section">
+      <h1 class="page-title">Калькулятор КБЖУ онлайн</h1>
+      <p class="calculator-section-intro">
+        Этот калькулятор КБЖУ помогает рассчитать суточную норму калорий,
+        белков, жиров и углеводов с учётом пола, возраста, роста, веса и
+        уровня физической активности. Вы можете подобрать рацион для
+        <strong>похудения</strong>, <strong>поддержания веса</strong> или
+        <strong>набора мышечной массы</strong> и увидеть рекомендуемое
+        количество нутриентов в граммах.
+      </p>
 
-    <div class="kbju-grid">
-      <!-- Калькулятор №1: суточная норма КБЖУ -->
-      <div class="kbju-card">
-        <h3>1. Суточная норма калорий и КБЖУ</h3>
-        <p class="kbju-card-intro">
-          Рассчёт базового обмена, суточной потребности в калориях и
-          рекомендуемого КБЖУ с учётом цели.
-        </p>
+      <div class="kbju-grid">
+        <!-- Калькулятор №1: суточная норма КБЖУ -->
+        <div class="kbju-card">
+          <h2>1. Суточная норма калорий и КБЖУ</h2>
+          <p class="kbju-card-intro">
+            Рассчёт базового обмена, суточной потребности в калориях и
+            рекомендуемого КБЖУ с учётом цели.
+          </p>
 
-        <form id="kbju-main-form">
-          <div class="percent-row">
-            <div class="percent-field">
-              <label>Пол</label>
-              <div class="kbju-radio-group">
-                <label>
-                  <input type="radio" name="sex" value="male" checked />
-                  Мужской
-                </label>
-                <label>
-                  <input type="radio" name="sex" value="female" />
-                  Женский
-                </label>
-              </div>
-            </div>
-            <div class="percent-field">
-              <label>Возраст, лет</label>
-              <input type="number" name="age" min="10" max="99" placeholder="Например, 30" />
-            </div>
-          </div>
-
-          <div class="percent-row">
-            <div class="percent-field">
-              <label>Рост, см</label>
-              <input type="number" name="height" min="120" max="230" placeholder="Например, 175" />
-            </div>
-            <div class="percent-field">
-              <label>Вес, кг</label>
-              <input type="number" step="any" name="weight" min="30" max="250" placeholder="Например, 70" />
-            </div>
-          </div>
-
-          <div class="percent-row">
-            <div class="percent-field">
-              <div class="kbju-label-with-info">
-                <span>Уровень активности</span>
-                <button type="button" class="info-icon" aria-label="Описание уровней активности">?</button>
-                <div class="info-tooltip">
-                 <p><strong>Сидячий образ жизни:</strong> минимум движения, сидячая работа, 1–2 ежедневные прогулки до работы, с работы, до магазина.</p>
-                 <p><strong>Лёгкая активность:</strong> сидячий образ жизни + 1–2 тренировки в неделю по 1 часу.</p>
-                 <p><strong>Умеренная активность:</strong> сидячий образ жизни + 3–4 тренировки в неделю по 1 часу.</p>
-                 <p><strong>Высокая активность:</strong> сидячий образ жизни + 7 тренировок в неделю по 1 часу / работа, связанная с постоянной физической активностью.</p>
-                 <p><strong>Очень высокая активность:</strong> работа с постоянной физической активностью + 2–3 тренировки в неделю / профессиональные спортсмены с 2–3 тренировками в день.</p>
+          <form id="kbju-main-form" novalidate>
+            <div class="percent-row">
+              <div class="percent-field">
+                <label>Пол</label>
+                <div class="kbju-radio-group">
+                  <label>
+                    <input type="radio" name="sex" value="male" checked aria-label="Мужской" />
+                    Мужской
+                  </label>
+                  <label>
+                    <input type="radio" name="sex" value="female" aria-label="Женский" />
+                    Женский
+                  </label>
                 </div>
               </div>
-              <select name="activity">
-                <option value="sedentary">Сидячий образ жизни</option>
-                <option value="light">Лёгкая активность</option>
-                <option value="moderate" selected>Умеренная активность</option>
-                <option value="active">Высокая активность</option>
-                <option value="very_active">Очень высокая активность</option>
-              </select>
-            </div>
-
-            <div class="percent-field">
-              <label>Цель</label>
-              <select name="goal">
-                <option value="loss">Похудение</option>
-                <option value="maintain" selected>Поддержание веса</option>
-                <option value="gain">Набор мышечной массы</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="percent-actions kbju-actions">
-            <button type="submit" class="btn-calc">Рассчитать КБЖУ</button>
-          </div>
-
-          <div class="kbju-result">
-            <div class="kbju-result-row">
-              <div class="kbju-result-label">Базовый обмен (BMR)</div>
-              <div class="kbju-result-value" id="kbju-bmr">—</div>
-            </div>
-            <div class="kbju-result-row">
-              <div class="kbju-result-label">Поддерживающая норма</div>
-              <div class="kbju-result-value" id="kbju-maintenance">—</div>
-            </div>
-            <div class="kbju-result-row">
-              <div class="kbju-result-label">Рекомендовано для цели</div>
-              <div class="kbju-result-value" id="kbju-goal-calories">—</div>
-            </div>
-
-            <div class="kbju-macros">
-              <div class="kbju-macros-title">Рекомендуемое КБЖУ для выбранной цели</div>
-              <div class="kbju-macros-grid">
-                <div>
-                  <div class="kbju-macro-label">Калории</div>
-                  <div class="kbju-macro-value" id="kbju-kcal">—</div>
-                </div>
-                <div>
-                  <div class="kbju-macro-label">Белки, г</div>
-                  <div class="kbju-macro-value" id="kbju-protein">—</div>
-                </div>
-                <div>
-                  <div class="kbju-macro-label">Жиры, г</div>
-                  <div class="kbju-macro-value" id="kbju-fat">—</div>
-                </div>
-                <div>
-                  <div class="kbju-macro-label">Углеводы, г</div>
-                  <div class="kbju-macro-value" id="kbju-carbs">—</div>
-                </div>
+              <div class="percent-field">
+                <label for="kbju-age">Возраст, лет</label>
+                <input type="number" id="kbju-age" name="age" min="10" max="99" placeholder="Например, 30" aria-label="Возраст в годах" required>
               </div>
-              <div class="kbju-note" id="kbju-note"></div>
             </div>
-          </div>
-        </form>
+
+            <div class="percent-row">
+              <div class="percent-field">
+                <label for="kbju-height">Рост, см</label>
+                <input type="number" id="kbju-height" name="height" min="120" max="230" placeholder="Например, 175" aria-label="Рост в сантиметрах" required>
+              </div>
+              <div class="percent-field">
+                <label for="kbju-weight">Вес, кг</label>
+                <input type="number" step="any" id="kbju-weight" name="weight" min="30" max="250" placeholder="Например, 70" aria-label="Вес в килограммах" required>
+              </div>
+            </div>
+
+            <div class="percent-row">
+              <div class="percent-field">
+                <div class="kbju-label-with-info">
+                  <span>Уровень активности</span>
+                  <button type="button" class="info-icon" aria-label="Описание уровней активности">?</button>
+                  <div class="info-tooltip">
+                    <p><strong>Сидячий образ жизни:</strong> минимум движения, сидячая работа, 1–2 ежедневные прогулки до работы, с работы, до магазина.</p>
+                    <p><strong>Лёгкая активность:</strong> сидячий образ жизни + 1–2 тренировки в неделю по 1 часу.</p>
+                    <p><strong>Умеренная активность:</strong> сидячий образ жизни + 3–4 тренировки в неделю по 1 часу.</p>
+                    <p><strong>Высокая активность:</strong> сидячий образ жизни + 7 тренировок в неделю по 1 часу / работа, связанная с постоянной физической активностью.</p>
+                    <p><strong>Очень высокая активность:</strong> работа с постоянной физической активностью + 2–3 тренировки в неделю / профессиональные спортсмены с 2–3 тренировками в день.</p>
+                  </div>
+                </div>
+                <select id="kbju-activity" name="activity" aria-label="Уровень физической активности">
+                  <option value="sedentary">Сидячий образ жизни</option>
+                  <option value="light">Лёгкая активность</option>
+                  <option value="moderate" selected>Умеренная активность</option>
+                  <option value="active">Высокая активность</option>
+                  <option value="very_active">Очень высокая активность</option>
+                </select>
+              </div>
+
+              <div class="percent-field">
+                <label for="kbju-goal">Цель</label>
+                <select id="kbju-goal" name="goal" aria-label="Цель расчёта">
+                  <option value="loss">Похудение</option>
+                  <option value="maintain" selected>Поддержание веса</option>
+                  <option value="gain">Набор мышечной массы</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="percent-actions kbju-actions">
+              <button type="submit" class="btn-calc">Рассчитать КБЖУ</button>
+              <button type="button" class="btn-secondary" id="kbju-main-clear-btn">Очистить</button>
+            </div>
+
+            <div class="kbju-result">
+              <div class="kbju-result-row">
+                <div class="kbju-result-label">Базовый обмен (BMR)</div>
+                <div class="kbju-result-value" id="kbju-bmr">—</div>
+              </div>
+              <div class="kbju-result-row">
+                <div class="kbju-result-label">Поддерживающая норма</div>
+                <div class="kbju-result-value" id="kbju-maintenance">—</div>
+              </div>
+              <div class="kbju-result-row">
+                <div class="kbju-result-label">Рекомендовано для цели</div>
+                <div class="kbju-result-value" id="kbju-goal-calories">—</div>
+              </div>
+
+              <div class="kbju-macros">
+                <div class="kbju-macros-title">Рекомендуемое КБЖУ для выбранной цели</div>
+                <div class="kbju-macros-grid">
+                  <div>
+                    <div class="kbju-macro-label">Калории</div>
+                    <div class="kbju-macro-value" id="kbju-kcal">—</div>
+                  </div>
+                  <div>
+                    <div class="kbju-macro-label">Белки, г</div>
+                    <div class="kbju-macro-value" id="kbju-protein">—</div>
+                  </div>
+                  <div>
+                    <div class="kbju-macro-label">Жиры, г</div>
+                    <div class="kbju-macro-value" id="kbju-fat">—</div>
+                  </div>
+                  <div>
+                    <div class="kbju-macro-label">Углеводы, г</div>
+                    <div class="kbju-macro-value" id="kbju-carbs">—</div>
+                  </div>
+                </div>
+                <div class="kbju-note" id="kbju-note"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Калькулятор №2: прогноз прогресса -->
+        <div class="kbju-card">
+          <h2>2. Прогноз снижения или набора веса</h2>
+          <p class="kbju-card-intro">
+            Оценка примерного срока достижения желаемого веса при заданном
+            рационе относительно вашей поддерживающей нормы.
+          </p>
+
+          <form id="kbju-progress-form" novalidate>
+            <div class="percent-row">
+              <div class="percent-field">
+                <label for="progress-current-weight">Текущий вес, кг</label>
+                <input type="number" step="any" id="progress-current-weight" name="currentWeight" placeholder="Например, 80" aria-label="Текущий вес" required>
+              </div>
+              <div class="percent-field">
+                <label for="progress-target-weight">Желаемый вес, кг</label>
+                <input type="number" step="any" id="progress-target-weight" name="targetWeight" placeholder="Например, 70" aria-label="Желаемый вес" required>
+              </div>
+            </div>
+
+            <div class="percent-row">
+              <div class="percent-field">
+                <label for="progress-maintenance">Поддерживающая норма</label>
+                <input type="number" step="any" id="progress-maintenance" name="maintenance" placeholder="Например, 2300" aria-label="Поддерживающая норма калорий" required>
+              </div>
+              <div class="percent-field">
+                <label for="progress-intake">Фактический рацион</label>
+                <input type="number" step="any" id="progress-intake" name="intake" placeholder="Например, 1800" aria-label="Фактический рацион в калориях" required>
+              </div>
+            </div>
+
+            <div class="percent-row kbju-progress-row">
+              <div class="percent-field">
+                <label for="progress-goal">Цель</label>
+                <select id="progress-goal" name="goal" aria-label="Цель прогноза">
+                  <option value="loss">Похудение</option>
+                  <option value="gain">Набор мышечной массы</option>
+                </select>
+              </div>
+              <div class="percent-field kbju-import-cell">
+                <button type="button" class="btn-import" id="kbju-import-btn">← Импортировать из калькулятора №1</button>
+              </div>
+            </div>
+
+            <div class="percent-actions kbju-actions">
+              <button type="submit" class="btn-calc">Рассчитать срок достижения цели</button>
+              <button type="button" class="btn-secondary" id="kbju-progress-clear-btn">Очистить</button>
+            </div>
+
+            <div class="kbju-result">
+              <div class="kbju-result-row">
+                <div class="kbju-result-label">Дневной дефицит / профицит</div>
+                <div class="kbju-result-value" id="kbju-delta">—</div>
+              </div>
+              <div class="kbju-result-row">
+                <div class="kbju-result-label">Ориентировочный срок</div>
+                <div class="kbju-result-value" id="kbju-time">—</div>
+              </div>
+              <div class="kbju-note" id="kbju-progress-note"></div>
+            </div>
+          </form>
+        </div>
       </div>
+    </section>
 
-      <!-- Калькулятор №2: прогноз прогресса -->
-      <div class="kbju-card">
-        <h3>2. Прогноз снижения или набора веса</h3>
-        <p class="kbju-card-intro">
-          Оценка примерного срока достижения желаемого веса при заданном
-          рационе относительно вашей поддерживающей нормы.
-        </p>
-
-        <form id="kbju-progress-form">
-          <div class="percent-row">
-            <div class="percent-field">
-              <label>Текущий вес, кг</label>
-              <input
-                type="number"
-                step="any"
-                name="currentWeight"
-                placeholder="Например, 80"
-              />
-            </div>
-            <div class="percent-field">
-              <label>Желаемый вес, кг</label>
-              <input
-                type="number"
-                step="any"
-                name="targetWeight"
-                placeholder="Например, 70"
-              />
-            </div>
-          </div>
-
-          <div class="percent-row">
-            <div class="percent-field">
-              <label>Поддерживающая норма</label>
-              <input
-                type="number"
-                step="any"
-                name="maintenance"
-                placeholder="Например, 2300"
-              />
-            </div>
-            <div class="percent-field">
-              <label>Фактический рацион</label>
-              <input
-                type="number"
-                step="any"
-                name="intake"
-                placeholder="Например, 1800"
-              />
-            </div>
-          </div>
-
-          <div class="percent-row">
-            <div class="percent-field">
-              <label>Цель</label>
-              <select name="goal">
-                <option value="loss">Похудение</option>
-                <option value="gain">Набор мышечной массы</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="percent-actions kbju-actions">
-            <button type="submit" class="btn-calc">
-              Рассчитать срок достижения цели
-            </button>
-          </div>
-
-          <div class="kbju-result">
-            <div class="kbju-result-row">
-              <div class="kbju-result-label">Дневной дефицит / профицит</div>
-              <div class="kbju-result-value" id="kbju-delta">—</div>
-            </div>
-            <div class="kbju-result-row">
-              <div class="kbju-result-label">Ориентировочный срок</div>
-              <div class="kbju-result-value" id="kbju-time">—</div>
-            </div>
-            <div class="kbju-note" id="kbju-progress-note"></div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Описание и предупреждения -->
     <section class="kbju-info">
-  <h3>Как работает калькулятор КБЖУ</h3>
-  <p>
-    В основе калькулятора лежит современная формула базового обмена
-    веществ (BMR) и расчёт общей суточной потребности в калориях.
-    Сначала определяется, сколько энергии организм тратит в состоянии
-    покоя с учётом пола, возраста, роста и веса. Затем к этому
-    показателю добавляется расход в зависимости от уровня физической
-    активности: сидячий образ жизни, лёгкая, умеренная, высокая или
-    очень высокая активность.
-  </p>
-  <p>
-    После этого калькулятор КБЖУ распределяет суточную норму калорий
-    на белки, жиры и углеводы в зависимости от выбранной цели:
-    <strong>похудение</strong>, <strong>поддержание веса</strong> или
-    <strong>набор мышечной массы</strong>. Для каждой цели используются
-    разные пропорции: при снижении веса и наборе мышц повышается доля
-    белка, при поддержании веса распределение ближе к сбалансированному.
-  </p>
+      <h2>Как работает калькулятор КБЖУ</h2>
+      <p>
+        В основе калькулятора лежит современная формула базового обмена
+        веществ (BMR) и расчёт общей суточной потребности в калориях.
+        Сначала определяется, сколько энергии организм тратит в состоянии
+        покоя с учётом пола, возраста, роста и веса. Затем к этому
+        показателю добавляется расход в зависимости от уровня физической
+        активности: сидячий образ жизни, лёгкая, умеренная, высокая или
+        очень высокая активность.
+      </p>
+      <p>
+        После этого калькулятор КБЖУ распределяет суточную норму калорий
+        на белки, жиры и углеводы в зависимости от выбранной цели:
+        <strong>похудение</strong>, <strong>поддержание веса</strong> или
+        <strong>набор мышечной массы</strong>. Для каждой цели используются
+        разные пропорции: при снижении веса и наборе мышц повышается доля
+        белка, при поддержании веса распределение ближе к сбалансированному.
+      </p>
 
-  <h4>Цели, которые можно рассчитать</h4>
-  <ul>
-    <li>
-      <strong>Похудение.</strong> Создаётся умеренный дефицит калорий
-      (около 20% от поддерживающей нормы) и подбираются пропорции БЖУ,
-      которые помогают терять вес без резкого снижения рациона.
-    </li>
-    <li>
-      <strong>Поддержание веса.</strong> Суточная калорийность
-      соответствует текущим потребностям организма, а белки, жиры и
-      углеводы распределяются примерно в соотношении 30/25/45.
-    </li>
-    <li>
-      <strong>Набор мышечной массы.</strong> Используется небольшой
-      профицит калорий (около 15% от поддерживающей нормы) и повышенная
-      доля белка при достаточном количестве жиров и углеводов.
-    </li>
-  </ul>
+      <h3>Цели, которые можно рассчитать</h3>
+      <ul>
+        <li><strong>Похудение.</strong> Создаётся умеренный дефицит калорий (около 20% от поддерживающей нормы).</li>
+        <li><strong>Поддержание веса.</strong> Суточная калорийность соответствует текущим потребностям организма.</li>
+        <li><strong>Набор мышечной массы.</strong> Используется небольшой профицит калорий (около 15% от поддерживающей нормы).</li>
+      </ul>
 
-  <h4>Важно</h4>
-  <ul>
-    <li>
-      Расчёты калорий и КБЖУ являются приблизительными и не заменяют
-      индивидуальную консультацию врача или диетолога.
-    </li>
-    <li>
-      Резкий дефицит или профицит калорий, а также крайние диеты могут
-      негативно сказаться на здоровье и гормональном фоне.
-    </li>
-    <li>
-      Калькулятор не учитывает состав тела, хронические заболевания,
-      особенности обмена веществ и другие индивидуальные факторы.
-    </li>
-    <li>
-      Перед серьёзными изменениями рациона или тренировочного плана
-      рекомендуется обсудить результаты с профильным специалистом.
-    </li>
-  </ul>
-</section>
+      <h3>Важно</h3>
+      <ul>
+        <li>Расчёты калорий и КБЖУ являются приблизительными и не заменяют индивидуальную консультацию врача или диетолога.</li>
+        <li>Резкий дефицит или профицит калорий, а также крайние диеты могут негативно сказаться на здоровье и гормональном фоне.</li>
+        <li>Калькулятор не учитывает состав тела, хронические заболевания, особенности обмена веществ и другие индивидуальные факторы.</li>
+      </ul>
+    </section>
 
-<section class="kbju-faq">
-  <h3>Частые вопросы про калькулятор КБЖУ</h3>
+    <section class="kbju-faq">
+      <h3>Частые вопросы про калькулятор КБЖУ</h3>
 
-  <div class="faq-item">
-    <h4>Для чего нужен калькулятор КБЖУ?</h4>
-    <p>
-      Калькулятор КБЖУ помогает определить суточную норму калорий и
-      распределить их на белки, жиры и углеводы в зависимости от цели:
-      похудение, поддержание веса или набор мышечной массы. Это удобная
-      отправная точка для составления плана питания.
-    </p>
-  </div>
+      <div class="faq-item">
+        <h4>Для чего нужен калькулятор КБЖУ?</h4>
+        <p>Калькулятор КБЖУ помогает определить суточную норму калорий и распределить их на белки, жиры и углеводы в зависимости от цели.</p>
+      </div>
 
-  <div class="faq-item">
-    <h4>Можно ли с помощью этого калькулятора похудеть?</h4>
-    <p>
-      Калькулятор рассчитывает суточный дефицит калорий и рекомендуемое
-      количество БЖУ для снижения веса. Он подсказывает, сколько примерно
-      есть в день, но сам по себе не заменяет продуманное меню и
-      контроль рациона. Используйте его как ориентир и опирайтесь на
-      рекомендации по здоровому снижению веса.
-    </p>
-  </div>
+      <div class="faq-item">
+        <h4>Можно ли с помощью этого калькулятора похудеть?</h4>
+        <p>Калькулятор рассчитывает суточный дефицит калорий и рекомендуемое количество БЖУ для снижения веса. Используйте его как ориентир.</p>
+      </div>
 
-  <div class="faq-item">
-    <h4>Насколько точны расчёты калорий и КБЖУ?</h4>
-    <p>
-      Расчёт основан на общепринятых формулах и усреднённых нормах для
-      здоровых взрослых людей. Фактические потребности могут отличаться
-      из‑за состава тела, уровня стресса, сна, состояния здоровья и
-      других факторов.
-    </p>
-  </div>
-
-  <div class="faq-item">
-    <h4>Нужно ли учитывать ИМТ вместе с КБЖУ?</h4>
-    <p>
-      Индекс массы тела (ИМТ) помогает оценить, к какому диапазону
-      массы тела вы ближе — дефицит, норма или избыток. Для более
-      полной картины полезно вместе с КБЖУ рассчитать и ИМТ с помощью
-      <a href="calc-bmi.html">калькулятора ИМТ</a>.
-    </p>
-  </div>
-</section>
-
-</main>
+      <div class="faq-item">
+        <h4>Насколько точны расчёты калорий и КБЖУ?</h4>
+        <p>Расчёт основан на общепринятых формулах и усреднённых нормах для здоровых взрослых людей. Фактические потребности могут отличаться.</p>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -371,18 +301,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-kbju.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

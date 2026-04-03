@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кредитный калькулятор | CalcHub</title>
+  <title>Кредитный калькулятор онлайн — рассчитать платежи, переплату, ставку</title>
+  <meta name="description" content="Бесплатный кредитный калькулятор. Расчёт ежемесячных платежей, переплаты и общей суммы кредита. Аннуитетные и дифференцированные платежи. Сравните условия.">
+  <meta property="og:title" content="Кредитный калькулятор — рассчитать кредит онлайн">
+  <meta property="og:description" content="Узнайте ежемесячный платёж, переплату и срок кредита. Поддерживаются аннуитетные и дифференцированные платежи.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-credit.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -13,9 +19,8 @@
       <a href="index.html" class="logo">Сalculators All</a>
       <nav class="main-nav">
         <a href="index.html" class="nav-link">Главная</a>
-
         <div class="nav-dropdown">
-          <button type="button" class="nav-drop-btn">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
             Выбор калькулятора
           </button>
           <div class="nav-drop-menu">
@@ -44,26 +49,15 @@
       </p>
 
       <div class="credit-card">
-        <form id="credit-form">
+        <form id="credit-form" novalidate>
           <div class="percent-row">
             <div class="percent-field">
-              <label>Сумма кредита</label>
-              <input
-                type="number"
-                step="any"
-                name="amount"
-                placeholder="Например, 300 000"
-              />
+              <label for="credit-amount">Сумма кредита, ₽</label>
+              <input type="number" step="any" id="credit-amount" name="amount" placeholder="Например, 300 000" aria-label="Сумма кредита в рублях" required>
             </div>
             <div class="percent-field">
-              <label>Процентная ставка, % годовых</label>
-              <input
-                type="number"
-                step="0.01"
-                min="0"
-                name="rate"
-                placeholder="Например, 18.5"
-              />
+              <label for="credit-rate">Процентная ставка, % годовых</label>
+              <input type="number" step="0.01" min="0" id="credit-rate" name="rate" placeholder="Например, 18.5" aria-label="Процентная ставка" required>
             </div>
           </div>
 
@@ -71,29 +65,17 @@
             <div class="percent-field">
               <label>Срок кредита</label>
               <div class="credit-term-group">
-                <input
-                  type="number"
-                  name="years"
-                  min="0"
-                  max="50"
-                  placeholder="Лет"
-                />
+                <input type="number" id="credit-years" name="years" min="0" max="50" placeholder="Лет" aria-label="Количество лет">
                 <span class="credit-term-separator">и</span>
-                <input
-                  type="number"
-                  name="months"
-                  min="0"
-                  max="600"
-                  placeholder="Месяцев"
-                />
+                <input type="number" id="credit-months" name="months" min="0" max="600" placeholder="Месяцев" aria-label="Количество месяцев">
               </div>
               <div class="mortgage-dp-hint">
                 Можно указать только годы, только месяцы или и то, и другое.
               </div>
             </div>
             <div class="percent-field">
-              <label>Тип платежей</label>
-              <select name="paymentType">
+              <label for="credit-type">Тип платежей</label>
+              <select id="credit-type" name="paymentType" aria-label="Тип платежей">
                 <option value="annuity" selected>Аннуитетные (равные платежи)</option>
                 <option value="diff">Дифференцированные (убывающие платежи)</option>
               </select>
@@ -102,13 +84,8 @@
 
           <div class="percent-row">
             <div class="percent-field">
-              <label>Ежемесячный доход (по желанию)</label>
-              <input
-                type="number"
-                step="any"
-                name="income"
-                placeholder="Например, 80 000"
-              />
+              <label for="credit-income">Ежемесячный доход (по желанию)</label>
+              <input type="number" step="any" id="credit-income" name="income" placeholder="Например, 80 000" aria-label="Ежемесячный доход">
               <div class="mortgage-dp-hint">
                 Нужен для оценки доли платежа от дохода.
               </div>
@@ -116,9 +93,8 @@
           </div>
 
           <div class="percent-actions credit-actions">
-            <button type="submit" class="btn-calc">
-              Рассчитать кредит
-            </button>
+            <button type="submit" class="btn-calc">Рассчитать кредит</button>
+            <button type="button" class="btn-secondary" id="credit-clear-btn">Очистить</button>
           </div>
 
           <div class="credit-results">
@@ -163,7 +139,7 @@
     </section>
 
     <section class="mortgage-info">
-      <h3>Как работает кредитный калькулятор</h3>
+      <h2>Как работает кредитный калькулятор</h2>
       <p>
         Калькулятор рассчитывает ежемесячный платёж, общую сумму выплат
         и переплату по кредиту на основе выбранного типа платежей.
@@ -178,26 +154,12 @@
         платёж комфортен относительно вашего дохода.
       </p>
 
-      <h4>Ограничения и важные замечания</h4>
+      <h3>Ограничения и важные замечания</h3>
       <ul>
-        <li>
-          Расчёты носят ориентировочный характер и не являются
-          индивидуальным финансовым советом или официальным предложением
-          банка.
-        </li>
-        <li>
-          В расчёты не включены комиссии, страховки, возможные изменения
-          ставки, досрочные погашения и другие условия конкретных программ.
-        </li>
-        <li>
-          Фактический график платежей и переплата могут отличаться от
-          расчёта, особенно при досрочном погашении или изменении условий
-          кредитного договора.
-        </li>
-        <li>
-          Перед оформлением кредита стоит сравнить предложения разных банков
-          и, при необходимости, обсудить условия с финансовым специалистом.
-        </li>
+        <li>Расчёты носят ориентировочный характер и не являются индивидуальным финансовым советом или официальным предложением банка.</li>
+        <li>В расчёты не включены комиссии, страховки, возможные изменения ставки, досрочные погашения и другие условия конкретных программ.</li>
+        <li>Фактический график платежей и переплата могут отличаться от расчёта, особенно при досрочном погашении или изменении условий кредитного договора.</li>
+        <li>Перед оформлением кредита стоит сравнить предложения разных банков и, при необходимости, обсудить условия с финансовым специалистом.</li>
       </ul>
     </section>
   </main>
@@ -210,18 +172,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-credit.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>

@@ -8,6 +8,12 @@
 
   <meta name="description" content="Удобный онлайн‑калькулятор стоимости товара. Рассчитайте цену продажи по закупке и наценке, наценку и маржу, цену за единицу по общей сумме и количеству, цену с НДС и без НДС, а также стоимость товара по весу и цене за 1 кг. Помогает сравнивать выгоду разных упаковок и цен за 1 кг/100 г.">
 
+  <meta property="og:title" content="Калькулятор стоимости товара — цена продажи, наценка, маржа">
+  <meta property="og:description" content="Рассчитайте цену продажи, наценку, маржу, стоимость товара по весу и цене за 1 кг, а также сравните выгодность разных упаковок.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-product.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
+
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -17,9 +23,8 @@
       <a href="index.html" class="logo">CalcHub</a>
       <nav class="main-nav">
         <a href="index.html" class="nav-link">Главная</a>
-
         <div class="nav-dropdown">
-          <button type="button" class="nav-drop-btn">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
             Выбор калькулятора
           </button>
           <div class="nav-drop-menu">
@@ -54,494 +59,287 @@
         <div class="product-top">
           <div class="percent-header-title">Тип расчёта</div>
           <div class="percent-scenario-select">
-            <select id="product-scenario-select">
-              <option value="sale-from-cost">
-                1. Цена продажи по закупке и наценке
-              </option>
-              <option value="margin-from-prices">
-                2. Наценка и маржа по закупке и продаже
-              </option>
-              <option value="unit-from-total">
-                3. Цена за единицу по общей сумме и количеству
-              </option>
-              <option value="vat">
-                4. Цена с НДС и без НДС
-              </option>
-              <option value="weight-cost-from-kg">
-                5. Стоимость товара по весу и цене за 1 кг
-              </option>
-              <option value="weight-grams-from-money">
-                6. Сколько граммов можно купить на сумму
-              </option>
-              <option value="price-per-kg">
-                7. Цена товара за 1 кг (по цене и весу)
-              </option>
-              <option value="price-for-weight">
-                8. Цена за другой вес товара
-              </option>
+            <select id="product-scenario-select" aria-label="Выберите тип расчёта">
+              <option value="sale-from-cost">1. Цена продажи по закупке и наценке</option>
+              <option value="margin-from-prices">2. Наценка и маржа по закупке и продаже</option>
+              <option value="unit-from-total">3. Цена за единицу по общей сумме и количеству</option>
+              <option value="vat">4. Цена с НДС и без НДС</option>
+              <option value="weight-cost-from-kg">5. Стоимость товара по весу и цене за 1 кг</option>
+              <option value="weight-grams-from-money">6. Сколько граммов можно купить на сумму</option>
+              <option value="price-per-kg">7. Цена товара за 1 кг (по цене и весу)</option>
+              <option value="price-for-weight">8. Цена за другой вес товара</option>
             </select>
           </div>
         </div>
 
         <div class="product-forms">
           <!-- 1. Цена продажи по закупке и наценке -->
-          <form class="product-form active" data-scenario="sale-from-cost">
+          <form class="product-form active" data-scenario="sale-from-cost" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Закупочная цена за единицу, ₽</label>
-                <input type="number" step="any" name="costPrice" placeholder="Например, 500" />
+                <label for="prod-costPrice">Закупочная цена за единицу, ₽</label>
+                <input type="number" step="any" id="prod-costPrice" name="costPrice" placeholder="Например, 500" aria-label="Закупочная цена">
               </div>
               <div class="percent-field">
-                <label>Доп. расходы на единицу, ₽</label>
-                <input type="number" step="any" name="extraCosts" placeholder="Доставка, упаковка и т.п." />
+                <label for="prod-extraCosts">Доп. расходы на единицу, ₽</label>
+                <input type="number" step="any" id="prod-extraCosts" name="extraCosts" placeholder="Доставка, упаковка и т.п." aria-label="Дополнительные расходы">
               </div>
             </div>
-
             <div class="percent-row">
               <div class="percent-field">
-                <label>Наценка на себестоимость, %</label>
-                <input type="number" step="any" name="markup" placeholder="Например, 30" />
+                <label for="prod-markup">Наценка на себестоимость, %</label>
+                <input type="number" step="any" id="prod-markup" name="markup" placeholder="Например, 30" aria-label="Наценка в процентах">
               </div>
               <div class="percent-field">
-                <label>НДС, % (по желанию)</label>
-                <input type="number" step="any" name="vat" placeholder="Например, 20" />
+                <label for="prod-vat">НДС, % (по желанию)</label>
+                <input type="number" step="any" id="prod-vat" name="vat" placeholder="Например, 20" aria-label="НДС">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать цену продажи</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
               <div class="product-main">
                 <div class="product-main-label">Цена продажи</div>
                 <div class="product-main-value" id="prod-sale-price">—</div>
               </div>
-
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Себестоимость единицы</div>
-                  <div class="product-detail-value" id="prod-cost-total">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена без НДС</div>
-                  <div class="product-detail-value" id="prod-sale-no-vat">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена с НДС</div>
-                  <div class="product-detail-value" id="prod-sale-with-vat">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Прибыль с единицы</div>
-                  <div class="product-detail-value" id="prod-profit">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Маржа, %</div>
-                  <div class="product-detail-value" id="prod-margin-pct">—</div>
-                </div>
+                <div><div class="product-detail-label">Себестоимость единицы</div><div class="product-detail-value" id="prod-cost-total">—</div></div>
+                <div><div class="product-detail-label">Цена без НДС</div><div class="product-detail-value" id="prod-sale-no-vat">—</div></div>
+                <div><div class="product-detail-label">Цена с НДС</div><div class="product-detail-value" id="prod-sale-with-vat">—</div></div>
+                <div><div class="product-detail-label">Прибыль с единицы</div><div class="product-detail-value" id="prod-profit">—</div></div>
+                <div><div class="product-detail-label">Маржа, %</div><div class="product-detail-value" id="prod-margin-pct">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-1">
-                Укажите себестоимость, наценку и при необходимости НДС, затем нажмите «Рассчитать цену продажи».
-              </div>
+              <div class="kbju-note" id="prod-note-1">Укажите себестоимость, наценку и при необходимости НДС.</div>
             </div>
           </form>
 
           <!-- 2. Наценка и маржа по закупке и продаже -->
-          <form class="product-form" data-scenario="margin-from-prices">
+          <form class="product-form" data-scenario="margin-from-prices" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Закупочная цена, ₽</label>
-                <input type="number" step="any" name="costPrice" placeholder="Например, 500" />
+                <label for="prod2-costPrice">Закупочная цена, ₽</label>
+                <input type="number" step="any" id="prod2-costPrice" name="costPrice" placeholder="Например, 500" aria-label="Закупочная цена">
               </div>
               <div class="percent-field">
-                <label>Цена продажи, ₽</label>
-                <input type="number" step="any" name="salePrice" placeholder="Например, 750" />
+                <label for="prod2-salePrice">Цена продажи, ₽</label>
+                <input type="number" step="any" id="prod2-salePrice" name="salePrice" placeholder="Например, 750" aria-label="Цена продажи">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать наценку и маржу</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Прибыль с единицы товара</div>
-                <div class="product-main-value" id="prod-profit2">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Прибыль с единицы товара</div><div class="product-main-value" id="prod-profit2">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Наценка, % (по себестоимости)</div>
-                  <div class="product-detail-value" id="prod-markup-pct">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Маржа, % (по цене продажи)</div>
-                  <div class="product-detail-value" id="prod-margin2-pct">—</div>
-                </div>
+                <div><div class="product-detail-label">Наценка, % (по себестоимости)</div><div class="product-detail-value" id="prod-markup-pct">—</div></div>
+                <div><div class="product-detail-label">Маржа, % (по цене продажи)</div><div class="product-detail-value" id="prod-margin2-pct">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-2">
-                Введите закупочную цену и цену продажи, чтобы увидеть наценку, маржу и прибыль с единицы товара.
-              </div>
+              <div class="kbju-note" id="prod-note-2">Введите закупочную и продажную цену.</div>
             </div>
           </form>
 
           <!-- 3. Цена за единицу по общей сумме и количеству -->
-          <form class="product-form" data-scenario="unit-from-total">
+          <form class="product-form" data-scenario="unit-from-total" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Общая сумма, ₽</label>
-                <input type="number" step="any" name="total" placeholder="Например, 12 000" />
+                <label for="prod3-total">Общая сумма, ₽</label>
+                <input type="number" step="any" id="prod3-total" name="total" placeholder="Например, 12 000" aria-label="Общая сумма">
               </div>
               <div class="percent-field">
-                <label>Количество единиц</label>
-                <input type="number" step="any" name="quantity" placeholder="Например, 24" />
+                <label for="prod3-quantity">Количество единиц</label>
+                <input type="number" step="any" id="prod3-quantity" name="quantity" placeholder="Например, 24" aria-label="Количество">
               </div>
             </div>
-
             <div class="percent-row">
               <div class="percent-field">
-                <label>Точность (знаков после запятой)</label>
-                <input type="number" name="precision" min="0" max="6" value="2" />
+                <label for="prod3-precision">Точность (знаков после запятой)</label>
+                <input type="number" id="prod3-precision" name="precision" min="0" max="6" value="2" aria-label="Точность округления">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать цену за единицу</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Цена за единицу товара</div>
-                <div class="product-main-value" id="prod-unit-price">—</div>
-              </div>
-
-              <div class="kbju-note" id="prod-note-3">
-                Укажите общую сумму и количество единиц — калькулятор посчитает стоимость одной позиции.
-              </div>
+              <div class="product-main"><div class="product-main-label">Цена за единицу товара</div><div class="product-main-value" id="prod-unit-price">—</div></div>
+              <div class="kbju-note" id="prod-note-3">Укажите общую сумму и количество единиц.</div>
             </div>
           </form>
 
           <!-- 4. Цена с НДС и без НДС -->
-          <form class="product-form" data-scenario="vat">
+          <form class="product-form" data-scenario="vat" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Цена без НДС, ₽</label>
-                <input type="number" step="any" name="net" placeholder="Например, 1000" />
+                <label for="prod4-net">Цена без НДС, ₽</label>
+                <input type="number" step="any" id="prod4-net" name="net" placeholder="Например, 1000" aria-label="Цена без НДС">
               </div>
               <div class="percent-field">
-                <label>Цена с НДС, ₽</label>
-                <input type="number" step="any" name="gross" placeholder="Если неизвестно, оставьте пустым" />
+                <label for="prod4-gross">Цена с НДС, ₽</label>
+                <input type="number" step="any" id="prod4-gross" name="gross" placeholder="Если неизвестно, оставьте пустым" aria-label="Цена с НДС">
               </div>
             </div>
-
             <div class="percent-row">
               <div class="percent-field">
-                <label>Ставка НДС, %</label>
-                <input type="number" step="any" name="vatRate" placeholder="Например, 20" />
+                <label for="prod4-vatRate">Ставка НДС, %</label>
+                <input type="number" step="any" id="prod4-vatRate" name="vatRate" placeholder="Например, 20" aria-label="Ставка НДС">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать НДС</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Результат</div>
-                <div class="product-main-value" id="prod-vat-main">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Результат</div><div class="product-main-value" id="prod-vat-main">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Цена без НДС</div>
-                  <div class="product-detail-value" id="prod-vat-net">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена с НДС</div>
-                  <div class="product-detail-value" id="prod-vat-gross">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Сумма НДС</div>
-                  <div class="product-detail-value" id="prod-vat-amount">—</div>
-                </div>
+                <div><div class="product-detail-label">Цена без НДС</div><div class="product-detail-value" id="prod-vat-net">—</div></div>
+                <div><div class="product-detail-label">Цена с НДС</div><div class="product-detail-value" id="prod-vat-gross">—</div></div>
+                <div><div class="product-detail-label">Сумма НДС</div><div class="product-detail-value" id="prod-vat-amount">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-4">
-                Заполните либо цену без НДС, либо цену с НДС (или обе) и укажите ставку НДС. Калькулятор досчитает недостающие значения.
-              </div>
+              <div class="kbju-note" id="prod-note-4">Заполните цену без НДС или с НДС и укажите ставку.</div>
             </div>
           </form>
 
           <!-- 5. Стоимость товара по весу и цене за 1 кг -->
-          <form class="product-form" data-scenario="weight-cost-from-kg">
+          <form class="product-form" data-scenario="weight-cost-from-kg" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Цена за 1 кг, ₽</label>
-                <input type="number" step="any" name="pricePerKg" placeholder="Например, 600" />
+                <label for="prod5-pricePerKg">Цена за 1 кг, ₽</label>
+                <input type="number" step="any" id="prod5-pricePerKg" name="pricePerKg" placeholder="Например, 600" aria-label="Цена за 1 кг">
               </div>
               <div class="percent-field">
-                <label>Вес, г</label>
-                <input type="number" step="any" name="weightGr" placeholder="Например, 750" />
+                <label for="prod5-weightGr">Вес, г</label>
+                <input type="number" step="any" id="prod5-weightGr" name="weightGr" placeholder="Например, 750" aria-label="Вес в граммах">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать стоимость</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Стоимость товара</div>
-                <div class="product-main-value" id="prod-w-cost">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Стоимость товара</div><div class="product-main-value" id="prod-w-cost">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Цена за 100 г</div>
-                  <div class="product-detail-value" id="prod-w-100g">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена за 1 кг</div>
-                  <div class="product-detail-value" id="prod-w-kg">—</div>
-                </div>
+                <div><div class="product-detail-label">Цена за 100 г</div><div class="product-detail-value" id="prod-w-100g">—</div></div>
+                <div><div class="product-detail-label">Цена за 1 кг</div><div class="product-detail-value" id="prod-w-kg">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-5">
-                Этот расчёт удобно использовать, чтобы понять, сколько будет стоить конкретный вес товара при известной цене за 1 кг и сравнить разные варианты упаковок.
-              </div>
+              <div class="kbju-note" id="prod-note-5">Укажите цену за 1 кг и вес товара.</div>
             </div>
           </form>
 
           <!-- 6. Сколько граммов можно купить на сумму -->
-          <form class="product-form" data-scenario="weight-grams-from-money">
+          <form class="product-form" data-scenario="weight-grams-from-money" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Цена за 1 кг, ₽</label>
-                <input type="number" step="any" name="pricePerKg" placeholder="Например, 800" />
+                <label for="prod6-pricePerKg">Цена за 1 кг, ₽</label>
+                <input type="number" step="any" id="prod6-pricePerKg" name="pricePerKg" placeholder="Например, 800" aria-label="Цена за 1 кг">
               </div>
               <div class="percent-field">
-                <label>Сумма, ₽</label>
-                <input type="number" step="any" name="amount" placeholder="Например, 300" />
+                <label for="prod6-amount">Сумма, ₽</label>
+                <input type="number" step="any" id="prod6-amount" name="amount" placeholder="Например, 300" aria-label="Сумма">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать количество</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Вы сможете купить</div>
-                <div class="product-main-value" id="prod-w-main-grams">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Вы сможете купить</div><div class="product-main-value" id="prod-w-main-grams">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Вес, г</div>
-                  <div class="product-detail-value" id="prod-w-grams">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Вес, кг</div>
-                  <div class="product-detail-value" id="prod-w-kg-2">—</div>
-                </div>
+                <div><div class="product-detail-label">Вес, г</div><div class="product-detail-value" id="prod-w-grams">—</div></div>
+                <div><div class="product-detail-label">Вес, кг</div><div class="product-detail-value" id="prod-w-kg-2">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-6">
-                Укажите цену за 1 кг и сумму — калькулятор покажет, какой вес товара вы можете купить на эту сумму.
-              </div>
+              <div class="kbju-note" id="prod-note-6">Укажите цену за 1 кг и сумму.</div>
             </div>
           </form>
 
           <!-- 7. Цена товара за 1 кг (по цене и весу) -->
-          <form class="product-form" data-scenario="price-per-kg">
+          <form class="product-form" data-scenario="price-per-kg" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Цена упаковки, ₽</label>
-                <input type="number" step="any" name="totalPrice" placeholder="Например, 199" />
+                <label for="prod7-totalPrice">Цена упаковки, ₽</label>
+                <input type="number" step="any" id="prod7-totalPrice" name="totalPrice" placeholder="Например, 199" aria-label="Цена упаковки">
               </div>
               <div class="percent-field">
-                <label>Вес упаковки, г</label>
-                <input type="number" step="any" name="weightGr" placeholder="Например, 450" />
+                <label for="prod7-weightGr">Вес упаковки, г</label>
+                <input type="number" step="any" id="prod7-weightGr" name="weightGr" placeholder="Например, 450" aria-label="Вес упаковки в граммах">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать цену за 1 кг</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Цена товара</div>
-                <div class="product-main-value" id="prod-w-price-kg-main">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Цена товара</div><div class="product-main-value" id="prod-w-price-kg-main">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Цена за 1 кг</div>
-                  <div class="product-detail-value" id="prod-w-price-kg">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена за 100 г</div>
-                  <div class="product-detail-value" id="prod-w-price-100g">—</div>
-                </div>
+                <div><div class="product-detail-label">Цена за 1 кг</div><div class="product-detail-value" id="prod-w-price-kg">—</div></div>
+                <div><div class="product-detail-label">Цена за 100 г</div><div class="product-detail-value" id="prod-w-price-100g">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-7">
-                Такой расчёт удобен для сравнения разных упаковок одного товара: вы сразу видите, сколько стоит 1 кг и 100 г.
-              </div>
+              <div class="kbju-note" id="prod-note-7">Укажите цену и вес упаковки.</div>
             </div>
           </form>
 
           <!-- 8. Цена за другой вес товара -->
-          <form class="product-form" data-scenario="price-for-weight">
+          <form class="product-form" data-scenario="price-for-weight" novalidate>
             <div class="percent-row">
               <div class="percent-field">
-                <label>Цена упаковки, ₽</label>
-                <input type="number" step="any" name="packagePrice" placeholder="Например, 120" />
+                <label for="prod8-packagePrice">Цена упаковки, ₽</label>
+                <input type="number" step="any" id="prod8-packagePrice" name="packagePrice" placeholder="Например, 120" aria-label="Цена упаковки">
               </div>
               <div class="percent-field">
-                <label>Вес упаковки, г</label>
-                <input type="number" step="any" name="packageWeightGr" placeholder="Например, 900" />
+                <label for="prod8-packageWeightGr">Вес упаковки, г</label>
+                <input type="number" step="any" id="prod8-packageWeightGr" name="packageWeightGr" placeholder="Например, 900" aria-label="Вес упаковки в граммах">
               </div>
             </div>
-
             <div class="percent-row">
               <div class="percent-field">
-                <label>Нужный вес, г</label>
-                <input type="number" step="any" name="targetWeightGr" placeholder="Например, 500" />
+                <label for="prod8-targetWeightGr">Нужный вес, г</label>
+                <input type="number" step="any" id="prod8-targetWeightGr" name="targetWeightGr" placeholder="Например, 500" aria-label="Нужный вес в граммах">
               </div>
             </div>
-
             <div class="percent-actions product-actions">
               <button type="submit" class="btn-calc">Рассчитать цену нужного веса</button>
+              <button type="button" class="btn-secondary product-clear-btn">Очистить</button>
             </div>
-
             <div class="product-result">
-              <div class="product-main">
-                <div class="product-main-label">Стоимость нужного веса</div>
-                <div class="product-main-value" id="prod-w-target-price">—</div>
-              </div>
-
+              <div class="product-main"><div class="product-main-label">Стоимость нужного веса</div><div class="product-main-value" id="prod-w-target-price">—</div></div>
               <div class="product-details-grid">
-                <div>
-                  <div class="product-detail-label">Цена за 1 кг</div>
-                  <div class="product-detail-value" id="prod-w-target-kg-price">—</div>
-                </div>
-                <div>
-                  <div class="product-detail-label">Цена за 100 г</div>
-                  <div class="product-detail-value" id="prod-w-target-100g-price">—</div>
-                </div>
+                <div><div class="product-detail-label">Цена за 1 кг</div><div class="product-detail-value" id="prod-w-target-kg-price">—</div></div>
+                <div><div class="product-detail-label">Цена за 100 г</div><div class="product-detail-value" id="prod-w-target-100g-price">—</div></div>
               </div>
-
-              <div class="kbju-note" id="prod-note-8">
-                Этот сценарий помогает узнать, сколько будет стоить другой вес товара исходя из цены и веса исходной упаковки.
-              </div>
+              <div class="kbju-note" id="prod-note-8">Укажите цену и вес упаковки и нужный вес.</div>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Описания сценариев как на калькуляторе процентов -->
     <section class="product-scenarios-info">
-      <h3>Сценарии расчёта стоимости товара</h3>
+      <h2>Сценарии расчёта стоимости товара</h2>
       <p class="product-info-intro">
         Ниже представлены основные типы расчётов. Нажмите на интересующий
-        сценарий, чтобы увидеть подробное описание и пример применения
-        в бизнесе или в быту: от расчёта розничной цены до сравнения
-        выгодности разных упаковок по цене за 1&nbsp;кг и 100&nbsp;грамм.
+        сценарий, чтобы увидеть подробное описание и пример применения.
       </p>
-
       <div class="product-scenario-info-list">
-        <button class="product-scenario-info-btn active" data-scenario="sale-from-cost">
-          1. Цена продажи по закупке и наценке
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="margin-from-prices">
-          2. Наценка и маржа по закупке и продаже
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="unit-from-total">
-          3. Цена за единицу по общей сумме и количеству
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="vat">
-          4. Цена с НДС и без НДС
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="weight-cost-from-kg">
-          5. Стоимость по цене за 1 кг и весу
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="weight-grams-from-money">
-          6. Сколько граммов можно купить на сумму
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="price-per-kg">
-          7. Цена за 1 кг по цене и весу
-        </button>
-        <button class="product-scenario-info-btn" data-scenario="price-for-weight">
-          8. Цена за другой вес товара
-        </button>
+        <button class="product-scenario-info-btn active" data-scenario="sale-from-cost">1. Цена продажи по закупке и наценке</button>
+        <button class="product-scenario-info-btn" data-scenario="margin-from-prices">2. Наценка и маржа по закупке и продаже</button>
+        <button class="product-scenario-info-btn" data-scenario="unit-from-total">3. Цена за единицу по общей сумме и количеству</button>
+        <button class="product-scenario-info-btn" data-scenario="vat">4. Цена с НДС и без НДС</button>
+        <button class="product-scenario-info-btn" data-scenario="weight-cost-from-kg">5. Стоимость по цене за 1 кг и весу</button>
+        <button class="product-scenario-info-btn" data-scenario="weight-grams-from-money">6. Сколько граммов можно купить на сумму</button>
+        <button class="product-scenario-info-btn" data-scenario="price-per-kg">7. Цена за 1 кг по цене и весу</button>
+        <button class="product-scenario-info-btn" data-scenario="price-for-weight">8. Цена за другой вес товара</button>
       </div>
-
-      <div class="product-scenario-info-content" id="product-scenario-info-content">
-        <!-- сюда JS подставит описание сценария -->
-      </div>
+      <div class="product-scenario-info-content" id="product-scenario-info-content"></div>
     </section>
 
-    <!-- FAQ для SEO и пользователей -->
     <section class="product-faq">
       <h3>Частые вопросы про калькулятор стоимости товара</h3>
-
-      <div class="faq-item">
-        <h4>Кому может пригодиться калькулятор стоимости товара?</h4>
-        <p>
-          Калькулятор полезен предпринимателям, менеджерам по продажам,
-          закупщикам, владельцам интернет‑магазинов и офлайн‑ритейла.
-          В быту он помогает сравнивать выгодность покупки товаров
-          в разных упаковках, считать цену за 1&nbsp;кг или 100&nbsp;г
-          и оценивать, сколько товара можно купить на определённую сумму.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>Как рассчитать цену продажи по закупочной цене и наценке?</h4>
-        <p>
-          Выберите сценарий «Цена продажи по закупке и наценке», укажите
-          закупочную цену, доп. расходы и наценку в процентах. Калькулятор
-          посчитает себестоимость единицы, цену без НДС, цену с НДС,
-          прибыль и маржу.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>Чем отличается наценка от маржи?</h4>
-        <p>
-          Наценка показывает, на сколько процентов цена продажи выше
-          себестоимости (расчёт по закупке). Маржа показывает, какую
-          долю в цене продажи составляет прибыль (расчёт по цене
-          продажи). В калькуляторе есть отдельный сценарий, который
-          считает и наценку, и маржу по двум ценам.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>Как сравнить выгодность разных упаковок товара?</h4>
-        <p>
-          Для сравнения упаковок укажите цену и вес каждой из них в
-          сценарии «Цена за 1 кг по цене и весу». Калькулятор покажет
-          стоимость 1&nbsp;кг и 100&nbsp;г — этого достаточно, чтобы
-          увидеть, какая упаковка выгоднее, даже если вес и цена
-          отличаются.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>Можно ли использовать калькулятор для расчёта цены за 100 г?</h4>
-        <p>
-          Да, сценарии работы с весом дополнительно показывают цену
-          за 100&nbsp;г. Это удобно при сравнении сыров, колбас,
-          сладостей и других товаров, где производители часто указывают
-          цену за упаковку с разным весом.
-        </p>
-      </div>
+      <div class="faq-item"><h4>Кому может пригодиться калькулятор стоимости товара?</h4><p>Калькулятор полезен предпринимателям, менеджерам по продажам, закупщикам, владельцам интернет‑магазинов и офлайн‑ритейла.</p></div>
+      <div class="faq-item"><h4>Как рассчитать цену продажи по закупочной цене и наценке?</h4><p>Выберите сценарий «Цена продажи по закупке и наценке», укажите закупочную цену, доп. расходы и наценку в процентах.</p></div>
+      <div class="faq-item"><h4>Чем отличается наценка от маржи?</h4><p>Наценка показывает, на сколько процентов цена продажи выше себестоимости. Маржа показывает долю прибыли в цене продажи.</p></div>
+      <div class="faq-item"><h4>Как сравнить выгодность разных упаковок товара?</h4><p>Для сравнения упаковок укажите цену и вес каждой из них в сценарии «Цена за 1 кг по цене и весу».</p></div>
     </section>
   </main>
 
@@ -553,18 +351,17 @@
 
   <script src="js/main.js"></script>
   <script src="js/calc-product.js"></script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
-
     ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>
