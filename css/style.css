@@ -2710,3 +2710,21 @@ select {
 select {
   background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50% !important;
 }
+/* Принудительное исправление фокуса для всех полей ввода */
+input, textarea, select, [contenteditable="true"] {
+  pointer-events: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  cursor: text !important;
+}
+
+/* Явно указываем, что фокус должен работать */
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #0071e3 !important;
+  background-color: #ffffff !important;
+}
+
+/* Убираем возможные перекрытия */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
