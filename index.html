@@ -160,5 +160,53 @@
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
+<script>
+  // Диагностика: проверяем, есть ли что-то, что блокирует фокус
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== ДИАГНОСТИКА ФОКУСА ===');
+    console.log('Страница загружена');
+    
+    // Проверяем, нет ли глобального обработчика, блокирующего клики
+    var allElements = document.querySelectorAll('*');
+    var hasBlocking = false;
+    
+    allElements.forEach(function(el) {
+      var style = window.getComputedStyle(el);
+      if (style.pointerEvents === 'none' && el.tagName !== 'HTML' && el.tagName !== 'BODY') {
+        console.warn('Элемент с pointer-events: none:', el);
+        hasBlocking = true;
+      }
+      if (style.userSelect === 'none' && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) {
+        console.warn('Поле ввода с user-select: none:', el);
+        hasBlocking = true;
+      }
+    });
+    
+    if (!hasBlocking) {
+      console.log('✅ Нет глобальных блокировок pointer-events или user-select');
+    }
+    
+    // Проверяем, есть ли поля ввода на текущей странице
+    var inputs = document.querySelectorAll('input, textarea, select');
+    console.log('Найдено полей ввода:', inputs.length);
+    
+    if (inputs.length === 0) {
+      console.log('⚠️ На этой странице нет полей ввода. Перейдите на страницу калькулятора.');
+    } else {
+      inputs.forEach(function(input, i) {
+        console.log('Поле ' + i + ':', input);
+        input.addEventListener('mousedown', function(e) {
+          console.log('mousedown на поле', input);
+        });
+        input.addEventListener('click', function(e) {
+          console.log('click на поле', input);
+        });
+        input.addEventListener('focus', function(e) {
+          console.log('✅ FOCUS получен на поле', input);
+        });
+      });
+    }
+  });
+</script>
 </body>
 </html>

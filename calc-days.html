@@ -45,22 +45,22 @@
       <p class="calculator-section-intro">
         Калькулятор позволяет узнать, сколько дней между двумя датами,
         а также прибавить или вычесть нужное количество дней к выбранной дате.
-        Можно выбрать даты вручную или с помощью удобного календаря.
       </p>
 
       <div class="date-card">
         <form id="date-range-form" novalidate>
+          <!-- Переключатель режимов -->
           <div class="date-mode-switch">
             <button type="button" class="date-mode-btn active" data-mode="diff">Разница между датами</button>
             <button type="button" class="date-mode-btn" data-mode="add">Прибавить/вычесть дни</button>
           </div>
 
+          <!-- Режим 1: разница между датами (только календарь, без текстового ввода) -->
           <div class="date-mode-panel active" data-mode-panel="diff">
             <div class="date-range-grid">
+              <!-- Левая колонка: дата начала -->
               <div class="date-column" data-side="start">
-                <label class="date-label" for="start-input">Дата начала</label>
-                <input type="text" id="start-input" class="date-input" name="startInput" placeholder="ДД.ММ.ГГГГ" aria-label="Дата начала">
-
+                <label class="date-label">Дата начала</label>
                 <div class="mini-calendar">
                   <div class="mini-cal-header">
                     <button type="button" class="mini-cal-arrow" data-dir="prev" aria-label="Предыдущий месяц">‹</button>
@@ -77,10 +77,9 @@
                 </div>
               </div>
 
+              <!-- Правая колонка: дата окончания -->
               <div class="date-column" data-side="end">
-                <label class="date-label" for="end-input">Дата окончания</label>
-                <input type="text" id="end-input" class="date-input" name="endInput" placeholder="ДД.ММ.ГГГГ" aria-label="Дата окончания">
-
+                <label class="date-label">Дата окончания</label>
                 <div class="mini-calendar">
                   <div class="mini-cal-header">
                     <button type="button" class="mini-cal-arrow" data-dir="prev" aria-label="Предыдущий месяц">‹</button>
@@ -105,15 +104,16 @@
             </div>
           </div>
 
+          <!-- Режим 2: прибавить/вычесть дни (только текстовые поля) -->
           <div class="date-mode-panel" data-mode-panel="add">
             <div class="percent-row">
               <div class="percent-field">
                 <label for="add-start-date">Исходная дата</label>
-                <input type="text" id="add-start-date" class="date-input" placeholder="ДД.ММ.ГГГГ" aria-label="Исходная дата">
+                <input type="text" id="add-start-date" class="date-input-mask" placeholder="ДД.ММ.ГГГГ" aria-label="Исходная дата" autocomplete="off">
               </div>
               <div class="percent-field">
                 <label for="add-days">Количество дней</label>
-                <input type="number" id="add-days" step="1" placeholder="Например, 90" aria-label="Количество дней для прибавления (отрицательное для вычитания)">
+                <input type="number" id="add-days" step="1" placeholder="Например, 90" aria-label="Количество дней (отрицательное для вычитания)">
               </div>
             </div>
             <div class="mortgage-dp-hint">
@@ -126,6 +126,7 @@
             <button type="button" class="btn-secondary" id="date-clear-btn">Очистить</button>
           </div>
 
+          <!-- Результаты -->
           <div class="date-results">
             <div id="date-diff-results">
               <div class="date-main-result">
@@ -186,7 +187,6 @@
         выполняется точным календарным способом с учётом разной длины месяцев
         и високосных лет.
       </p>
-
       <h3>Когда может пригодиться такой калькулятор</h3>
       <ul>
         <li>оценить продолжительность отпуска, командировки или проекта;</li>
