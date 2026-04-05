@@ -1,5 +1,6 @@
 // Навигация: выпадающее меню "Выбор калькулятора"
 // С поддержкой aria-expanded для доступности
+// БЕЗ КОНФЛИКТОВ С ПОЛЯМИ ВВОДА
 
 document.addEventListener('DOMContentLoaded', () => {
   const dropdown = document.querySelector('.nav-dropdown');
@@ -7,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btn = dropdown.querySelector('.nav-drop-btn');
   const menu = dropdown.querySelector('.nav-drop-menu');
+
+  function isInputElement(target) {
+    // Проверяем, является ли элемент или его родитель полем ввода
+    const tagName = target.tagName.toLowerCase();
+    if (tagName === 'input' || tagName === 'textarea' || tagName === 'select') {
+      return true;
+    }
+    // Проверяем родителя (для случая, когда клик по label или обёртке)
+    if (target.closest) {
+      return target.closest('input, textarea, select, [contenteditable="true"]') !== null;
+    }
+    return false;
+  }
 
   function openDropdown() {
     dropdown.classList.add('open');
@@ -19,8 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dropdown.classList.remove('open');
     if (btn) {
       btn.setAttribute('aria-expanded', 'false');
-      // Возвращаем фокус на кнопку после закрытия (удобно для клавиатуры)
-      btn.focus();
+      // НЕ вызываем btn.focus() — это мешает полям ввода
     }
   }
 
@@ -33,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (btn) {
-    // Инициализация атрибута
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-haspopup', 'true');
 
@@ -43,8 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Закрытие по клику вне меню
+  // Закрытие по клику вне меню — НО не по полям ввода
   document.addEventListener('click', (e) => {
+    // Если клик по полю ввода — ничего не делаем
+    if (isInputElement(e.target)) {
+      return;
+    }
     if (!dropdown.contains(e.target)) {
       closeDropdown();
     }
@@ -57,10 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Для доступности: закрытие при потере фокуса (если фокус ушёл с меню)
+  // Для доступности: закрытие при потере фокуса
   if (menu) {
     menu.addEventListener('focusout', (e) => {
-      // Если новый активный элемент не внутри меню и не кнопка, закрываем
+      // Если новый активный элемент — поле ввода, не закрываем меню
+      if (isInputElement(e.relatedTarget)) {
+        return;
+      }
       if (!menu.contains(e.relatedTarget) && e.relatedTarget !== btn) {
         closeDropdown();
       }
