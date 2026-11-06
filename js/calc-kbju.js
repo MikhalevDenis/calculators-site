@@ -1,5 +1,7 @@
 // Калькулятор КБЖУ
-// С ОРИГИНАЛЬНЫМИ ФОРМУЛАМИ (эвристика с тренировками)
+// BMR: формула Миффлина-Сан Жеора (рекомендована ADA)
+// TDEE: стандартные коэффициенты активности
+// БЖУ: рекомендации ВОЗ/ФАО (10-15% белки, 15-30% жиры, 55-75% углеводы)
 
 const kbjuMainForm = document.getElementById('kbju-main-form');
 const kbjuProgressForm = document.getElementById('kbju-progress-form');
@@ -7,7 +9,7 @@ const kbjuImportBtn = document.getElementById('kbju-import-btn');
 const kbjuMainClearBtn = document.getElementById('kbju-main-clear-btn');
 const kbjuProgressClearBtn = document.getElementById('kbju-progress-clear-btn');
 
-// элементы для вывода результатов калькулятора 1
+// Элементы вывода калькулятора 1
 const elBmr = document.getElementById('kbju-bmr');
 const elMaintenance = document.getElementById('kbju-maintenance');
 const elGoalCalories = document.getElementById('kbju-goal-calories');
@@ -17,12 +19,11 @@ const elFat = document.getElementById('kbju-fat');
 const elCarbs = document.getElementById('kbju-carbs');
 const elKbjuNote = document.getElementById('kbju-note');
 
-// элементы калькулятора 2
+// Элементы калькулятора 2
 const elDelta = document.getElementById('kbju-delta');
 const elTime = document.getElementById('kbju-time');
 const elProgressNote = document.getElementById('kbju-progress-note');
 
-// Храним последние данные из калькулятора №1
 const kbjuState = {
   maintenance: null,
   goalCalories: null,
@@ -52,37 +53,43 @@ function showSuccess(element, message) {
   element.classList.remove('error');
 }
 
-// Расчёт поддерживающей нормы с учётом активности (оригинальная эвристика)
-function calcMaintenanceWithActivity(bmr, activity) {
-  const base = bmr;
-  const sedentaryExtra = 0.15 * base;
-  const trainingExtraPerSession = 0.25 * base;
-  let extraPerDay = 0;
+// ==== СТАНДАРТНЫЕ КОЭФФИЦИЕНТЫ АКТИВНОСТИ (PAL) ====
+const activityMultipliers = {
+  sedentary: 1.2,    // Минимальная активность
+  light: 1.375,      // Легкая активность (1-3 тренировки в неделю)
+  moderate: 1.55,    // Средняя активность (3-5 тренировок в неделю)
+  active: 1.725,     // Высокая активность (6-7 тренировок в неделю)
+  very_active: 1.9   // Очень высокая активность (тяжелый физический труд)
+};
 
-  switch (activity) {
-    case 'sedentary':
-      extraPerDay = sedentaryExtra;
-      break;
-    case 'light':
-      extraPerDay = sedentaryExtra + (2 * trainingExtraPerSession) / 7;
-      break;
-    case 'moderate':
-      extraPerDay = sedentaryExtra + (4 * trainingExtraPerSession) / 7;
-      break;
-    case 'active':
-      extraPerDay = sedentaryExtra + (7 * trainingExtraPerSession) / 7;
-      break;
-    case 'very_active':
-      extraPerDay = 0.8 * base;
-      break;
-    default:
-      extraPerDay = sedentaryExtra;
+// ==== РАСЧЕТ BMR по Миффлину-Сан Жеору ====
+function calcBMR(sex, weight, height, age) {
+  if (sex === 'male') {
+    return 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    return 10 * weight + 6.25 * height - 5 * age - 161;
   }
-  return base + extraPerDay;
 }
 
-// ===== Калькулятор 1: суточная норма и КБЖУ =====
+// ==== РАСПРЕДЕЛЕНИЕ БЖУ ====
+// Основано на рекомендациях ВОЗ/ФАО и адаптировано под цель
+function getMacroPercentages(goal) {
+  // Рекомендации ВОЗ: Белки 10-15%, Жиры 15-30%, Углеводы 55-75%.
+  // Для похудения и набора массы белок берем по верхней границе (15-25%), 
+  // чтобы сохранить/нарастить мышцы. Жиры оставляем в пределах 25-30% для гормонального фона.
+  if (goal === 'loss') {
+    // Похудение: больше белка для сохранения мышц, меньше углеводов
+    return { protein: 0.25, fat: 0.30, carbs: 0.45 };
+  } else if (goal === 'gain') {
+    // Набор массы: достаточно белка, больше углеводов для энергии
+    return { protein: 0.20, fat: 0.25, carbs: 0.55 };
+  } else {
+    // Поддержание: сбалансированное питание по ВОЗ
+    return { protein: 0.15, fat: 0.30, carbs: 0.55 };
+  }
+}
 
+// ===== Калькулятор 1 =====
 function resetMainForm() {
   const formElements = kbjuMainForm.elements;
   if (formElements['age']) formElements['age'].value = '';
@@ -118,85 +125,69 @@ if (kbjuMainForm) {
     const goal = formData.get('goal') || 'maintain';
 
     try {
-      if (!age || !height || !weight) {
-        throw new Error('Заполните возраст, рост и вес.');
-      }
+      if (!age || !height || !weight) throw new Error('Заполните возраст, рост и вес.');
       if (age < 10 || age > 99) throw new Error('Возраст должен быть от 10 до 99 лет.');
       if (height < 120 || height > 230) throw new Error('Рост должен быть от 120 до 230 см.');
       if (weight < 30 || weight > 250) throw new Error('Вес должен быть от 30 до 250 кг.');
 
-      // BMR по формуле Миффлина — Сан Жеора
-      let bmr;
-      if (sex === 'male') {
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-      } else {
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-      }
+      // 1. BMR по формуле Миффлина-Сан Жеора
+      const bmr = calcBMR(sex, weight, height, age);
 
-      // Поддерживающая норма с учётом активности (оригинальная эвристика)
-      const maintenance = calcMaintenanceWithActivity(bmr, activity);
+      // 2. TDEE (поддерживающая норма) с использованием стандартных PAL
+      const multiplier = activityMultipliers[activity] || 1.55;
+      const maintenance = bmr * multiplier;
 
-      // Целевая калорийность в зависимости от цели
+      // 3. Целевая калорийность
       let goalCalories;
+      let goalDescription = '';
       if (goal === 'loss') {
-        goalCalories = maintenance * 0.8;
+        goalCalories = maintenance * 0.8; // Дефицит 20% (безопасный темп)
+        goalDescription = 'Дефицит 20% от поддерживающей нормы для безопасного снижения веса.';
       } else if (goal === 'gain') {
-        goalCalories = maintenance * 1.15;
+        goalCalories = maintenance * 1.15; // Профицит 15%
+        goalDescription = 'Профицит 15% от поддерживающей нормы для набора мышечной массы.';
       } else {
         goalCalories = maintenance;
+        goalDescription = 'Калорийность для поддержания текущего веса.';
       }
 
-      // Расчёт КБЖУ через проценты от goalCalories
-      let proteinPct, fatPct, carbsPct;
-
-      if (goal === 'loss') {
-        if (sex === 'female') {
-          proteinPct = 0.325;
-          fatPct = 0.275;
-          carbsPct = 0.40;
-        } else {
-          proteinPct = 0.350;
-          fatPct = 0.25;
-          carbsPct = 0.40;
-        }
-      } else if (goal === 'maintain') {
-        proteinPct = 0.30;
-        fatPct = 0.25;
-        carbsPct = 0.45;
-      } else { // gain
-        if (sex === 'female') {
-          proteinPct = 0.325;
-          fatPct = 0.275;
-          carbsPct = 0.40;
-        } else {
-          proteinPct = 0.350;
-          fatPct = 0.25;
-          carbsPct = 0.40;
-        }
-      }
-
-      const proteinKcal = goalCalories * proteinPct;
-      const fatKcal = goalCalories * fatPct;
-      const carbsKcal = goalCalories * carbsPct;
+      // 4. Распределение БЖУ
+      const macros = getMacroPercentages(goal);
+      
+      const proteinKcal = goalCalories * macros.protein;
+      const fatKcal = goalCalories * macros.fat;
+      const carbsKcal = goalCalories * macros.carbs;
 
       const proteinGrams = proteinKcal / 4;
       const fatGrams = fatKcal / 9;
       const carbsGrams = carbsKcal / 4;
 
+      // Вывод
       elBmr.textContent = `${fmt(bmr, 0)} ккал`;
       elMaintenance.textContent = `${fmt(maintenance, 0)} ккал`;
       elGoalCalories.textContent = `${fmt(goalCalories, 0)} ккал`;
+      
       elKcal.textContent = `${fmt(goalCalories, 0)} ккал`;
       elProtein.textContent = `${fmt(proteinGrams, 0)} г`;
       elFat.textContent = `${fmt(fatGrams, 0)} г`;
       elCarbs.textContent = `${fmt(carbsGrams, 0)} г`;
 
+      // Формируем пояснение
+      const proteinPct = Math.round(macros.protein * 100);
+      const fatPct = Math.round(macros.fat * 100);
+      const carbsPct = Math.round(macros.carbs * 100);
+      
+      showSuccess(elKbjuNote, 
+        `${goalDescription} Распределение БЖУ: Белки ${proteinPct}%, Жиры ${fatPct}%, Углеводы ${carbsPct}%. ` +
+        `Базовый обмен (BMR) рассчитан по формуле Миффлина-Сан Жеора.`
+      );
+
+      // Сохраняем состояние
       kbjuState.maintenance = maintenance;
       kbjuState.goalCalories = goalCalories;
       kbjuState.goalType = goal;
       kbjuState.weight = weight;
 
-      showSuccess(elKbjuNote, 'Расчёт выполнен. Данные можно импортировать в калькулятор прогноза.');
     } catch (err) {
       elBmr.textContent = '—';
       elMaintenance.textContent = '—';
@@ -211,13 +202,10 @@ if (kbjuMainForm) {
 }
 
 if (kbjuMainClearBtn) {
-  kbjuMainClearBtn.addEventListener('click', () => {
-    resetMainForm();
-  });
+  kbjuMainClearBtn.addEventListener('click', resetMainForm);
 }
 
-// ===== Калькулятор 2: прогноз прогресса =====
-
+// ===== Калькулятор 2 (прогноз) =====
 function resetProgressForm() {
   const formElements = kbjuProgressForm.elements;
   if (formElements['currentWeight']) formElements['currentWeight'].value = '';
@@ -239,7 +227,7 @@ if (kbjuImportBtn && kbjuProgressForm) {
     const currentWeightInput = kbjuProgressForm.querySelector('input[name="currentWeight"]');
 
     if (!kbjuState.maintenance || !kbjuState.goalCalories) {
-      showError(elProgressNote, 'Сначала рассчитайте КБЖУ в калькуляторе №1, чтобы можно было подставить данные.');
+      showError(elProgressNote, 'Сначала рассчитайте КБЖУ в калькуляторе №1.');
       return;
     }
 
@@ -250,15 +238,13 @@ if (kbjuImportBtn && kbjuProgressForm) {
     if (kbjuState.goalType && goalSelect) {
       goalSelect.value = kbjuState.goalType === 'gain' ? 'gain' : 'loss';
     }
-
-    showSuccess(elProgressNote, 'Данные из калькулятора №1 подставлены. При необходимости скорректируйте значения вручную.');
+    showSuccess(elProgressNote, 'Данные из калькулятора №1 подставлены.');
   });
 }
 
 if (kbjuProgressForm) {
   kbjuProgressForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     const formData = new FormData(kbjuProgressForm);
     const currentWeight = toNumber(formData.get('currentWeight'));
     const targetWeight = toNumber(formData.get('targetWeight'));
@@ -267,64 +253,41 @@ if (kbjuProgressForm) {
     const goal = formData.get('goal') || 'loss';
 
     const KCAL_PER_KG_FAT = 7700;
-    const KCAL_PER_KG_MUSCLE = 5000;
+    const KCAL_PER_KG_MUSCLE = 5500;
 
     try {
       if (!currentWeight || !targetWeight || !maintenance || !intake) {
-        throw new Error('Заполните все поля для расчёта прогноза.');
+        throw new Error('Заполните все поля.');
       }
-      if (currentWeight <= 0 || targetWeight <= 0) {
-        throw new Error('Вес должен быть положительным числом.');
-      }
-      if (maintenance <= 0 || intake <= 0) {
-        throw new Error('Калорийность должна быть положительным числом.');
-      }
-
       const deltaPerDay = intake - maintenance;
-      let daysNeeded;
-      let note = '';
+      let daysNeeded, note;
 
       if (goal === 'loss') {
-        if (currentWeight <= targetWeight) {
-          throw new Error('Для цели «Похудение» текущий вес должен быть больше желаемого.');
-        }
-        if (deltaPerDay >= 0) {
-          throw new Error('Для похудения нужен дефицит калорий (рацион ниже поддерживающей нормы).');
-        }
-
+        if (currentWeight <= targetWeight) throw new Error('Текущий вес должен быть больше желаемого.');
+        if (deltaPerDay >= 0) throw new Error('Для похудения нужен дефицит калорий.');
         const kgToLose = currentWeight - targetWeight;
-        const totalDeficit = kgToLose * KCAL_PER_KG_FAT;
-        daysNeeded = totalDeficit / Math.abs(deltaPerDay);
-        note = 'Расчёт основан на предположении, что дефицит 7 700 ккал соответствует снижению веса на 1 кг жировой массы.';
+        daysNeeded = (kgToLose * KCAL_PER_KG_FAT) / Math.abs(deltaPerDay);
+        note = 'Расчёт основан на дефиците 7700 ккал на 1 кг жировой массы.';
       } else {
-        if (currentWeight >= targetWeight) {
-          throw new Error('Для цели «Набор мышечной массы» желаемый вес должен быть больше текущего.');
-        }
-        if (deltaPerDay <= 0) {
-          throw new Error('Для набора массы нужен профицит калорий (рацион выше поддерживающей нормы).');
-        }
-
+        if (currentWeight >= targetWeight) throw new Error('Желаемый вес должен быть больше текущего.');
+        if (deltaPerDay <= 0) throw new Error('Для набора массы нужен профицит калорий.');
         const kgToGain = targetWeight - currentWeight;
-        const totalSurplus = kgToGain * KCAL_PER_KG_MUSCLE;
-        daysNeeded = totalSurplus / deltaPerDay;
-        note = 'Расчёт ориентировочный, так как набор мышечной массы зависит от тренировок, генетики и других факторов.';
+        daysNeeded = (kgToGain * KCAL_PER_KG_MUSCLE) / deltaPerDay;
+        note = 'Оценка ориентировочная, набор мышц зависит от тренировок.';
       }
 
       const weeks = daysNeeded / 7;
-
       elDelta.textContent = `${deltaPerDay > 0 ? '+' : ''}${fmt(deltaPerDay, 0)} ккал/день`;
       elTime.textContent = `${fmt(daysNeeded, 0)} дн. (~${fmt(weeks, 1)} нед.)`;
       showSuccess(elProgressNote, note);
     } catch (err) {
       elDelta.textContent = '—';
       elTime.textContent = '—';
-      showError(elProgressNote, err.message || 'Ошибка ввода.');
+      showError(elProgressNote, err.message);
     }
   });
 }
 
 if (kbjuProgressClearBtn) {
-  kbjuProgressClearBtn.addEventListener('click', () => {
-    resetProgressForm();
-  });
+  kbjuProgressClearBtn.addEventListener('click', resetProgressForm);
 }
