@@ -2728,3 +2728,481 @@ input:focus, textarea:focus, select:focus {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* === Новая шапка сайта: синяя, выше, полупрозрачная === */
+
+.site-header {
+  background: rgba(0, 113, 227, 0.8);  /* тот же синий, что у кнопок, с прозрачностью 0.8 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 113, 227, 0.2);
+}
+
+.top-nav {
+  height: 104px;  /* в 2 раза выше (было 52px) */
+}
+
+/* Логотип — белый, крупнее */
+.logo {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.logo:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Ссылки навигации — белые */
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+/* Кнопка "Выбор калькулятора" — белая */
+.nav-drop-btn {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+}
+
+.nav-drop-btn:hover,
+.nav-dropdown.open .nav-drop-btn {
+  color: #ffffff;
+}
+
+/* Уменьшенная высота шапки на мобильных */
+@media (max-width: 600px) {
+  .top-nav {
+    height: 72px;
+  }
+  .logo {
+    font-size: 22px;
+  }
+  .nav-link,
+  .nav-drop-btn {
+    font-size: 13px;
+  }
+}
+
+/* === Шапка: ярче и с тенью === */
+
+.site-header {
+  background: rgba(10, 132, 255, 0.88);  /* более яркий синий + чуть больше непрозрачности */
+  box-shadow: 0 4px 16px rgba(0, 100, 220, 0.28);  /* заметная мягкая тень */
+}
+
+/* Вариант 3: чуть глубже и насыщеннее */
+.site-header {
+  background: rgba(0, 100, 210, 0.9);
+  box-shadow: 0 4px 16px rgba(0, 80, 180, 0.35);
+}
+
+/* === Инженерный калькулятор === */
+
+.scientific-card {
+  max-width: 720px;
+  margin: 24px auto 30px;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 20px 22px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.scientific-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.scientific-mode-switch {
+  display: flex;
+  gap: 6px;
+}
+
+.scientific-mode-btn {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+}
+
+.scientific-mode-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.scientific-history-toggle {
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.scientific-history-toggle:hover {
+  background: #e5e5ea;
+}
+
+.scientific-display-wrap {
+  background: #f8f9fa;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  min-height: 70px;
+}
+
+.scientific-expression {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-all;
+  min-height: 28px;
+  overflow-x: auto;
+  white-space: nowrap;
+  color: var(--text-main);
+}
+
+.scientific-result {
+  font-size: 15px;
+  text-align: right;
+  color: var(--text-secondary);
+  min-height: 20px;
+  margin-top: 4px;
+}
+
+.scientific-history {
+  margin-bottom: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.scientific-history-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.sci-history-row {
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.sci-history-row:hover {
+  background: #f0f0f5;
+}
+
+.sci-history-expr {
+  color: var(--text-main);
+}
+
+.sci-history-empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Сетка кнопок */
+.scientific-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.sci-btn {
+  border: 1px solid #f0f0f0;
+  background: #f7f7f7;
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.sci-btn:hover {
+  background: #ececec;
+}
+
+.sci-btn:active {
+  transform: scale(0.97);
+}
+
+.sci-func {
+  background: #eef3ff;
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sci-func:hover {
+  background: #dde8ff;
+}
+
+.sci-const {
+  background: #eef3ff;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.sci-const:hover {
+  background: #dde8ff;
+}
+
+.sci-op {
+  background: var(--operator);
+  color: #fff;
+  border-color: var(--operator);
+}
+
+.sci-op:hover {
+  background: #ff5a35;
+}
+
+.sci-light {
+  background: #f0f0f5;
+  color: var(--text-secondary);
+}
+
+.sci-light:hover {
+  background: #e0e0e5;
+}
+
+.sci-equals {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  grid-column: span 1;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sci-equals:hover {
+  background: var(--accent-dark);
+}
+
+/* Растягиваем некоторые кнопки */
+.scientific-grid .sci-btn[data-action="equals"] {
+  grid-row: span 2;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+  .scientific-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+
+  .sci-btn {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  .sci-func {
+    font-size: 11px;
+  }
+
+  .scientific-expression {
+    font-size: 18px;
+  }
+
+  .scientific-card {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 14px;
+    padding: 16px 14px 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .scientific-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+
+  .sci-btn {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+}
+
+/* === Белые карточки для текстовых блоков инженерного калькулятора === */
+
+.scientific-info,
+.scientific-faq,
+.scientific-seo {
+  width: 100%;
+  margin: 20px auto;
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 24px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* Отступы и стили для текста внутри карточек */
+.scientific-info h2,
+.scientific-seo h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.scientific-info h3,
+.scientific-faq h3 {
+  margin: 24px 0 12px;
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+/* Убираем лишний отступ у первого заголовка */
+.scientific-info h3:first-of-type {
+  margin-top: 0;
+}
+
+.scientific-info p,
+.scientific-faq p,
+.scientific-seo p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.scientific-info ul {
+  margin: 0 0 16px 20px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.scientific-info li {
+  margin-bottom: 8px;
+}
+
+/* Стили для ссылок внутри текста (на Википедию) */
+.scientific-info a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.scientific-info a:hover {
+  color: var(--accent-dark);
+}
+
+/* FAQ блоки */
+.scientific-faq .faq-item {
+  margin-bottom: 16px;
+}
+
+.scientific-faq .faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.scientific-faq h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+.scientific-faq p {
+  margin: 0;
+}
+
+/* === История для обычного калькулятора === */
+
+.calc-top-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.calc-history-toggle {
+  border: 1px solid #d2d2d7;
+  background: #f5f5f7;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+}
+
+.calc-history-toggle:hover {
+  background: #e5e5ea;
+}
+
+.calc-history {
+  margin: 0 0 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.calc-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.calc-history-title {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.calc-history-clear {
+  border: none;
+  background: none;
+  font-size: 12px;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+}
+
+.calc-history-clear:hover {
+  text-decoration: underline;
+}
+
+.calc-history-row {
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.calc-history-row:hover {
+  background: #f0f0f5;
+}
+
+.calc-history-expr {
+  color: var(--text-main);
+}
+
+.calc-history-empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
