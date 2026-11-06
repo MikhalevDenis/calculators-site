@@ -26,6 +26,7 @@
           <div class="nav-drop-menu">
             <a href="calc-basic.html">Обычный калькулятор</a>
             <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-scientific.html">Инженерный калькулятор</a>
             <a href="calc-kbju.html">Калькулятор КБЖУ</a>
             <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
             <a href="calc-credit.html">Кредитный калькулятор</a>
@@ -48,45 +49,54 @@
         всё в одном окне прямо в браузере.
       </p>
 
-      <div class="calculator calculator-wide">
-        <div class="calc-header">
-          <div class="calc-display" id="calc-display">0</div>
-        </div>
+<div class="calculator calculator-wide">
+  <div class="calc-header">
+    <div class="calc-top-actions">
+      <button type="button" class="calc-history-toggle" id="basic-history-toggle">История</button>
+    </div>
+    <div class="calc-display" id="calc-display">0</div>
+  </div>
 
-        <div class="calc-grid">
-          <!-- ряд 1 -->
-          <button class="btn btn-light" data-action="clear" aria-label="Очистить всё">C</button>
-          <button class="btn btn-light" data-action="backspace" aria-label="Удалить последний символ">←</button>
-          <button class="btn btn-light" data-action="plusminus" aria-label="Сменить знак">±</button>
-          <button class="btn btn-operator" data-action="operator" data-value="/" aria-label="Деление">÷</button>
+  <div class="calc-history" id="basic-history" style="display: none;">
+    <div class="calc-history-header">
+      <div class="calc-history-title">Последние вычисления</div>
+      <button type="button" class="calc-history-clear" id="basic-history-clear">Очистить</button>
+    </div>
+    <div class="calc-history-list" id="basic-history-list"></div>
+  </div>
 
-          <!-- ряд 2 -->
-          <button class="btn" data-action="digit" data-value="7" aria-label="7">7</button>
-          <button class="btn" data-action="digit" data-value="8" aria-label="8">8</button>
-          <button class="btn" data-action="digit" data-value="9" aria-label="9">9</button>
-          <button class="btn btn-operator" data-action="operator" data-value="*" aria-label="Умножение">×</button>
+  <div class="calc-grid">
+    <!-- ряд 1 -->
+    <button class="btn btn-light" data-action="clear" aria-label="Очистить всё">C</button>
+    <button class="btn btn-light" data-action="backspace" aria-label="Удалить последний символ">←</button>
+    <button class="btn btn-light" data-action="plusminus" aria-label="Сменить знак">±</button>
+    <button class="btn btn-operator" data-action="operator" data-value="/" aria-label="Деление">÷</button>
 
-          <!-- ряд 3 -->
-          <button class="btn" data-action="digit" data-value="4" aria-label="4">4</button>
-          <button class="btn" data-action="digit" data-value="5" aria-label="5">5</button>
-          <button class="btn" data-action="digit" data-value="6" aria-label="6">6</button>
-          <button class="btn btn-operator" data-action="operator" data-value="-" aria-label="Вычитание">−</button>
+    <!-- ряд 2 -->
+    <button class="btn" data-action="digit" data-value="7" aria-label="7">7</button>
+    <button class="btn" data-action="digit" data-value="8" aria-label="8">8</button>
+    <button class="btn" data-action="digit" data-value="9" aria-label="9">9</button>
+    <button class="btn btn-operator" data-action="operator" data-value="*" aria-label="Умножение">×</button>
 
-          <!-- ряд 4 -->
-          <button class="btn" data-action="digit" data-value="1" aria-label="1">1</button>
-          <button class="btn" data-action="digit" data-value="2" aria-label="2">2</button>
-          <button class="btn" data-action="digit" data-value="3" aria-label="3">3</button>
-          <button class="btn btn-operator" data-action="operator" data-value="+" aria-label="Сложение">+</button>
+    <!-- ряд 3 -->
+    <button class="btn" data-action="digit" data-value="4" aria-label="4">4</button>
+    <button class="btn" data-action="digit" data-value="5" aria-label="5">5</button>
+    <button class="btn" data-action="digit" data-value="6" aria-label="6">6</button>
+    <button class="btn btn-operator" data-action="operator" data-value="-" aria-label="Вычитание">−</button>
 
-          <!-- ряд 5 -->
-          <button class="btn" data-action="paren" data-value="(" aria-label="Открыть скобку">( )</button>
-          <button class="btn" data-action="digit" data-value="0" aria-label="0">0</button>
-          <button class="btn" data-action="dot" data-value="." aria-label="Десятичная точка">,</button>
-          <button class="btn btn-operator btn-equal" data-action="equals" aria-label="Равно">=</button>
-        </div>
-      </div>
-    </section>
+    <!-- ряд 4 -->
+    <button class="btn" data-action="digit" data-value="1" aria-label="1">1</button>
+    <button class="btn" data-action="digit" data-value="2" aria-label="2">2</button>
+    <button class="btn" data-action="digit" data-value="3" aria-label="3">3</button>
+    <button class="btn btn-operator" data-action="operator" data-value="+" aria-label="Сложение">+</button>
 
+    <!-- ряд 5 -->
+    <button class="btn" data-action="paren" data-value="(" aria-label="Открыть скобку">( )</button>
+    <button class="btn" data-action="digit" data-value="0" aria-label="0">0</button>
+    <button class="btn" data-action="dot" data-value="." aria-label="Десятичная точка">,</button>
+    <button class="btn btn-operator btn-equal" data-action="equals" aria-label="Равно">=</button>
+  </div>
+</div>
     <section class="calculator-info">
       <h2>Что такое калькулятор</h2>
       <p>

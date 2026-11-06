@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Инженерный калькулятор онлайн — научный, тригонометрия, логарифмы, степени</title>
+  <meta name="description" content="Бесплатный инженерный (научный) калькулятор онлайн. Тригонометрия (sin, cos, tan), логарифмы (log, ln), корни, степени, факториал, константы π и e. Переключение DEG/RAD, история вычислений, поддержка клавиатуры.">
+
+  <meta property="og:title" content="Инженерный калькулятор онлайн — научный калькулятор">
+  <meta property="og:description" content="Тригонометрия, логарифмы, степени, корни, факториал. Режимы DEG/RAD. Бесплатно, без регистрации.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calculators-all.ru/calc-scientific.html">
+  <meta property="og:image" content="https://calculators-all.ru/og-preview.png">
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- KaTeX для красивых формул в тексте -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container top-nav">
+      <a href="index.html" class="logo">Calculators All</a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Выбор калькулятора
+          </button>
+          <div class="nav-drop-menu">
+            <a href="calc-basic.html">Обычный калькулятор</a>
+            <a href="calc-percent.html">Калькулятор процентов</a>
+            <a href="calc-scientific.html">Инженерный калькулятор</a>
+            <a href="calc-scientific.html">Инженерный калькулятор</a>
+            <a href="calc-kbju.html">Калькулятор КБЖУ</a>
+            <a href="calc-bmi.html">Индекс массы тела (ИМТ)</a>
+            <a href="calc-credit.html">Кредитный калькулятор</a>
+            <a href="calc-ipotec.html">Ипотечный калькулятор</a>
+            <a href="calc-product.html">Калькулятор стоимости товара</a>
+            <a href="calc-days.html">Калькулятор дней</a>
+            <a href="calc-random.html">Генератор случайных чисел</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-main calculator-page">
+    <section class="calculator-section">
+      <h1 class="page-title">Инженерный калькулятор</h1>
+      <p class="calculator-section-intro">
+        Инженерный (научный) калькулятор для сложных вычислений: тригонометрия,
+        логарифмы, корни, степени, факториал. Поддерживает переключение
+        градусов и радианов (DEG/RAD), историю вычислений и ввод с клавиатуры.
+      </p>
+
+      <div class="scientific-card">
+        <div class="scientific-top">
+          <div class="scientific-mode-switch">
+            <button type="button" class="scientific-mode-btn active" data-mode="deg">DEG</button>
+            <button type="button" class="scientific-mode-btn" data-mode="rad">RAD</button>
+          </div>
+          <button type="button" class="scientific-history-toggle" id="history-toggle" aria-label="Показать историю">История</button>
+        </div>
+
+        <div class="scientific-display-wrap">
+          <div class="scientific-expression" id="sci-expression">0</div>
+          <div class="scientific-result" id="sci-result"></div>
+        </div>
+
+        <div class="scientific-history" id="scientific-history" style="display: none;">
+          <div class="scientific-history-title">Последние вычисления</div>
+          <div class="scientific-history-list" id="scientific-history-list"></div>
+        </div>
+
+        <div class="scientific-grid">
+          <!-- Ряд 1 -->
+          <button type="button" class="sci-btn sci-func" data-func="sin">sin</button>
+          <button type="button" class="sci-btn sci-func" data-func="cos">cos</button>
+          <button type="button" class="sci-btn sci-func" data-func="tan">tan</button>
+          <button type="button" class="sci-btn sci-op" data-op="^">xʸ</button>
+          <button type="button" class="sci-btn sci-func" data-func="sqrt">√</button>
+          <button type="button" class="sci-btn sci-func" data-func="cbrt">∛</button>
+
+          <!-- Ряд 2 -->
+          <button type="button" class="sci-btn sci-func" data-func="asin">asin</button>
+          <button type="button" class="sci-btn sci-func" data-func="acos">acos</button>
+          <button type="button" class="sci-btn sci-func" data-func="atan">atan</button>
+          <button type="button" class="sci-btn sci-func" data-func="log">log</button>
+          <button type="button" class="sci-btn sci-func" data-func="ln">ln</button>
+          <button type="button" class="sci-btn sci-func" data-func="fact">n!</button>
+
+          <!-- Ряд 3 -->
+          <button type="button" class="sci-btn sci-const" data-const="pi">π</button>
+          <button type="button" class="sci-btn sci-const" data-const="e">e</button>
+          <button type="button" class="sci-btn sci-func" data-func="exp">eˣ</button>
+          <button type="button" class="sci-btn sci-func" data-func="abs">|x|</button>
+          <button type="button" class="sci-btn sci-light" data-action="clear">C</button>
+          <button type="button" class="sci-btn sci-light" data-action="backspace">←</button>
+
+                    <!-- Ряд 4 -->
+          <button type="button" class="sci-btn" data-digit="7">7</button>
+          <button type="button" class="sci-btn" data-digit="8">8</button>
+          <button type="button" class="sci-btn" data-digit="9">9</button>
+          <button type="button" class="sci-btn sci-op" data-op="/">÷</button>
+          <button type="button" class="sci-btn sci-light" data-action="paren">( )</button>
+          <button type="button" class="sci-btn sci-light" data-action="percent">%</button>
+
+          <!-- Ряд 5 -->
+          <button type="button" class="sci-btn" data-digit="4">4</button>
+          <button type="button" class="sci-btn" data-digit="5">5</button>
+          <button type="button" class="sci-btn" data-digit="6">6</button>
+          <button type="button" class="sci-btn sci-op" data-op="*">×</button>
+          <button type="button" class="sci-btn sci-light" data-action="plusminus">±</button>
+          <button type="button" class="sci-btn sci-op" data-op="-">−</button>
+
+          <!-- Ряд 6 -->
+          <button type="button" class="sci-btn" data-digit="1">1</button>
+          <button type="button" class="sci-btn" data-digit="2">2</button>
+          <button type="button" class="sci-btn" data-digit="3">3</button>
+          <button type="button" class="sci-btn sci-op" data-op="+">+</button>
+          <button type="button" class="sci-btn" data-digit="0">0</button>
+          <button type="button" class="sci-btn" data-action="dot">,</button>
+
+          <!-- Ряд 7 -->
+          <button type="button" class="sci-btn sci-op" data-op="+" style="grid-column: span 3;">+</button>
+          <button type="button" class="sci-btn sci-equals" data-action="equals" style="grid-column: span 3;">=</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="scientific-info">
+      <h2>Как работает инженерный калькулятор</h2>
+      <p>
+        В основе калькулятора лежит парсер математических выражений, который
+        корректно обрабатывает порядок операций, скобки и функции. Все вычисления
+        выполняются в браузере — без обращения к серверу.
+      </p>
+
+      <h3>Тригонометрия: DEG и RAD</h3>
+      <p>
+        Функции <strong>sin</strong>, <strong>cos</strong>, <strong>tan</strong>
+        могут работать в двух режимах:
+      </p>
+      <ul>
+        <li><strong>DEG</strong> — аргумент задаётся в градусах. Например, \(\sin(30^\circ) = 0.5\).</li>
+        <li><strong>RAD</strong> — аргумент задаётся в радианах. Например, \(\sin(\pi/6) = 0.5\).</li>
+      </ul>
+      <p>
+        Формула перевода: \(1^\circ = \pi/180\) радиан.
+        Обратные функции (<strong>asin</strong>, <strong>acos</strong>, <strong>atan</strong>)
+        возвращают результат в текущем режиме.
+      </p>
+      <p>
+        Подробнее: <a href="https://ru.wikipedia.org/wiki/Тригонометрические_функции" target="_blank" rel="noopener">тригонометрические функции</a>.
+      </p>
+
+      <h3>Логарифмы</h3>
+      <p>
+        Кнопка <strong>log</strong> вычисляет десятичный логарифм \(\log_{10}(x)\),
+        кнопка <strong>ln</strong> — натуральный логарифм \(\ln(x)\).
+        Логарифм определён только для положительных чисел.
+      </p>
+      <p>
+        Подробнее: <a href="https://ru.wikipedia.org/wiki/Логарифм" target="_blank" rel="noopener">логарифм</a>.
+      </p>
+
+      <h3>Степени и корни</h3>
+      <p>
+        Оператор <strong>^</strong> возводит число в степень: \(x^y\).
+        Кнопка <strong>√</strong> — квадратный корень \(\sqrt{x}\),
+        <strong>∛</strong> — кубический корень \(\sqrt[3]{x}\).
+      </p>
+      <p>
+        Подробнее: <a href="https://ru.wikipedia.org/wiki/Квадратный_корень" target="_blank" rel="noopener">квадратный корень</a>.
+      </p>
+
+      <h3>Факториал</h3>
+      <p>
+        Кнопка <strong>n!</strong> вычисляет факториал неотрицательного целого числа:
+        \(n! = 1 \cdot 2 \cdot \ldots \cdot n\). Например, \(5! = 120\).
+        Для больших \(n\) результат быстро растёт.
+      </p>
+      <p>
+        Подробнее: <a href="https://ru.wikipedia.org/wiki/Факториал" target="_blank" rel="noopener">факториал</a>.
+      </p>
+
+      <h3>Точность вычислений</h3>
+      <p>
+        Внутри калькулятор использует числа с плавающей точкой двойной точности
+        (как и большинство браузеров). При отображении результата производится
+        округление до 12 значащих цифр — это скрывает шум вычислений
+        (например, \(0.1 + 0.2\) отображается как \(0.3\)), но сохраняет
+        достаточную точность для инженерных задач.
+      </p>
+    </section>
+
+    <section class="scientific-faq">
+      <h3>Частые вопросы</h3>
+
+      <div class="faq-item">
+        <h4>Чем инженерный калькулятор отличается от обычного?</h4>
+        <p>Инженерный поддерживает тригонометрию, логарифмы, степени, корни, факториал и константы, а обычный — только базовые арифметические операции.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Что такое DEG и RAD?</h4>
+        <p>DEG — градусы (например, sin(30) = 0.5). RAD — радианы (например, sin(π/6) = 0.5). Переключатель находится над дисплеем.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Почему результат иногда отличается от других калькуляторов?</h4>
+        <p>Разные калькуляторы используют разную точность и правила округления. Наш округляет до 12 значащих цифр, что соответствует большинству инженерных задач.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Можно ли использовать клавиатуру?</h4>
+        <p>Да: цифры, операторы + − * /, Enter (равно), Backspace (удалить), Escape (очистить).</p>
+      </div>
+    </section>
+
+    <section class="scientific-seo">
+      <h2>Инженерный калькулятор онлайн</h2>
+      <p>
+        Инженерный (научный) калькулятор — это незаменимый инструмент для
+        студентов, инженеров, программистов и всех, кто сталкивается с
+        математическими расчётами. Наш онлайн-калькулятор поддерживает
+        тригонометрические функции (синус, косинус, тангенс, арксинус,
+        арккосинус, арктангенс), логарифмы (десятичный и натуральный),
+        возведение в степень, квадратный и кубический корень, факториал,
+        а также константы π и e.
+      </p>
+      <p>
+        Калькулятор работает в двух режимах углов — градусы (DEG) и радианы
+        (RAD), что делает его удобным для решения задач по геометрии, физике
+        и программированию. Все вычисления выполняются мгновенно в браузере,
+        без установки дополнительного программного обеспечения.
+      </p>
+      <p>
+        Используйте инженерный калькулятор для решения уравнений, проверки
+        тригонометрических тождеств, расчёта логарифмов и степеней. История
+        вычислений сохраняется в браузере, что позволяет вернуться к
+        предыдущим результатам.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026. Калькуляторы на все случаи жизни.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/calc-scientific.js"></script>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){
+          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107017143', 'ym');
+
+      ym(107017143, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107017143" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Микроразметка Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Инженерный калькулятор",
+    "description": "Бесплатный инженерный калькулятор: тригонометрия, логарифмы, степени, корни, факториал, DEG/RAD.",
+    "url": "https://calculators-all.ru/calc-scientific.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "RUB"
+    },
+    "featureList": "sin, cos, tan, asin, acos, atan, log, ln, sqrt, cbrt, pow, factorial, константы π и e, DEG/RAD"
+  }
+  </script>
+</body>
+</html>
